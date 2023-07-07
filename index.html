@@ -6,15 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content=""/>
     <meta name="author" content="ℜodrigo Arĥimedeς ℳontegasppα ℭacilhας"/>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Kavivanar"/>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto&amp;subset=latin-ext"/>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:i,bold&amp;subset=latin-ext"/>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Mono"/>
-    <link rel="stylesheet" href="//cacilhas.info/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Kavivanar&display=swap"/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Roboto&amp;subset=latin-ext"/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Roboto:i,bold&amp;subset=latin-ext"/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css2?family=Roboto+Mono"/>
     <title>Dev Dá Certo</title>
-    <!-- link rel="icon" href="/img/icons/favicon.ico"/-->
+    <link rel="icon" href="/img/favicon.ico"/>
+    <link rel="stylesheet" href="/css/devdacerto.css"/>
   </head>
   <body>
-    <h1 style="text-align: center;">Sob Construção</h1>
+    <div class="main">
+      <h1 style="text-align: center;">Em Construção</h1>
+      <img id="logo" src="/img/logo.png" alt="" />
+      <div class="content">
+        <p>Aprenda desenvolvimento de software do zero.</p>
+        <p>Aguarde! Coisas incríveis estão chegando… 🚧👷</p>
+        <p>Enquanto isso, que tal dar uma olhada em nossas redes sociais?</p>
+        <ul>
+          <li><a href="https://www.youtube.com/@DevDaCerto">YouTube</a></li>
+          <li><a href="https://www.instagram.com/devdacerto/">Instagram</a></li>
+        </ul>
+      </div>
+      <canvas id="lines"></canvas>
+    </div>
   </body>
+
+  <script>
+    const canvas = document.getElementById("lines");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth; // full width
+    canvas.height = 400; // example height
+
+    ctx.strokeStyle = "gray"; // set stroke color
+
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height); // start at the bottom left
+    ctx.bezierCurveTo(canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height); // draw large line
+    ctx.lineWidth = 3; // set line width
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height);
+    ctx.bezierCurveTo(canvas.width / 2, canvas.height / 2 + 50, canvas.width / 2, canvas.height / 2 + 50, canvas.width, canvas.height); // draw small line
+    ctx.lineWidth = 1; // set line width
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height);
+    ctx.bezierCurveTo(canvas.width / 2, canvas.height / 2 - 50, canvas.width / 2, canvas.height / 2 - 50, canvas.width, canvas.height); // draw small line
+    ctx.lineWidth = 1; // set line width
+    ctx.stroke();
+  </script>
 </html>

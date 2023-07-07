@@ -1,0 +1,62 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: gray;
+  color: black;
+}
+
+.main {
+  width: 80%;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: #eb8;
+  color: gray;
+  position: relative;
+}
+
+.main h1 {
+  font-family: 'Kavivanar', cursive;
+  font-weight: bold;
+  color: #ffa;
+  text-shadow: 2px 2px 4px black;
+}
+
+.main a {
+  text-decoration: none;
+  color: #7a4ab0;
+}
+
+.main a:hover {
+  color: #e30d3b;
+}
+
+.content {
+  width: 60%;
+  margin: 0 auto;
+  color: #7a4ab0;
+  text-shadow: 1px 1px 2px gray;
+}
+
+.content ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.content ul li {
+  display: inline;
+  padding: 10px 0;
+  margin-right: 40px;
+  font-size: larger;
+}
+
+#logo {
+  width: 128px;
+  height: 128px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+}
+
+#lines {
+  text-align: center;
+}
