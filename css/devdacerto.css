@@ -63,18 +63,3 @@ body {
   margin-right: 40px;
   font-size: larger;
 }
-
-#logo {
-  width: 128px;
-  height: 128px;
-  position: absolute;
-  top: 4px;
-  right: 4px;
-}
-
-#lines {
-  text-align: center;
-  position: relative;
-  bottom: 100px;
-  left: -10px;
-}
