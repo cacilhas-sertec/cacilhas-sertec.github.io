@@ -8,7 +8,7 @@ body {
   width: 80%;
   height: 100vh;
   margin: 0 auto;
-  background-color: #eb8;
+  background-color: #dab993;
   color: gray;
   position: relative;
 }
@@ -16,8 +16,18 @@ body {
 .main h1 {
   font-family: 'Kavivanar', cursive;
   font-weight: bold;
-  color: #ffa;
+  color: #e30d3b;
+  margin-bottom: 40px;
+  text-align: center;
   text-shadow: 2px 2px 4px black;
+}
+
+.main h2 {
+  font-family: 'Kavivanar', cursive;
+  color: #fae93f;
+  margin-top: 40px;
+  text-align: center;
+  text-shadow: 0 0 2px gray, 0 0 2px gray, 0 0 2px gray, 0 0 2px gray;
 }
 
 .main a {
@@ -59,4 +69,7 @@ body {
 
 #lines {
   text-align: center;
+  position: relative;
+  bottom: 100px;
+  left: -10px;
 }

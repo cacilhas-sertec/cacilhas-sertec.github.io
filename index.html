@@ -16,7 +16,7 @@
   </head>
   <body>
     <div class="main">
-      <h1 style="text-align: center;">Em Construção</h1>
+      <h1>Dev Dá Certo! 👍</h1>
       <img id="logo" src="/img/logo.png" alt="" />
       <div class="content">
         <p>Aprenda desenvolvimento de software do zero.</p>
@@ -27,34 +27,9 @@
           <li><a href="https://www.instagram.com/devdacerto/">Instagram</a></li>
         </ul>
       </div>
+      <h2>Em Construção</h2>
       <canvas id="lines"></canvas>
     </div>
   </body>
-
-  <script>
-    const canvas = document.getElementById("lines");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth; // full width
-    canvas.height = 400; // example height
-
-    ctx.strokeStyle = "gray"; // set stroke color
-
-    ctx.beginPath();
-    ctx.moveTo(0, canvas.height); // start at the bottom left
-    ctx.bezierCurveTo(canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2, canvas.width, canvas.height); // draw large line
-    ctx.lineWidth = 3; // set line width
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(0, canvas.height);
-    ctx.bezierCurveTo(canvas.width / 2, canvas.height / 2 + 50, canvas.width / 2, canvas.height / 2 + 50, canvas.width, canvas.height); // draw small line
-    ctx.lineWidth = 1; // set line width
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(0, canvas.height);
-    ctx.bezierCurveTo(canvas.width / 2, canvas.height / 2 - 50, canvas.width / 2, canvas.height / 2 - 50, canvas.width, canvas.height); // draw small line
-    ctx.lineWidth = 1; // set line width
-    ctx.stroke();
-  </script>
+  <script src="/js/curves.js"></script>
 </html>
