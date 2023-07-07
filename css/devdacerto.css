@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'BigBlueTermPlus Nerd Font Propo';
+  src: url('/fonts/BigBlutTermPlus.ttf') format('truetype');
+}
+
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: gray;
@@ -14,7 +20,7 @@ body {
 }
 
 .main h1 {
-  font-family: 'Kavivanar', cursive;
+  font-family: 'BigBlueTermPlus Nerd Font Propo', cursive;
   font-weight: bold;
   color: #e30d3b;
   margin-bottom: 40px;
