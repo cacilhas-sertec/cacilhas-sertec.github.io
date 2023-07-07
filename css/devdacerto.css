@@ -1,12 +1,11 @@
-@font-face {
-  font-family: 'BigBlueTermPlus Nerd Font Propo';
-  src: url('/fonts/BigBlutTermPlus.ttf') format('truetype');
-}
-
-
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: gray;
+  background-image: url("/img/shed.jpg") !important;
+  background-repeat: repeat !important;
+  background-attachment: fixed !important;
+  background-position: initial !important;
+  background-origin: initial !important;
+  background-clip: initial !important;
   color: black;
 }
 
