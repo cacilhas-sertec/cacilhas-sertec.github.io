@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Kavivanar', cursive;
   background-image: url("/img/shed.jpg") !important;
   background-repeat: repeat !important;
   background-attachment: fixed !important;
@@ -13,7 +13,7 @@ body {
   width: 80%;
   height: 100vh;
   margin: 0 auto;
-  background-color: #dab993;
+  background-color: #7a4ab0;
   color: gray;
   position: relative;
 }
@@ -29,15 +29,17 @@ body {
 
 .main h2 {
   font-family: 'Kavivanar', cursive;
-  color: #fae93f;
+  color: black;
   margin-top: 40px;
   text-align: center;
-  text-shadow: 0 0 2px gray, 0 0 2px gray, 0 0 2px gray, 0 0 2px gray;
+  text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
 }
 
 .main a {
+  font-family: 'Roboto', sans-serif;
   text-decoration: none;
-  color: #7a4ab0;
+  color: #fae93f;
+  text-shadow: 1px 1px 1px black;
 }
 
 .main a:hover {
@@ -47,8 +49,8 @@ body {
 .content {
   width: 60%;
   margin: 0 auto;
-  color: #7a4ab0;
-  text-shadow: 1px 1px 2px gray;
+  color: black;
+  text-shadow: 1px 1px 2px #dab993;
 }
 
 .content ul {

@@ -1,44 +1,37 @@
-  const canvas = document.getElementById("lines");
+  const canvas = document.getElementById("curves");
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth; // full width
-  canvas.height = 400; // example height
+  canvas.width = window.innerWidth;
+  canvas.height = 400;
 
-  ctx.strokeStyle = "gray"; // set stroke color
+  // Between #dab993 and #7a4ab0
+  ctx.strokeStyle = "#aa81a1";
 
   ctx.beginPath();
   ctx.moveTo(0, canvas.height); // start at the bottom left
   ctx.bezierCurveTo(
-    canvas.width / 2,
-    canvas.height / 2,
-    canvas.width / 2,
-    canvas.height / 2,
-    canvas.width,
-    canvas.height
-  ); // draw large line
-  ctx.lineWidth = 3; // set line width
+    canvas.width / 2, canvas.height / 2,
+    canvas.width / 2, canvas.height / 2,
+    canvas.width,     canvas.height
+  ); // draw wider line
+  ctx.lineWidth = 3;
   ctx.stroke();
 
   ctx.beginPath();
   ctx.moveTo(0, canvas.height);
   ctx.bezierCurveTo(
-    canvas.width / 2,
-    canvas.height / 2 + 50,
-    canvas.width / 2,
-    canvas.height / 2 + 50,
-    canvas.width,
-    canvas.height
-  ); // draw small line
-  ctx.lineWidth = 1; // set line width
+    canvas.width / 2, canvas.height / 2 + 50,
+    canvas.width / 2, canvas.height / 2 + 50,
+    canvas.width,     canvas.height
+  ); // draw thinner line
+  ctx.lineWidth = 1;
   ctx.stroke();
 
   ctx.beginPath();
   ctx.moveTo(0, canvas.height);
   ctx.bezierCurveTo(
-    canvas.width / 2,
-    canvas.height / 2 - 50,
-    canvas.width / 2,
-    canvas.height / 2 - 50,
-    canvas.width, canvas.height
-  ); // draw small line
-  ctx.lineWidth = 1; // set line width
+    canvas.width / 2, canvas.height / 2 - 50,
+    canvas.width / 2, canvas.height / 2 - 50,
+    canvas.width,     canvas.height
+  ); // draw thinner line
+  ctx.lineWidth = 1;
   ctx.stroke();
