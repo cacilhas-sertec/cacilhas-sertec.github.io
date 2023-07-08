@@ -47,6 +47,7 @@ body {
 }
 
 .content {
+  min-width: 430px;
   width: 60%;
   margin: 0 auto;
   color: black;
