@@ -1,13 +1,19 @@
+.menu {
+  margin: 0 auto;
+}
+
 .menu ul {
+  display: table;
   list-style-type: none;
-  padding: 0;
-  text-align: center;
+  padding: 0 25% 0 25%;
 }
 
 .menu ul li {
-  display: inline;
-  padding: 10px 0;
+  display: table-cell;
+  padding: 0;
+  margin: 0;
   font-size: larger;
+  width: 1%;
 }
 
 .menu a {

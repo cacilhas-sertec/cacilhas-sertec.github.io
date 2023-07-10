@@ -2,3 +2,8 @@
   font-family: 'BigBlueTermPlus Nerd Font Propo';
   src: url('/fonts/BigBlutTermPlus.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Symbols Nerd Font';
+  src: url('/fonts/SymbolsNerdFont.ttf') format('truetype');
+}

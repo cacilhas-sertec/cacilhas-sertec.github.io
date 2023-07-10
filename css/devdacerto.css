@@ -7,6 +7,7 @@ body {
   background-origin: initial !important;
   background-clip: initial !important;
   color: black;
+  text-align: justify;
 }
 
 a {
@@ -45,4 +46,8 @@ a:hover {
   color: black;
   text-align: center;
   text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
+}
+
+.symbol {
+  font-family: 'Symbols Nerd Font', 'Times';
 }
