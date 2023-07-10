@@ -9,10 +9,23 @@ body {
   color: black;
 }
 
+a {
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  color: #fae93f;
+  text-shadow: 1px 1px 1px black;
+}
+
+a:hover {
+  color: #e30d3b;
+}
+
 .main {
+  min-width: 300px;
   width: 80%;
   height: 100vh;
   margin: 0 auto;
+  padding: 4px 0 0 0;
   background-color: #7a4ab0;
   color: gray;
   position: relative;
@@ -30,39 +43,6 @@ body {
 .main h2 {
   font-family: 'Kavivanar', cursive;
   color: black;
-  margin-top: 40px;
   text-align: center;
   text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
-}
-
-.main a {
-  font-family: 'Roboto', sans-serif;
-  text-decoration: none;
-  color: #fae93f;
-  text-shadow: 1px 1px 1px black;
-}
-
-.main a:hover {
-  color: #e30d3b;
-}
-
-.content {
-  min-width: 280px;
-  width: 60%;
-  margin: 0 auto;
-  color: black;
-  text-shadow: 1px 1px 2px #dab993;
-}
-
-.content ul {
-  list-style-type: none;
-  padding: 0;
-  text-align: center;
-}
-
-.content ul li {
-  display: inline;
-  padding: 10px 0;
-  margin-right: 40px;
-  font-size: larger;
 }

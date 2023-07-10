@@ -1,0 +1,20 @@
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+}
+
+.menu ul li {
+  display: inline;
+  padding: 10px 0;
+  font-size: larger;
+}
+
+.menu a {
+  background-color: gray;
+  padding: 0 20px 0 20px;
+}
+
+.menu a:hover {
+  background-color: #7a4ab0;
+}

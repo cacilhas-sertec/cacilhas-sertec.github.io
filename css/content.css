@@ -1,0 +1,36 @@
+.content {
+  background-color: gray;
+  min-width: 280px;
+  border: 2px solid #dab993;
+  border-top-color: black !important;
+  border-left-color: black !important;
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 0 4px 0 4px;
+  position: relative;
+  color: black;
+  text-shadow: 2px 2px 2px #dab993;
+}
+
+.content .date {
+  position: absolute;
+  bottom: 0;
+  right: 4px;
+  font-size: smaller;
+  text-shadow: 1px 1px 1px #dab993;
+}
+
+.content ul {
+  list-style-type: none;
+  padding: 0 20px 0 20px;
+}
+
+.content ul li:before {
+  content: "\27a3\00a0\00a0\00a0";
+  color: #e30d3b;
+  text-shadow: 1px 1px 1px black;
+}
+
+.content ul li {
+}
