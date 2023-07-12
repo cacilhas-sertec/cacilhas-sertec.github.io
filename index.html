@@ -20,7 +20,9 @@
     <link rel="stylesheet" href="/css/menu.css"/>
     <link rel="stylesheet" href="/css/content.css"/>
     <link rel="stylesheet" href="/css/logo.css"/>
+    <link rel="stylesheet" href="/css/older.css"/>
     <link rel="stylesheet" href="/css/curves.css"/>
+    <script src="/js/htmx.min.js"></script>
   </head>
   <body>
     <center class="menu">
@@ -36,20 +38,30 @@
     <div class="main">
       <h1>Dev Dá Certo! 👍</h1>
       <img id="logo" src="/img/logo.png" alt="" />
+
       <div class="content">
-        <div class="date">10 Julho 2023</div>
-        <p>Aprenda desenvolvimento de software do zero.</p>
-        <p>Aguarde! Coisas incríveis estão chegando… 🚧👷</p>
+        <div class="date">11 Julho 2023</div>
+        <p>Nosso primeiro vídeo já está no ar!</p>
+        <center>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/6nATPW46kDI"
+            title="Bem vindo ao Dev Dá Certo! 👍"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </center>
       </div>
-      <div class="content">
-        <div class="date">10 Julho 2023</div>
-        <h2>Em Construção</h2>
-        <p>Enquanto isso, que tal dar uma olhada em nossas redes sociais?</p>
-        <ul>
-          <li><a target="_blank" href="https://www.youtube.com/@DevDaCerto">YouTube</a></li>
-          <li><a target="_blank" href="https://www.instagram.com/devdacerto/">Instagram</a></li>
-        </ul>
+
+      <div
+        class="older"
+        hx-get="/partial/0001.html"
+        hx-swap="outerHTML">
+        <span>Postagens mais antigas.</span>
       </div>
+
       <canvas id="curves"></canvas>
     </div>
   </body>

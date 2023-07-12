@@ -1,0 +1,16 @@
+.older {
+  text-align: right;
+  min-width: 280px;
+  width: 60%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  padding: 0 4px 0 4px;
+  position: relative;
+  color: #dab993;
+  text-shadow: 2px 2px 2px black;
+}
+
+.older span:hover {
+  background-color: gray;
+  cursor: pointer;
+}
