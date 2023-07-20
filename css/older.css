@@ -4,10 +4,20 @@
   width: 60%;
   margin: 0 auto;
   margin-bottom: 20px;
-  padding: 0 4px 0 4px;
+  padding: 12px 4px 0 4px;
   position: relative;
   color: #dab993;
   text-shadow: 2px 2px 2px black;
+}
+
+.older:before {
+  content: '';
+  display: block;
+  width: 100%;
+  border-bottom: 2px dashed #dab993;
+  position: absolute;
+  left: 0;
+  top: 6px;
 }
 
 .older span:hover {
