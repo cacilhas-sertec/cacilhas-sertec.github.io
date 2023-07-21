@@ -1,0 +1,79 @@
+.distro {
+  font-style: normal;
+  font-family: 'Symbols Nerd Font';
+  text-shadow: none !important;
+}
+
+.distro.pad {
+  margin: 0 6px 0 6px;
+}
+
+.distro.archlinux::after {
+  color: #1e96d2;
+  content: '';
+}
+
+.distro.centos::after {
+  color: #96297d;
+  content: '';
+}
+
+.distro.debian::after {
+  color: #d80f56;
+  content: '';
+}
+
+.distro.fedora::after {
+  color: #0f3266;
+  content: '';
+}
+
+.distro.freebsd::after {
+  color: #b70917;
+  content: '';
+}
+
+.distro.linux:after {
+  color: #000000;
+  content: '';
+}
+
+.distro.macos::after {
+  color: #b5b5b5;
+  content: '';
+}
+
+.distro.manjaro::after {
+  color: #3bc161;
+  content: '';
+}
+
+.distro.openbsd::after {
+  color: #fff692;
+  content: '';
+}
+
+.distro.redhat::after {
+  color: #cf252c;
+  content: '';
+}
+
+.distro.slackware::after {
+  color: #38386b;
+  content: '';
+}
+
+.distro.suse::after {
+  color: #77bc2c;
+  content: '';
+}
+
+.distro.ubuntu::after {
+  color: #de4d1b;
+  content: '';
+}
+
+.distro.windows::after {
+  color: #087cd7;
+  content: '';
+}
