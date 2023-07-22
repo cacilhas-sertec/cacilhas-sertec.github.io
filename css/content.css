@@ -15,7 +15,7 @@
 
 .content .date {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 4px;
   font-size: 0.8vw;
   text-shadow: 1px 1px 1px #a38a6e;
