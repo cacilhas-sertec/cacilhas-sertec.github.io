@@ -1,16 +1,16 @@
 .content {
   background-color: gray;
   min-width: 280px;
-  border: 2px solid #dab993;
-  border-top-color: black !important;
-  border-left-color: black !important;
+  border: 2px solid #a686ca;
+  border-top-color: #3d2558 !important;
+  border-left-color: #3d2558 !important;
   width: 60%;
   margin: 0 auto;
   margin-bottom: 20px;
   padding: 0 4px 0 4px;
   position: relative;
   color: black;
-  text-shadow: 2px 2px 2px #dab993;
+  text-shadow: 2px 2px 2px #a38a6e;
 }
 
 .content .date {
@@ -18,7 +18,7 @@
   bottom: 0;
   right: 4px;
   font-size: 0.8vw;
-  text-shadow: 1px 1px 1px #dab993;
+  text-shadow: 1px 1px 1px #a38a6e;
 }
 
 .content ul {

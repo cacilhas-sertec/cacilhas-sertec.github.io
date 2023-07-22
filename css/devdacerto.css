@@ -13,7 +13,7 @@ body {
 a {
   font-family: 'Roboto', sans-serif;
   text-decoration: none;
-  color: #fae93f;
+  color: #dab993;
   text-shadow: 1px 1px 1px black;
 }
 
@@ -44,7 +44,10 @@ a:hover {
   font-family: 'Kavivanar', cursive;
   color: black;
   text-align: center;
-  text-shadow: 0 0 2px white, 0 0 2px white, 0 0 2px white, 0 0 2px white;
+  text-shadow: 0 0 2px #dab993,
+               0 0 2px #dab993,
+               0 0 2px #dab993,
+               0 0 2px #dab993;
 }
 
 .symbol {
