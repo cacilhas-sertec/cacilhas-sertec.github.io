@@ -28,7 +28,7 @@
 
 .content ul li:before {
   content: "\27a3\00a0\00a0\00a0";
-  color: #e30d3b;
+  color: #fae93f;
   text-shadow: 1px 1px 1px black;
 }
 

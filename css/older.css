@@ -22,6 +22,6 @@
 }
 
 .older span:hover {
-  background-color: gray;
+  color: #e30d3b;
   cursor: pointer;
 }
