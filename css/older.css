@@ -14,7 +14,8 @@
   content: '';
   display: block;
   width: 100%;
-  border-bottom: 2px dashed #dab993;
+  height: 2px;
+  background: linear-gradient(to right, gray, #dab993);
   position: absolute;
   left: 0;
   top: 6px;
