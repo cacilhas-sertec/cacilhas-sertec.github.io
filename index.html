@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/menu.css"/>
     <link rel="stylesheet" href="/css/content.css"/>
     <link rel="stylesheet" href="/css/logo.css"/>
+    <link rel="stylesheet" href="/css/code.css"/>
     <link rel="stylesheet" href="/css/distros.css"/>
     <link rel="stylesheet" href="/css/older.css"/>
     <link rel="stylesheet" href="/css/curves.css"/>
@@ -41,8 +42,17 @@
       <img id="logo" src="/img/logo.png" alt="" />
 
       <div
-        hx-get="/partial/2023-07-20-sistemas-operacionais.html"
+        hx-get="/partial/2023-07-25-niveis.html"
         hx-trigger="load"
+        hx-swap="outerHTML">
+        <span>Alto Nível vs Baixo Nível<br/>
+          <small>25 Julho 2023</small></span>
+      </div>
+
+      <div
+        class="older"
+        hx-get="/partial/2023-07-20-sistemas-operacionais.html"
+        hx-trigger="click"
         hx-swap="outerHTML">
         <span>Sistemas Operacionais<br/>
           <small>20 Julho 2023</small></span>

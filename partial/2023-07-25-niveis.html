@@ -1,0 +1,184 @@
+<div class="content">
+  <div class="date">25 Julho 2023</div>
+  <h2>Alto Nível vs Baixo Nível</h2>
+  <p>Oi gente!</p>
+  <p>Hoje eu queria falar um pouquinho sobre linguagens de alto nível e
+    linguagens de baixo nível.</p>
+  <p>Linguagem de alto nível é aquela que apresente um alto nível de abstração
+    da forma como a máquina opera. Já linguagem de baixo nível é aquela que
+    reflete a forma como processador, memória e outros dispositivos funcionam.</p>
+
+  <h3>Linguagem de baixo nível: Assembly</h3>
+  <p>Vamos começar pelo Assembly, que é uma linguagem de baixo nível. O nosso
+    código <code>hello.s</code> imprimirá a mensagem “Hello, World!”.</p>
+  <p>A seção <code>.data</code> representa os dados armazenados na
+    <a target="_blank" href="https://tecnoblog.net/responde/o-que-e-memoria-ram/">memória RAM</a>.
+    Em nosso programa, criaremos um registro em memória para armazenar a
+    mensagem a ser exibida, chamado <code>msg</code>, mas precisaremos também de
+    um registro com o tamanho da mensagem:</p>
+
+<pre class="prettyprint"><code class="asm">  SECTION .data
+msg   db  "Hello, World!", 10
+len   equ $-msg</code></pre>
+
+  <p>O número <code>10</code> na mensagem é o código de mudança de linha.</p>
+  <p>Já a seção <code>.text</code> contém o código do programa a ser executado.
+    É aqui que fica o identificador global que diz para o computador por onde a
+    execução do programa deve ser iniciada.</p>
+  <p>O nome desse identificador muda conforme o <em>linker</em> usado, que é o
+    programa que liga o objeto binário gerado pela montagem do programa às
+    bibliotecas do sistema necessárias a seu funcionamento.</p>
+  <p>Vamos usar o <code>ld</code> como <em>linker</em>, do pacote
+    <a target="_blank" href="https://www.gnu.org/software/binutils/">GNU Binutils</a>.
+    Para o <code>ld</code>, o identificador global de início deve ser chamado
+    <code>_start</code>.</p>
+  <p>Outros <em>linkers</em> podem requerer outros nomes, como <code>start</code>
+    ou <code>main</code>.</p>
+
+<pre class="prettyprint"><code class="asm">  SECTION .text
+  global _start</code></pre>
+
+  <p>Após declarado o identificador, é preciso definir o procedimento com o mesmo
+    nome.</p>
+  <p>Dentro do procedimento, usaremos o comando <code>write</code> para escrever
+    na tela. Isso é obtido carregando o código no comando (<code>4</code>) no
+    registrador EAX.</p>
+  <p>Os registradores seguintes recebem os parâmetros do comando. O primeiro
+    parâmetro deve ser carregado no registrador EBX, e representa saída onde o
+    texto será exibido. No caso usaremos a saída padrão, cujo código é <code>1</code>.</p>
+  <p>O próximo registrador, ECX, receberá o endereço de memória onde se encontra
+    a mensagem, no caso <em>msg</em>. Já o último, EDX, recebe o tamanho do texto
+    na memória, ou seja, <code>len</code>.</p>
+
+<pre class="prettyprint"><code class="asm">_start:
+  mov eax, 4
+  mov ebx, 1
+  mov ecx, msg
+  mov edx, len</code></pre>
+
+  <p>Por útimos é preciso chamar a interrupção <code>0x80</code> para que o
+    <em>kernel</em> (núcleo do sistema operacional) saiba que ele precisa
+    executar o comando carregado nos registradores:</p>
+
+<pre class="prettyprint"><code class="asm">  int 0x80</code></pre>
+
+  <p>O útimo comando será <code>exit</code>, de saída, cujo código é <code>1</code>,
+    e que recebe como parâmetro o código de saída.</p>
+  <p>Vamos carregar o código <code>1</code> no registrador EAX e o código de
+    saída com sucesso (<code>0</code>) no registrador EBX, daí poderemos chamar a
+    interrupção <code>0x80</code> novamente:</p>
+
+<pre class="prettyprint"><code class="asm">  mov eax, 1
+  mov ebx, 0
+  int 0x80</code></pre>
+
+  <p>Agora, para montar o programa em um código objeto, vamos usar o montador
+    <em>Assembly</em>, ou <em>assembler</em>. O <em>assembler</em> que vamos usar
+    é o <code>nasm</code>.</p>
+  <p>Como parâmetros de linha de comando do <code>nasm</code>, nós informamos o
+    formato (<code>-f</code>) ELF64, que é o
+    <a target="_blank" href="https://refspecs.linuxbase.org/elf/elf.pdf">ELF</a>
+    de 64 <em>bits</em>, o arquivo de saída (<code>-o</code>), e o arquivo
+    contendo o código do programa:</p>
+
+<pre class="prettyprint"><code>nasm -felf64 -o hello.o hello.s</code></pre>
+
+  <p>Agora precisamos usar o <em>linker</em> para transformar o arquivo objeto
+    em executável:</p>
+
+<pre class="prettyprint"><code>ld -o hello hello.o</code></pre>
+
+  <p>E para executar o programa <code>hello</code>:</p>
+
+<pre class="prettyprint"><code>./hello</code></pre>
+
+  <p>O que, conforme programamos, gerará a saída:</p>
+
+<pre class="prettyprint"><code>Hello, World!</code></pre>
+
+  <p>Você pode baixar o código <a href="/codes/hello.s">daqui</a>.</p>
+
+  <h3>Linguagem de alto nível: C</h3>
+  <p>Agora vou mostrar a mesma coisa numa linguagem de alto nível, a linguagem C.</p>
+
+  <p>Para começar, vamos apagar o que não vamos usar:</p>
+
+<pre class="prettyprint"><code>rm -f hello hello.o</code></pre>
+
+  <p>Agora o pensamento é completamente diferente: em vez de lidarmos diretamente
+    com memória e registradores, vamos usar os recursos que a linguagem C nos
+    oferece.</p>
+  <p>A primeira coisa que nosso código precisa é incluir (<code>#include</code>)
+    as bibliotecas padrão, uma geral (<code>stdlib.h</code>) e outra específica
+    para lidar com entrada e saída de dados (<code>stdio.h</code>):</p>
+
+<pre class="prettyprint"><code class="c">#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;</code></pre>
+
+  <p>O programa C sempre começa pela função <code>main</code> que retorna um
+    número inteiro (<code>int</code>) representado o código de saída, e recebe
+    os parâmetros de linha de comando:</p>
+
+<pre class="prettyprint"><code class="c">int main(int argc, char* argv[]) {</code></pre>
+
+  <p><code>argc</code> é a quantidade de parâmetros recebidos da linha de comando,
+    e <code>argv</code> é uma lista dos parâmetros. Como não vamos usar qualquer
+    parâmetro da linha de comando, podemos omiti-los:</p>
+
+<pre class="prettyprint"><code class="c">int main() {</code></pre>
+
+  <p>E a função precisa ser encerrada por um fecha chaves (<code>}</code>).</p>
+  <p>Para exibir um texto na saída padrão, usamos a função <code>printf</code>:</p>
+
+<pre class="prettyprint"><code class="c">    printf("Hello, World!\n");</code></pre>
+
+  <p>O carácter de controle <code>\n</code> representa a mudança de linha.</p>
+  <p>Já para encerrar o programa, basta retornarmos (<code>return</code>) o código
+    de retorno – no caso, sucesso:</p>
+
+<pre class="prettyprint"><code class="c">    return EXIT_SUCCESS;</code></pre>
+
+  <p>Para compilar o programa C, vamos usar o <code>clang</code>, que é o compilador
+    do <a target="_blank" href="https://llvm.org/">LLVM</a>, mas você pode usar
+    qualquer compilador C, como <a target="_blank" href="http://gcc.gnu.org/">GCC</a>.</p>
+
+<pre class="prettyprint"><code class="c">clang -o hello hello.c</code></pre>
+
+  <p>Executando o programa da mesma forma anterior (<code>./hello</code>) obteremos
+    o mesmo resultado. Você consegue baixar o código
+    <a href="/codes/hello.c">daqui</a>.</p>
+
+  <h3>Mas C não é linguagem de baixo nível? 🤔</h3>
+  <p>Não, C é uma linguagem de alto nível, como pudemos ver: ela apresenta uma
+    abastração do funcionamento no nível do <em>hardware</em>.</p>
+  <p>A confusão é causada porque <strong>C é uma linguagem de sistema</strong>.
+    Como o nome já diz, linguagens de sistema são linguagens usadas na construção
+    de sistemas, como sistemas operacionais, compiladores, montadores,
+    <em>drivers</em> de dispositivo, máquinas virtuais e interpretadores. Essa
+    confusão entre linguagem de baixo nível e linguagem de sistema é normal no
+    meio, mesmo entre alguns profissionais experientes.</p>
+  <p>Outras linguagens de sistema importantes são
+    <a target="_blank" href="https://cplusplus.com/">C++</a>,
+    <a target="_blank" href="https://fortran-lang.org/">Fortran</a>,
+    <a target="_blank" href="https://www.rust-lang.org/">Rust</a>,
+    <a target="_blank" href="https://go.dev/">Go</a>,
+    <a target="_blank" href="https://dlang.org/">D</a>,
+    <a target="_blank" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html">Objective-C</a>,
+    <a target="_blank" href="https://nim-lang.org/">Nim</a>,
+    <a target="_blank" href="https://ziglang.org/">Zig</a> e
+    <a target="_blank" href="https://www.open-std.org/JTC1/SC22/WG9/">Ada</a>,
+    entre outras.
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/TODO"
+      title="Sistemas Operacionais"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+  <script src="js/prettify.js"></script>
+</div>
