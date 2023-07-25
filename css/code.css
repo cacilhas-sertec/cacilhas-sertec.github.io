@@ -1,0 +1,9 @@
+.prettyprint {
+  background: #dab993;
+  border-width: 2px !important;
+  border-style: inset !important;
+}
+
+code {
+  text-shadow: none;
+}
