@@ -1,0 +1,129 @@
+<div class="content">
+  <div class="date">1º Agosto 2023</div>
+  <h2>Instalando Python</h2>
+  <p>Para nossos exemplos e exercícios usaremos
+    <a target="_blank" href="https://www.python.org">Python</a> como linguagem
+    de programação na maioria das vezes, portanto é importante que tenhamos ela
+    instalada.</p>
+
+  <h3>Distruições GNU/Linux baseadas em <code>apt</code> <i class="distro pad debian"></i></h3>
+  <p>Vamos começar instalando Python no
+    <a target="_blank" href="https://www.debian.org">Debian GNU/Linux</a>, que
+    usado como gerenciador de pacotes o <code>apt</code>. Outras distros, como o
+    <a target="_blank" href="https://ubuntu.com">Ubuntu</a> e seus variantes,
+    também utilizam o <code>apt</code>.</p>
+  <p>Para buscar por um pacote usamos o subcomando <code>search</code>.
+    Para Buscar por Python 3.11, podemos executar o seguinte comando:</p>
+
+<pre class="prettyprint"><code class="sh">apt search python3.11</code></pre>
+
+  <p>Isso retornará uma lista onde poderemos encontrar o Python, provavelmente
+    algo mais ou menos assim:</p>
+
+<pre class="prettyprint"><code class="sh">python3.11-full/testing 3.11.4-1 amd64
+  Python Interpreter with complete class library (version 3.11)</code></pre>
+
+  <p>Na primeira linha vemos o nome do pacote (<code>python3.11-full</code>),
+    a versão do sistema (<code>testing</code>), a versão do pacote
+    (<code>3.11.4-1</code>) e a arquitetura (<code>amd64</code>).</p>
+
+  <p>Para instalar esse pacote usamos o subcomando <code>install</code>, no
+    entanto precisamos prefixar todo o comando com <code>sudo</code>, que o
+    executará como usuário administrador (<code>root</code>):</p>
+
+<pre class="prettyprint"><code class="sh">sudo apt install -y python3.11-full</code></pre>
+
+  <p>Provavelmente pedirá a senha do seu usuário e, se seu usuário for <em>sudoer</em>
+    (que pode requerer permissões de adminstrador), então o CPython (interpretador
+    Python escrito em C) será instalado. Você pode confirmar isso após o final da
+    instalação executando o comando <code>python</code>.</p>
+
+  <p>Para sair do interpretador Python basta pressionar Control+D (C-d no jargão)
+    ou executar <code>exit()</code>.</p>
+
+  <p>Para nossos testes, usaremos um REPL<a href="#repl"><sup>1</sup></a>
+    alternativo com uma série de funções extras, como <em>auto-complete</em>,
+    chamado Ptpython. É fácil instalá-lo no Debian:</p>
+
+<pre class="prettyprint"><code class="sh">sudo apt install -y ptpython</code></pre>
+
+  <p>Para gerência de versionamento dos códigos, vamos usar o
+    <a target="_blank" href="https://git-scm.com">Git</a>, também facilmente
+    instalável:</p>
+
+<pre class="prettyprint"><code class="sh">sudo apt install -y git</code></pre>
+
+  <p>Você também pode instalar todos esses pacotes em um só comando:</p>
+
+<pre class="prettyprint"><code class="sh">sudo apt install -y python3.11-full ptpython git</code></pre>
+
+  <h3>Distruições GNU/Linux baseadas em <code>pacman</code> <i class="distro pad archlinux"></i></h3>
+  <p>Outra família de distribuições GNU/Linux importante é a do
+    <a target="_blank" href="https://archlinux.org">Arch Linux</a>, que utiliza
+    o gerenciador de pacotes <code>pacman</code>.</p>
+
+  <p>No entanto não é tão simples quanto usando <code>apt</code>, apesar de
+    também não ser ciência de foguete.</p>
+
+  <p>Para instalar o Python, vamos ter de instalar três pacotes, mais o Git:</p>
+
+<pre class="prettyprint"><code class="sh">sudo pacman -Syu python python-pip python-pipx git</code></pre>
+
+  <p>Os parâmetros <code>-Syu</code> são os parâmetros de instalação, o pacote
+    <code>python</code> é o Python 3.11 (talvez já tenha sido atualizado),
+    <code>python-pip</code> é o gerenciador de pacotes de Python e
+    <code>python-pipx</code> é o gerenciador de pacotes extras.</p>
+
+  <p>Agora vamos instalar o Ptpython, que pode ser apenas para o usuário, não de
+    sistema. Para tanto usaremos o <code>pipx</code>:</p>
+
+<pre class="prettyprint"><code class="sh">pipx install ptpython</code></pre>
+
+  <h3>Windows <i class="distro pad windows"></i></h3>
+  <p>Para instalar Python, Ptpython e Git no Windows vamos usar um gerenciador de
+    pacotes chamado <a target="_blank" href="https://scoop.sh">Scoop</a>.</p>
+
+  <p>Para instalar o Scoop, abra o PowerShell e executa os comandos:</p>
+
+<pre class="prettyprint"><code class="sh">Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+irm get.scoop.sh | iex</code></pre>
+
+  <p>Instalado o Scoop, buscamos por Python com:</p>
+
+<pre class="prettyprint"><code class="sh">scoop search python</code></pre>
+
+  <p>Vai aparecer Python 3.11 na lista, que provavelmente será o pacote <code>python</code>,
+    então, para instalar:</p>
+
+<pre class="prettyprint"><code class="sh">scoop install python</code></pre>
+
+  <p>No Windows não precisamos do <code>pipx</code> para instalar o Ptpython, podemos
+    instalá-lo com o próprio <code>pip</code>:</p>
+
+<pre class="prettyprint"><code class="sh">pip install ptpython</code></pre>
+
+  <p>E por último o Git:</p>
+
+<pre class="prettyprint"><code class="sh">scoop install git</code></pre>
+
+  <h3>Bônus: Distruições GNU/Linux baseadas em RPM <i class="distro pad redhat"></i></h3>
+
+  <p>Outra família importante de distros GNU/Linux é RPM, onde econtramos o
+    <a target="_blank" href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">RHEL</a>,
+    <a target="_blank" href="https://www.centos.org">CentOS</a> e
+    <a target="_blank" href="https://www.suse.com">SuSE Linux</a>.</p>
+
+  <p>Para instalar Python e Git nesses sistemas usamos o <code>yum</code>:
+
+<pre class="prettyprint"><code class="sh">yum install python3 git</code></pre>
+
+  <p>No momento não há instruções de instalação do Ptpython em distros RPM, conforme
+    explicado no
+    <a target="_blank" href="https://github.com/prompt-toolkit/ptpython/pull/386">PR #386</a>
+    do Ptpython.</p>
+</div>
+
+<div class="content">
+  <p id="repl"><small><strong>REPL:</strong> <em>read-eval-print loop</em>, laço
+    de leitura, execução e exibição, também chamado <em>prompt</em>.</small></p>
+</div>
