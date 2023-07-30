@@ -3,22 +3,22 @@
   <h2>Instalando Python</h2>
   <p>Para nossos exemplos e exercícios usaremos
     <a target="_blank" href="https://www.python.org">Python</a> como linguagem
-    de programação na maioria das vezes, portanto é importante que tenhamos ela
-    instalada.</p>
+    de programação na maioria das vezes, portanto é importante que tenhamos uma
+    máquina virtual de Python instalada.</p>
 
-  <h3>Distruições GNU/Linux baseadas em <code>apt</code> <i class="distro pad debian"></i></h3>
-  <p>Vamos começar instalando Python no
+  <h3>Distribuições GNU/Linux baseadas em <code>apt</code> <i class="distro pad debian"></i></h3>
+  <p>Vamos começar instalando a CPython<a href="#cpython"><sup>1</sup></a> no
     <a target="_blank" href="https://www.debian.org">Debian GNU/Linux</a>, que
     usado como gerenciador de pacotes o <code>apt</code>. Outras distros, como o
     <a target="_blank" href="https://ubuntu.com">Ubuntu</a> e seus variantes,
-    também utilizam o <code>apt</code>.</p>
+    também utilizam o mesmo gerenciador, portanto a instalação é idêntica.</p>
   <p>Para buscar por um pacote usamos o subcomando <code>search</code>.
-    Para Buscar por Python 3.11, podemos executar o seguinte comando:</p>
+    Para Buscar por Python, podemos executar o seguinte comando:</p>
 
-<pre class="prettyprint"><code class="sh">apt search python3.11</code></pre>
+<pre class="prettyprint"><code class="sh">apt search python3</code></pre>
 
-  <p>Isso retornará uma lista onde poderemos encontrar o Python, provavelmente
-    algo mais ou menos assim:</p>
+  <p>Isso retornará uma lista onde poderemos encontrar algumas versões de Python,
+    com provavelmente algo assim:</p>
 
 <pre class="prettyprint"><code class="sh">python3.11-full/testing 3.11.4-1 amd64
   Python Interpreter with complete class library (version 3.11)</code></pre>
@@ -28,20 +28,20 @@
     (<code>3.11.4-1</code>) e a arquitetura (<code>amd64</code>).</p>
 
   <p>Para instalar esse pacote usamos o subcomando <code>install</code>, no
-    entanto precisamos prefixar todo o comando com <code>sudo</code>, que o
-    executará como usuário administrador (<code>root</code>):</p>
+    entanto precisamos prefixar o comando com <code>sudo</code>, para
+    executá-lo como usuário administrador (<code>root</code>):</p>
 
 <pre class="prettyprint"><code class="sh">sudo apt install -y python3.11-full</code></pre>
 
   <p>Provavelmente pedirá a senha do seu usuário e, se seu usuário for <em>sudoer</em>
-    (que pode requerer permissões de adminstrador), então o CPython (interpretador
-    Python escrito em C) será instalado. Você pode confirmar isso após o final da
-    instalação executando o comando <code>python</code>.</p>
+    (aquele que pode requerer permissões de adminstrador), então o CPython
+    será instalado. Você pode confirmar isso após o final da instalação
+    executando o comando <code>python</code>.</p>
 
-  <p>Para sair do interpretador Python basta pressionar Control+D (C-d no jargão)
-    ou executar <code>exit()</code>.</p>
+  <p>Para sair do CPython basta pressionar Control+D (<strong>C-d</strong> no jargão)
+    ou digitar <code>exit()</code> e pressionar <em>Enter</em>.</p>
 
-  <p>Para nossos testes, usaremos um REPL<a href="#repl"><sup>1</sup></a>
+  <p>Para nossos testes, usaremos um REPL<a href="#repl"><sup>2</sup></a>
     alternativo com uma série de funções extras, como <em>auto-complete</em>,
     chamado Ptpython. É fácil instalá-lo no Debian:</p>
 
@@ -57,20 +57,21 @@
 
 <pre class="prettyprint"><code class="sh">sudo apt install -y python3.11-full ptpython git</code></pre>
 
-  <h3>Distruições GNU/Linux baseadas em <code>pacman</code> <i class="distro pad archlinux"></i></h3>
+  <h3>Distribuições GNU/Linux baseadas em <code>pacman</code> <i class="distro pad archlinux"></i></h3>
   <p>Outra família de distribuições GNU/Linux importante é a do
     <a target="_blank" href="https://archlinux.org">Arch Linux</a>, que utiliza
     o gerenciador de pacotes <code>pacman</code>.</p>
 
-  <p>No entanto não é tão simples quanto usando <code>apt</code>, apesar de
-    também não ser ciência de foguete.</p>
+  <p>Apesar de não ser tão simples quanto usar <code>apt</code>, também não chega a
+    ser ciência de foguete.</p>
 
-  <p>Para instalar o Python, vamos ter de instalar três pacotes, mais o Git:</p>
+  <p>Para instalar o CPython, vamos ter de instalar três pacotes, mais o Git:</p>
 
 <pre class="prettyprint"><code class="sh">sudo pacman -Syu python python-pip python-pipx git</code></pre>
 
   <p>Os parâmetros <code>-Syu</code> são os parâmetros de instalação, o pacote
-    <code>python</code> é o Python 3.11 (talvez já tenha sido atualizado),
+    <code>python</code> é o CPython com Python 3.11 (ou mais recente, caso já
+    tenha sido atualizado),
     <code>python-pip</code> é o gerenciador de pacotes de Python e
     <code>python-pipx</code> é o gerenciador de pacotes extras.</p>
 
@@ -106,24 +107,39 @@ irm get.scoop.sh | iex</code></pre>
 
 <pre class="prettyprint"><code class="sh">scoop install git</code></pre>
 
-  <h3>Bônus: Distruições GNU/Linux baseadas em RPM <i class="distro pad redhat"></i></h3>
+  <h3>Bônus: Distribuições GNU/Linux baseadas em RPM <i class="distro pad redhat"></i></h3>
 
-  <p>Outra família importante de distros GNU/Linux é RPM, onde econtramos o
+  <p>Outra família importante de distros GNU/Linux é RPM, da qual fazem parte
     <a target="_blank" href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux">RHEL</a>,
-    <a target="_blank" href="https://www.centos.org">CentOS</a> e
-    <a target="_blank" href="https://www.suse.com">SuSE Linux</a>.</p>
+    <a target="_blank" href="https://www.centos.org">CentOS</a>,
+    <a target="_blank" href="https://fedoraproject.org/">Fedora Core</a> e
+    <a target="_blank" href="https://www.suse.com">SuSE OpenLinux</a>.</p>
 
   <p>Para instalar Python e Git nesses sistemas usamos o <code>yum</code>:
 
 <pre class="prettyprint"><code class="sh">yum install python3 git</code></pre>
 
-  <p>No momento não há instruções de instalação do Ptpython em distros RPM, conforme
+  <p>Até o momento não há instruções de instalação do Ptpython em distros RPM, conforme
     explicado no
     <a target="_blank" href="https://github.com/prompt-toolkit/ptpython/pull/386">PR #386</a>
     do Ptpython.</p>
 </div>
 
 <div class="content">
-  <p id="repl"><small><strong>REPL:</strong> <em>read-eval-print loop</em>, laço
+  <p id="cpython"><small><strong><sup>1</sup>CPython:</strong> máquina virtual de
+    Python escrita em C. Outras possíveis formas de rodar Python são
+    <a target="_blank" href="https://www.pypy.org/">PyPy</a> (interpretador
+    escrito em <a target="_blank" href="https://rpython.readthedocs.io/">RPython</a>),
+    <a target="_blank" href="https://www.jython.org/">Jython</a>
+    (compilador Python para a máquina virtual
+    <a target="_blank" href="https://www.java.com/">Java</a>),
+    <a target="_blank" href="https://www.graalvm.org/python/">GraalPy</a>
+    (interpretador Python escrito na
+    <a target="_blank" href="https://www.graalvm.org/">GraalVM</a>) e
+    <a target="_blank" href="https://rustpython.github.io/">RustPython</a>
+    (compilador <a target="_blank" href="https://pt.wikipedia.org/wiki/JIT">JIT</a>
+    de Python escrito em
+    <a target="_blank" href="https://www.rust-lang.org/">Rust</a>).</small></p>
+  <p id="repl"><small><strong><sup>2</sup>REPL:</strong> <em>read-eval-print loop</em>, laço
     de leitura, execução e exibição, também chamado <em>prompt</em>.</small></p>
 </div>
