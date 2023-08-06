@@ -1,0 +1,118 @@
+<div class="content">
+  <div class="date">08 Agosto 2023</div>
+  <h2>Desvantagens de Python</h2>
+  <p>Toda linguagem de programação tem vantagens e desvantagens, e não é diferente
+    com <a target="_blank" href="https://www.python.org">Python</a>.</p>
+  <p>O primeiro “problema” de Python não é um problema real, mas sim uma desculpa
+    que algumas pessoas usam em <em>flame wars</em>: sua velocidade.</p>
+  <p>Python realmente é uma linguagem lenta quando comparada a linguagens como
+    <a target="_blank" href="https://www.cplusplus.com/">C++</a>,
+    <a target="_blank" href="https://www.rust-lang.org/">Rust</a> e até mesmo
+    <a target="_blank" href="https://www.java.com/">Java</a>, mas, quando comparada
+    a outras linguagens do mesmo nicho, como
+    <a target="_blank" href="https://ruby-lang.org/">Ruby</a>,
+    <a target="_blank" href="https://www.perl.org/">Perl</a> e
+    <a target="_blank" href="https://nodejs.org">Javascript</a> é uma linguagem normal,
+    com um desempenho muito mais do que razoável.</p>
+  <p>O (suposto) baixo desempenho de Python também é um problema sanável: você
+    consegue fazer com que Python seja mais eficiente dando proferência aos
+    recursos da biblioteca padrão, usando bibliotecas de alto desempenho, como
+    <a target="_blank" href="https://numpy.org/">NumPy</a> e
+    <a target="_blank" href="https://pandas.pydata.org/">Pandas</a>,
+    e lançando mão de
+    <a target="_blank" href="https://cython.org/">Cython</a>, que é um <em>superset</em> de
+    Python cujos códigos são compilador para objetos do sistema.</p>
+
+  <h3>Escopo</h3>
+  <p>O primeiro problema real de Python é como a linguagem lida com <strong>escopo</strong>.
+    Em uma linguagem de programação, escopo é a região onde um dado recurso, como
+    uma variável, existe.</p>
+  <p>Por exemplo, seja a seguinte função:</p>
+
+<pre class="prettyprint"><code class="python">def f() -&gt; None:
+    a = 12
+    print(a)</code></pre>
+
+  <p>Ao executá-la, será exibido o valor da variável <code>a</code>:</p>
+
+<pre class="prettyprint"><code class="python">&gt;&gt;&gt; f()
+12</code></pre>
+
+  <p>No entanto, se tentarmos acessar a variável <code>a</code> fora do corpo
+    da função <code>f()</code>, ela não existe, pois está fora de seu escopo:</p>
+
+<pre class="prettyprint"><code class="python">&gt;&gt;&gt; a
+Traceback (most recent call last):
+  File: "<stdin>", line 1, in &lt;module&gt;
+NameError: name 'a' is not defined</code></pre>
+
+  <p>Até aqui tudo certo, esse é o comportamento esperado. Então qual o problema de
+    Python?</p>
+
+  <p>Em praticamente qualquer linguagem de programação, o escopo é definido por
+    bloco, ou seja, cada bloco contém seu próprio escopo; em Python
+    <strong>nem todo bloco define um escopo</strong>, apenas função (<code>def</code>)
+    e classe (<code>class</code>).</p>
+
+  <p>Por exemplo, se em C criarmos um bloco da seguinte forma:</p>
+
+<pre class="prettyprint"><code class="c">if (1) {
+    int a = 12;
+    // Continua o código
+}</code></pre>
+
+  <p>Se tentarmos acessar <code>a</code> fora do bloco da condicional, teremos um
+    erro de compilação, pois o escopo da variável se encerra onde o bloco termina.</p>
+  <p>Já em Python, se fizermos a mesma coisa:</p>
+
+<pre class="prettyprint"><code class="python">if True:
+    a: int = 12;
+    // Continua o código</code></pre>
+
+  <p>Ao tentarmos acessar a variável <code>a</code> fora do bloco definido pela
+    condicional (<code>if</code>), veremos que ela ainda existe, e foi criada no
+    escopo externo ao bloco da condicional.</p>
+  <p>O mesmo para <em>loops</em>:</p>
+
+<pre class="prettyprint"><code class="python">for i in range(10):
+    print(i)</code></pre>
+
+  <p>A variável <code>i</code> sobrevive ao bloco do <em>loop</em>, podendo sobrescrever
+    o valor de variáveis do bloco que o contém.</p>
+
+  <p>E esse é um problema com o qual o programador Python é obrigado a aprender a
+    conviver e lidar.</p>
+
+  <h3>Tipagem dinâmica</h3>
+  <p>O outro problema de Python é que, apesar se sua tipagem muito forte, ela também
+    é dinâmica demais.</p>
+  <p>Por exemplo, se definirmos a variável inteira <code>a</code> e depois atribuirmos
+    então um valor <em>string</em> a ela, a variável se torna <em>string</em>.
+    O código abaixo é válido:</p>
+
+<pre class="prettyprint"><code class="python">a: int = 12
+a = 'test'</code></pre>
+
+  <p>Isso pode causar problemas de difícil identificação, pois a trava de tipos,
+    responsável por garantir que dados errados gerem erros assim que são criados,
+    não funciona, permitindo que valores errados sejam transportados ao longo da
+    execução do programa, gerando erro muito longe de onde eles foram gerados.</p>
+
+  <h3>Testes unitários</h3>
+  <p>A forma de contornar esses problemas de Python é escrevendo <strong>testes unitários</strong>
+    (<a target="_blank" href="https://docs.python.org/3.10/library/unittest.html"><code>unittest</code></a>)
+    muito robustos. Trabalhar com Python consiste em escrever muitos testes unitários.</p>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/TODO"
+      title="Desvantagens de Python"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+
+</div>
