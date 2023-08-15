@@ -34,3 +34,11 @@
 
 .content ul li {
 }
+
+.content .float-right {
+  float: right;
+}
+
+.content .float-left {
+  float: left;
+}
