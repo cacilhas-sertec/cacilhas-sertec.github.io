@@ -1,0 +1,119 @@
+<div class="content">
+  <div class="date">15 Agosto 2023</div>
+  <h2>TIC-80 Tiny Computer</h2>
+  <p>Hoje vou apresentar uma coisa diferente pra voces:
+    <a target="_blank" href="https://tic80.com/">TIC-80</a> é um
+    <em>fantasy console</em> (ou <em>fantasy computer</em>).</p>
+  <p><em>Fantasy consoles</em> são emuladores de computadores fantásticos mais
+    simples, geralmente de 8 <em>bits</em>, e que você pode usar para a criação
+    de jogos num estilo mais retrô, entre outras aplicações.</p>
+  <p>Há alguns <em>fantasy consoles</em> conhecidos, como
+    <a target="_blank" href="https://www.lexaloffle.com/pico-8.php">PICO-8</a>,
+    <a target="_blank" href="https://liko-12.github.io/">LIKO-12</a> e o próprio
+    <a target="_blank" href="https://tic80.com/">TIC-80</a>, que tem uma interface
+    de desenvolvimento muito bacana.</p>
+  <h3>Jogo da Cobrinha</h3>
+  <p>O código do jogo da cobrinha é bastante simples, escrito em
+    <a target="_blank" href="http://moonscript.org/">Moonscript</a>:</p>
+<pre class="prettyprint"><code class="lua">-- title:   Snake
+-- author:  cacilhas@devdacerto.com
+-- desc:    Jogo da cobrinha
+-- site:    https://devdacerto.com/
+-- license: BSD-3 Clause
+-- version: 0.1
+-- script:  moon
+export ^
+local  *
+
+import random, randomseed from math
+
+snake = {
+  {x: 15, y: 9}
+  {x: 14, y: 9}
+  {x: 13, y: 9}
+}
+dir = 3
+tic = 0
+score = 0
+
+apple =
+  x: 0
+  y: 0
+
+resetapple = ->
+  while true
+    x = random(30) - 1
+    y = random(16) - 1
+    done = true
+    for b in *snake
+      done = false if b.x == x and by == y
+    return :x, :y if done
+
+showsnake = ->
+  head = snake[1]
+  r = ({[0]: 0, 2, 3, 1})[dir]
+  spr 1, head.x*8, head.y*8, 0, 1, 0, r
+  spr 2, b.x*8, b.y*8, 0 for b in *snake[2,]
+
+showapple = ->
+  spr 3, apple.x*8, apple.y*8, 0
+
+move = ->
+  head = snake[1]
+  next = switch dir
+    when 0
+      x: head.x, y: head.y-1
+    when 1
+      x: head.x, y: head.y+1
+    when 2
+      x: head.x-1, y: head.y
+    when 3
+      x: head.x+1, y: head.y
+  reset! if next.x < 0 or next.x > 29
+  reset! if next.y < 0 or next.y > 16
+  for b in *snake[2,]
+    reset! if next.x == b.x and next.y == b.y
+  if next.x == apple.x and next.y == apple.y
+    snake = {next, table.unpack snake}
+    apple = resetapple!
+    score += 1
+  else
+    snake = {next, table.unpack [b for b in *snake[1, #snake-1]]}
+
+BOOT = ->
+  randomseed tstamp!
+  apple = resetapple!
+  score = 0
+
+TIC = ->
+  cls!
+  poke 0x3ffb, 0
+  for i = 0, 3
+    dir = i if btn i
+  showsnake!
+  showapple!
+  tic += 1
+  if tic == 30
+    move!
+    tic = 0
+
+OVR = ->
+  print "Score: #{score}", 2, 126, 3, false, 1, true</code></pre>
+
+  <p>Você pode também baixar o
+    <a href="/codes/snake.tic">cartucho</a>. A explicação do código você pode
+    ver no vídeo:</p>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/5pYrSSg9LBQ"
+      title="TIC-80 Tiny Computer"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+  <script src="js/prettify.js"></script>
+</div>
