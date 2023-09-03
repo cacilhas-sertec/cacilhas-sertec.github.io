@@ -1,0 +1,129 @@
+<div class="content">
+  <div class="date">09 Setembro 2023</div>
+  <h2>Java</h2>
+  <p><a target="_blank" href="https://www.java.com/">Java</a> é uma linguagem de
+    programação criada em 1993 por
+    <a target="_blank" href="https://www.linkedin.com/in/jamesgosling/">James Gosling</a>
+    a partir da linguagem Oak de 1991, também criação de Gosling.</p>
+  <p>O primeiro <em>release</em> de Java foi lançado em 1996 pela
+    <a target="_blank" href="https://www.britannica.com/topic/Sun-Microsystems-Inc">Sun Microsystems</a>.</p>
+  <p>As versões <u title="Long-Term Support">LTS</u> são Java 8, Java 11 e Java 17,
+    então é seguro usar qualquer dessas versões em suas aplicações de produção.</p>
+
+  <h3>Princípios</h3>
+  <p>Java foi criada seguindo cinco princípios básicos:</p>
+  <ol>
+    <li>Ser <strong>orientada a objetos</strong>;</li>
+    <li>Ser <strong>robusta</strong> e segura;</li>
+    <li>Ser portátil, <strong>agnóstica à arquitetura</strong>;</li>
+    <li>Garantir <strong>alta <em>performance</em></strong>;</li>
+    <li>Ser interpretada, dinâmica e ter <strong>suporte a <em>threads</em></strong>.</li>
+  </ol>
+  <p>Para ganrantir que Java seja portátil (agnóstica à arquitetura), ela não roda
+    diretamente no sistema operacional de base, mas sim numa máquina virtual, chamada
+    <u title="Java Virtual Machine">JVM</u>. Isso é ser um linguagem interpretada.</p>
+  <p>Atualmente não há apenas uma JVM, mas algumas, sendo as mais importantes:</p>
+  <ul>
+    <li><a target="_blank" href="https://www.java.com/">a JVM da Oracle</a>;</li>
+    <li><a target="_blank" href="https://openjdk.org/">OpenJDK</a>;</li>
+    <li><a target="_blank" href="https://graalvm.org/">GraalVM</a>.</li>
+  </ul>
+
+  <h3>“Olá Mundo!!”</h3>
+  <p>Sem pensar em arquitetura de aplicação e estrutura de pacotes, podemos criar
+    um código “Olá Mundo!!” bastante simples, apenas com um arquivo. Vamos criar
+    um arquivo chamado <code>HelloWorld.java</code> – é importante que o nome do
+    arquivo antes da extensão <code>.java</code> seja extamente o nome da classe
+    pública que criaremos dentro dele:
+
+<pre class="prettyprint"><code class="java">public class HelloWorld {
+    public static void main(String[] args)  {
+        System.out.println("Olá Mundo!!");
+    }
+}</code></pre>
+
+  <p><code>public class</code> declara uma classe pública, que, como dito antes,
+    precisa ter o mesmo nome do arquivo. O método <code>main</code>, que deve ser
+    público e estático (ou seja, executado pela classe, não por instâncias dela),
+    é o <em>entrypoint</em> da aplicação, e deve receber os parâmetros de linha
+    de comando, que são uma lista de <em>strings</em> (<code>String[]</code>).</p>
+  <p>O método <code>println</code> de <code>System.out</code> exibe um texto na
+    saída padrão</p>
+  <p>Todos os <em>statements</em> devem ser encerrados por ponto-e-vírgula
+    (<code>;</code>).</p>
+  <p>Para compilar o programa para <em>bytecode</em>, o formato executável pela
+    JVM, usamos o comando <code>javac</code>:
+<pre class="prettyprint"><code class="bash">javac HelloWorld.java</code></pre>
+
+  <p>Isso criará o arquivo <code>HelloWorld.class</code>, que é o <em>bytecode</em>.</p>
+  <p>E para rodá-lo com a JVM usamos:</p>
+<pre class="prettyprint"><code class="bash">java HelloWorld</code></pre>
+
+  <p>Caso tivéssemos um pacote java (<code>.jar</code>) executável, o comando requer
+    um parâmetro extra:</p>
+<pre class="prettyprint"><code class="bash">java -jar $ApplicationName.jar</code></pre>
+
+  <h3>Bibliotecas que facilitam a vida</h3>
+  <p>Apesar da fama de uma linguagem difícil, há diversas bibliotecas e <em>frameworks</em>
+    que deixam tudo mais fácil, como por exemplo:</p>
+  <ul>
+    <li><a target="_blank" href="https://projectlombok.org/">Lombok</a>: traz diversas
+      <em>features</em> ausentes em Java e ainda elimina a necessidade de <em>boilerplates</em>
+      e construções repetitivas. Você encontra uma lista dessas funcionalidades
+      <a target="_blank" href="https://projectlombok.org/features/">aqui</a>.</li>
+    <li><a target="_blank" href="https://hibernate.org/">Hibernate</a>: um
+      <u title="Object-Relational Mapping">ORM</u> para lidar com bancos de dados.</li>
+    <li><a target="_blank" href="https://logging.apache.org/log4j/">Apache Log4J</a>:
+      uma biblioteca para simplificar a gerência de mensages de <em>log</em>.</li>
+    <li><a target="_blank" href="https://spring.io/">Spring</a>: um completíssimo
+      <em>framework</em> para programação orientada a eventos com suporte direto
+      ao desenvolvimento de aplicações em rede. Faz parte do Spring o famoso
+      <a target="_blank" href="https://spring.io/projects/spring-boot">Spring Boot</a>,
+      um <em>framework</em> para criação de aplicações <em>standalone</em>.</li>
+  </ul>
+
+  <h3>Outras linguagens JVM</h3>
+  <p>Mas o ecossistema java não se limita à linguagem de programação Java: a JVM
+    suporta diversas linguagens, que podem ser usadas isoladamente ou (algumas, não todas)
+    integradas umas às outras.</p>
+  <p>Alguns exemplos de linguagens que rodam na JVM:</p>
+  <ul>
+    <li><a target="_blank" href="https://clojure.org/">Closure</a>: uma implementação
+      de <a target="_blank" href="https://planet.lisp.org/">LISP</a> Para JVM.</li>
+    <li><a target="_blank" href="https://groovy-lang.org/">Groovy</a>: uma espécie
+      de Java simplificado.</li>
+    <li><a target="_blank" href="https://ioke.org/">Ioke</a>: uma linguagem baseada
+      em <a target="_blank" href="https://iolanguage.org/">Io</a>, mas com significantes
+      melhorias.</li>
+    <li><a target="_blank" href="https://jruby.org/">JRuby</a>: apenas um conector
+      para permitir que aplicações
+      <a target="_blank" href="https://rubyonrails.org/">Ruby on Rails</a> possam
+      rodar na JVM.</li>
+    <li><a target="_blank" href="https://jython.org/">Jython</a>:
+      <a target="_blank" href="https://python.org/">Python</a> para jVM.</li>
+    <li><a target="_blank" href="https://kotlinlang.org/">Kotlin</a>: linguagem
+      com foco na criação de aplicações para celulares Android.</li>
+    <li><a target="_blank" href="https://scala-lang.org/">Scala</a>: linguagem
+      funcional impura com suporte a álgebra de tipos e tipos dependentes, em
+      minha humilde opinião, a mais poderosa linguagem para JVM.</li>
+    <li><a target="_blank" href="https://eclipse.dev/Xtext/">Xtext</a>: linguagem
+      do projeto <a target="_blank" href="https://projects.eclipse.org/">Eclipse</a>
+      construída sobre a ferramenta
+      <a target="_blank" href="https://eclipse.dev/Xtext/xtend/">Xtend</a>. Na
+      verdade um Java menos verborrágico.</li>
+    </ol>
+  </ul>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/5pYrSSg9LBQ"
+      title="TIC-80 Tiny Computer"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+  <script src="js/prettify.js"></script>
+</div>
