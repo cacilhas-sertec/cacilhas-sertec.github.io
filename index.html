@@ -42,8 +42,17 @@
       <img id="logo" src="/img/logo.png" alt="" />
 
       <div
-        hx-get="/partial/2023-08-29-tic-80.html"
+        hx-get="/partial/2023-09-05-java.html"
         hx-trigger="load"
+        hx-swap="outerHTML">
+        <span>Java<br/>
+          <small>29 Agosto 2023</small></span>
+      </div>
+
+      <div
+        class="older"
+        hx-get="/partial/2023-08-29-tic-80.html"
+        hx-trigger="click"
         hx-swap="outerHTML">
         <span>TIC-80 Tiny Computer<br/>
           <small>29 Agosto 2023</small></span>
