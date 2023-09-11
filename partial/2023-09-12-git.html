@@ -1,0 +1,103 @@
+<div class="content">
+  <div class="date">12 Setembro 2023</div>
+  <h2>Git</h2>
+  <p>Controle de versão é um problema antigo: imagine diversos programadores
+    trabalhando no mesmo projeto, cada um na sua funcionalidade, no seu tempo e
+    separados, ou você mesmo trabalhando em seu projeto e pretende trabalhar em
+    funcionalidades distintas, depois precisa juntar isso tudo num código final
+    que traz todo trabalho que todos fizeram.</p>
+  <p>Ou então você precisa desfazer um trabalho ou voltar para um momento em que
+    um <em>bug</em> ainda havia sindo inserido no programa.</p>
+  <p>O <em>software</em> que cuida disso é o <strong>sistema de controle de versões</strong>.</p>
+
+  <h3>CVS</h3>
+  <p>Dentre os mais usados, o primeiro sistema de controle de versões foi o
+    <a target="_blank" href="http://savannah.nongnu.org/projects/cvs">CVS</a>,
+    Concurrent Versions System, criado em 1986 e foi a única opção razoável para
+    versionamento concorrente.</p>
+
+  <h3>Subversion</h3>
+  <p>Até que em 2001 o projeto Apache liberou o
+    <a  target="_blank" href="https://subversion.apache.org/">Subversion</a>, ou
+    SVN, criado em 2000.</p>
+  <p>A partir de então, diversos projetos foram criados para concorrer com o Subversion
+    e o CVS.</p>
+
+  <h3>Git</h3>
+  <p>Em 2005, <a target="_blank" href="https://github.com/torvalds">Linus Torvalds</a>,
+    criador do <a target="_blank" href="https://www.linuxfoundation.org">Linux</a>,
+    desenvolveu o <a target="_blank" href="https://git-scm.com">Git</a>, o sistema
+    de controle de versões mais eficiente que há, inicialmente como apenas uma
+    coleção de <em>scripts</em>, mas evoluindo para uma aplicação
+    <u title="Command-line interface">CLI</u> completa que praticamente tomou o
+    lugar de todos os concorrentes.</p>
+  <p>Git é o motor de diversos repositórios <em>online</em>, como:</p>
+  <ul>
+    <li><a target="_blank" href="https://github.com/">GitHub</a></li>
+    <li><a target="_blank" href="https://gitlab.com/">GitLab</a></li>
+    <li><a target="_blank" href="https://bitbucket.org/">Bitbucket</a></li>
+    <li><a target="_blank" href="https://sourceforge.net/">SourceForge</a></li>
+    <li><a target="_blank" href="https://get.assembla.com/">Assembla</a></li>
+    <li><a target="_blank" href="https://aws.amazon.com/codecommit/">CodeCommit</a></li>
+    <li><a target="_blank" href="https://azure.microsoft.com/en-us/products/devops/">Azure DevOps</a></li>
+  </ul>
+
+  <h3>Descentralizado</h3>
+  <p>A grande diferença do Git pra seus antecessores é que ele é
+    <strong>descentralizado</strong>, ou seja, não existe um repositórios central ao
+    qual todos os outros devem reportar – <strong>todos</strong> os repositórios
+    são iguais.</p>
+
+  <h3>Ferramentas de apoio</h3>
+  <p>Quando você instala o Git, costuma ser instalada junto uma ferramenta gráfica
+    chamada <a target="_blank" href="https://git-scm.com/docs/gitk/"><code>gitk</code></a>,
+    baseada na <a target="_blank" href="https://www.unix.com/man-page/opensolaris/3/libtk/"><code>libtk</code></a>,
+    uma biblioteca para construção de artefatos gráficos para
+    <a target="_blank" href="https://x.org/">X11</a>, como janelas, etiquetas e botões,
+    mas a maioria dos programadores não gosta do <code>gitk</code>.</p>
+  <p>É comum que instalem em seu lugar outra ferramenta gráfica chamada
+    <a target="_blank" href="https://www.gitkraken.com/">GitKraken</a>.</p>
+  <p>Pessoalmente eu recomendo duas ferramentas
+    <ul title="Text-based user interface">TUI</ul> que considero mais simples e úteis,
+    <a target="_blank" href="https://github.com/jesseduffield/lazygit"><code>lazygit</code></a> e
+    <a target="_blank" href="https://github.com/extrawurst/gitui"><code>gitui</code></a>.</p>
+
+  <h3>Alguns comandos</h3>
+  <p>Esta é uma lista muito superficial de recursos do Git:</p>
+  <ul>
+    <li><code>git init</code>: inicializa um novo projeto.</li>
+    <li><code>git clone</code>: clona um projeto de outro repositório, criando-o localmente.</li>
+    <li><code>git add</code>: adiciona um ou mais arquivos ao projeto.</li>
+    <li><code>git commit</code>: salva as alterações no repositório, tornando
+      possível compartilhá-las com outros repositórios.</li>
+    <li><code>git status</code>: exibe o estado dos arquivos no projeto.</li>
+    <li><code>git push</code>: envia as alterações do projeto para outro repositório.</li>
+    <li><code>git pull</code>: busca as alterações do projeto de outro repositório.</li>
+    <li><code>git log</code>: exibe a lista de <em>commits</em>.</li>
+    <li><code>git branch</code>: gerencia <em>branchs</em> (troncos de trabalho paralelo).</li>
+    <li><code>git checkout</code>: alterna entre <em>branchs</em> e <em>commits</em>.</li>
+    <li><code>git rebase</code>: reorganiza os <em>commits</em>.</li>
+    <li><code>git cherry-pick</code>: move <em>commits</em> entre <em>branches</em>.</li>
+    <li><code>git blame</code>: busca por <em>commit</em>(s) que inseriu um <em>bug</em>.</li>
+  </ul>
+
+  <p><code>lazygit</code> e <code>gitui</code> possuem subcommandos equivalentes.</p>
+
+  <h3>Para saber mais</h3>
+  <p>Além da própria <a target="_blank" href="https://git-scm.com">página do Git</a>,
+    você consegue mais informações nas páginas dos repositórios <em>online</em>.</p>
+  <p>Se quiser que falemos mais sobre o assunto, comente lá no YouTube:</p>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/nH8gM_ykI7I"
+      title="Git"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+  <script src="js/prettify.js"></script>
+</div>
