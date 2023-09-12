@@ -46,7 +46,7 @@ resetapple = ->
         y = random(16) - 1
         done = true
         for b in *snake
-            done = false if b.x == x and by == y
+            done = false if b.x == x and b.y == y
         return :x, :y if done
 
 showsnake = ->
