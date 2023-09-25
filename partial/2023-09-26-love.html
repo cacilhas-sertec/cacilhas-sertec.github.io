@@ -142,7 +142,7 @@ end</code></pre>
   <p>Por útimos mudamos a cor para a cor do corpo, para que as demais partes além da cabeça
     tenham uma cor diferenciada.</p>
   <p>Agora precisamos criar um corpo para cobrinha (<code>body</code> está vazio).
-    Vamos colocá-la mais ou menos no meio da tela, posição 30x30 – 960 ÷ 16 = 60.
+    Vamos colocá-la mais ou menos no meio da tela, posição 30x30 – 960&nbsp;÷&nbsp;16&nbsp;=&nbsp;60.
     Para isso precisamos implementar mais uma função, <code>love.load()</code>, que é
     chamada quando o jogo LÖVE inicia para carregar os <em>assets</em>:</p>
 <pre class="prettyprint"><code class="lua">function love.load()
@@ -192,6 +192,207 @@ end</code></pre>
     para uma explicação sobre os detalhes.</p>
   <p>Agora em <code>love.load</code> é preciso chamar esta função:</p>
 <pre class="prettyprint"><code class="lua">    resetapple()</code></pre>
+
+  <p>Podemos agora renderizar a maçã na tela. Como ela será muito simples (apenas um círculo),
+    não precisaremos de uma função dedicada, basta colocar as seguintes duas linhas no
+    corpo da função <code>love.draw()</code>:</p>
+<pre class="prettyprint"><code class="lua">    love.graphics.setColor(colors.apple)
+    love.graphics.circle("fill", apple.x * 16 + 8, apple.y * 16 + 8, 8)</code></pre>
+
+  <h3><em>Score</em></h3>
+  <p>Precisamos marcar os pontos de alguma forma. Para isso vamos criar uma variável
+    que contabilize os pontos:</p>
+<pre class="prettyprint"><code class="lua">local score</code></pre>
+
+  <p>Em <code>love.load()</code> podemos zerar o <em>score</em>:</p>
+<pre class="prettyprint"><code class="lua">    score = 0</code></pre>
+
+  <p>E para exibi-lo na tela, em <code>love.draw()</code> colocamos:</p>
+<pre class="prettyprint"><code class="lua">    love.graphics.setColor(colors.score)
+    love.graphics.print("Score: " .. score, 5, 5, 0, 1.5, 1.5)</code></pre>
+
+  <p>Vai vai exibir o <em>score</em> no canto superior esquerdo com tamanho 1.5.
+    Você pode aprender mais sobre os parâmetros desta função na
+    <a target="_blank" href="https://love2d.org/wiki/love.graphics.print">documentação</a>.</p>
+
+  <h3>Movendo a cobrinha</h3>
+  <p>Até agora apenas renderizamos os elementos, mas não há movimento, mudança.
+    Precisamos implementar o jogo em si, e tudo começa movimentando a cobrinha.</p>
+  <p>Vamos então criar uma função para movimentá-la:</p>
+<pre class="prettyprint"><code class="lua">--- Move snake forward by one cell
+local function movesnake()
+    local head = snake.body[1]
+    local next = {x = head.x, y = head.y}
+    if snake.d == 0 then next.y = next.y - 1 end
+    if snake.d == 1 then next.x = next.x + 1 end
+    if snake.d == 2 then next.y = next.y + 1 end
+    if snake.d == 3 then next.x = next.x - 1 end
+    snake.body = {next, unpack(snake.body)}
+    table.remove(snake.body)
+end</code></pre>
+
+  <p>Nesta função, pegamos a cabeça da cobra (<code>head</code>) e pegamos a próxima
+    posição dela (<code>next</code>) baseados na direção que a cobrinha vai
+    (<code>snaķe.d</code>):</p>
+  <ul>
+    <li>0 é pra cima, decrementa <code>y</code>;</li>
+    <li>1 é pra direita, incrementa <code>x</code>;</li>
+    <li>2 é pra baixo, incrementa <code>y</code>;</li>
+    <li>3 é pra esquerda, decrementa <code>x</code>.</li>
+  </ul>
+
+  <p>Mas,  para que realmente haja movimento, precisamos da função de atualização,
+    <code>love.update(dt)</code>, que recebe quantos segundos se passaram desde a última
+    vez que ela foi executada.</p>
+  <p>Vamos fazer com que a cobrinha ande a cada quarto de segundo, para isso precisamos
+    contar o tempo. Vamos criar uma variável <code>t</code>. Altere a declaração de
+    <code>score</code> para:</p>
+<pre class="prettyprint"><code class="lua">local score, t</code></pre>
+
+  <p>E acrescente a <code>love.load()</code>:</p>
+<pre class="prettyprint"><code class="lua">    t = 0
+    snake.d = 1</code></pre>
+
+  <p>Já temos o contador de tempo, vamos contar até um quarto de segundo (0.25):</p>
+<pre class="prettyprint"><code class="lua">function love.update(dt)
+    t = t + dt
+    local tic = 0.25
+    if t &lt; tic then return end
+    t = t - tic
+    movesnake()
+end</code></pre>
+
+  <p>A explicação está <a target="_blank" href="https://youtu.be/9eqhiJE9S-Y&t=1269s">aqui</a>.</p>
+
+  <h3>Controlando a cobrinha</h3>
+  <p>A cobrinha precisa agora responder às setas, mas a função <code>love.keyreleased()</code>
+    não atende, pois seu comportamento é um pouco estranho para isso. Podemos no entanto
+    usar <code>love.update()</code>, como é de praxe nos jogos.</p>
+  <p>Vamos primeiro criar a função que detecta as setas:</p>
+<pre class="prettyprint"><code class="lua">--- Updates game state based on keyboard input
+local function detectkeys()
+    if love.keyboard.isDown"up"    then snake.d = 0 end
+    if love.keyboard.isDown"right" then snake.d = 1 end
+    if love.keyboard.isDown"down"  then snake.d = 2 end
+    if love.keyboard.isDown"left"  then snake.d = 3 end
+end</code></pre>
+
+  <p><code>love.keyboard.isDown()</code> diz se uma tecla está sendo pressionada, no caso
+    as setas (<code>"up"</code>, <code>"right"</code>, <code>"down"</code> e
+    <code>"left"</code>), ajustando <code>snake.d</code> para a direção desejada.</p>
+  <p>Agora a cobrinha precisa comer a maçã. Quando a próxima posição da cabeça da
+    cobra (<code>next</code>) é exatamente igual à posição da maçã, a maçã foi comida
+    e precisa ser reposicionada. Além disso o <em>score</em> deve ser incrementado.</p>
+  <p>Em <code>movesnake</code>, encontre a linha:</p>
+<pre class="prettyprint"><code class="lua">    table.remove(snake.body)</code></pre>
+
+  <p>E substitua por:</p>
+<pre class="prettyprint"><code class="lua">    if next.x == apple.x and next.y == apple.y then
+        score = score + 1
+        resetapple()
+    else
+        table.remove(snake.body)
+    end</code></pre>
+
+  <p>Esse código testa se <code>next</code> coincide com a maçã e, caso positivo,
+    incrementa o <em>score</em> e reposiciona a maçã; caso negativo (<code>else</code>),
+    remove o bloco extra do corpo da cobrinha.</p>
+
+  <h3><em>Game Over</em></h3>
+  <p>Porém o jogo não tem graça se a cobrinha não morre! Sempre que ela bate em
+    alguma das laterais, o jogo precisa acabar.</p>
+  <p>Vamos primeiro implementar a lógica de fim de jogo. Encontre novamente a declaração
+    de <code>score</code> e mude-a novamente:</p>
+<pre class="prettyprint"><code class="lua">local score, t, gameover</code></pre>
+
+  <p>Agora adicione a <code>love.load()</code>:</p>
+<pre class="prettyprint"><code class="lua">    gameover = false</code></pre>
+
+  <p>Como primeira linha de <code>love.update()</code>, acrescente:</p>
+<pre class="prettyprint"><code class="lua">    if gameover then return end</code></pre>
+
+  <p>Isso fará com que a função não seja executada quando a cobrinha tiver morrido.</p>
+  <p>Para que o jogador saiba que o jogo acabou, coloque no final de <code>love.draw()</code>:
+<pre class="prettyprint"><code class="lua">    if gameover then
+        love.graphics.setColor(colors.gameover)
+        love.graphics.print("Game Over", 200, 420, 0, 8, 8)
+        return
+    end</code></pre>
+
+  <p>Isso exibirá a mensagem <code>Game Over</code> quando a cobrinha morrer. Agora a
+    cobrinha precisa morrer quando sair do tabuleiro, ou seja, com o valor de
+    <code>next.x</code> for menor que zero ou maior ou igual a 60 (960&nbsp;÷&nbsp;16),
+    ou o valor de <code>next.y</code> for menor que zero ou maior ou igual a 60.</p>
+  <p>Em <code>movesnake()</code>, logo após as alterações em <code>next</code> e antes
+    da reatribuição de <code>snake.body</code>, coloque o seguinte código:</p>
+<pre class="prettyprint"><code class="lua">    if  next.x &lt; 0 or next.x &gt;= 60 or next.y &lt; 0 or next.y &gt;= 60 then
+        gameover = true
+        return
+    end</code></pre>
+
+  <p>Só que a cobrinha também morre quando colide consigo mesma. Precisamos reiterar
+    sobre todos os blocos e ver se colide:</p>
+<pre class="prettyprint"><code class="lua">    for _, block in ipairs(snake.body) do
+        if block.x == next.x and block.y == next.y then
+            gameover = true
+            return
+        end
+    end</code></pre>
+
+  <p>Com isso o jogo já está completo!</p>
+
+  <h3>Lapidando um pouco</h3>
+  <p>Que tal um botão de pausa</p>
+
+  <p>Na declaração das variáveis na raiz do arquivo, altere para:</p>
+<pre class="prettyprint"><code class="lua">local score, t, gameover, paused</code></pre>
+
+  <p>Adicione a <code>love.load()</code>:</p>
+<pre class="prettyprint"><code class="lua">    paused = false</code></pre>
+
+  <p>Altere a primeira linha de <code>love.update()</code> para:</p>
+<pre class="prettyprint"><code class="lua">    if gameover or paused then return end</code></pre>
+
+  <p>Adicione ao final de <code>love.draw()</code>:</p>
+<pre class="prettyprint"><code class="lua">    if paused then
+        love.graphics.setColor(colors.paused)
+        love.graphics.print("Paused", 200, 420, 0, 8, 8)
+    end</code></pre>
+
+  <p>E adіcione a <code>love.keyreleased(key)</code>:</p>
+<pre class="prettyprint"><code class="lua">    if key == "p" then paused = not paused end</pre></code>
+
+  <p>E o botão P pausa o jogo!</p>
+  <p>Seria interessante que a cobrinha acelerasse a cada vez que a pontuação aumenta.
+    Para tanto, encontre a declaração da variável <code>tic</code> e altere para:</p>
+<pre class="prettyprint"><code class="lua">    local tic = 0.25 / (1.0625 ^ score)</code></pre>
+
+  <p>O sinal <code>^</code> significa exponenciação.</p>
+
+  <h3>Exportando o jogo</h3>
+  <p>Para exportar o jogo, você preciza <em>zipar</em> todos os arquivos na raiz do projeto
+    para um arquivo com extensão <code>.love</code>.</p>
+  <p>Considerando que você esteja na raiz do projeto:</p>
+<pre><code>zip ../snake.love -r *</code></pre>
+
+  <p>O arquivo criado, <code>snake.love</code>, é o jogo portátil para qualquer plataforma
+    que tenha LÖVE instalado.</p>
+  <p>Se você quiser criar um executável para uma plataforma específica, sem a necessidade
+    de ter LÖVE instalado, basta concatenar o executável da plataforma alvo e o arquivo
+    <code>.love</code> criado. Por exemplo:</p>
+<pre><code>cat ${caminho_pro_diretório_do_executável}/love snake.love &gt; snake.x86_64</code></pre>
+
+  <p>Se você tiver o executável do Windows, mesmo no GNU/Linux você consegue criar
+    o executável de seu jogo:</p>
+<pre><code>cat ${caminho_pro_diretório_do_executável}/love.exe snake.love &gt; snake.exe</code></pre>
+
+  <p>E no macOS é algo assim:</p>
+<pre><code>cat /Applications/Love.app/Contents/MacOS/love snake.love &gt; snake</code></pre>
+
+  <p><small>(Não tenho certeza do nome do executável. 👆)</small></p>
+
+  <p>Baixe o jogo aqui:
+    <a href="/codes/snake.love"><code>snake.love</code></a></p>
 
   <script src="js/prettify.js"></script>
   <center>
