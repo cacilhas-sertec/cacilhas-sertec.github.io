@@ -1,0 +1,62 @@
+<div id="2023-09-26-love" class="content">
+  <div class="date">26 Setembro 2023</div>
+  <img class="float-left" src="/img/love.png" alt="Logo do LÖVE" height="92" width="92" />
+  <h2>LÖVE</h2>
+  <p><a target="_blank" href="https://love2d.org/wiki/Main_Page">LÖVE</a> é um
+    arcabouço (<em>framework</em>) para a criação de jogos 2D que usa como linguagem
+    de programação um <em>subset</em> de
+    <a target="_blank" href="https://luajit.org/">LuaJIT</a>.</p>
+  <p>Para renderização de gráficos, LÖVE usa como <em>back-end</em> a biblioteca
+    <a target="_blank" href="https://www.opengl.org/">OpenGL</a>.</p>
+  <p>Com LÖVE, é possível exportar seus jogos para Windows, GNU/Linux, macOS,
+    Android e iOS (iPhone e iPad), mas há alguns projetos que permitem o porte de
+    jogos LÖVE para consoles de <em>video game</em>.</p>
+  <p>Como exemplo de programação para LÖVE, vamos revisitar o jogo da cobrinha
+    que havíamos feito para <a href="#2023-08-29-tic-80">TIC-80</a>.</p>
+
+  <h3>Arquivos básicos</h3>
+  <p>Um projeto LÖVE é um diretório que precisa conter ao menos dois arquivos:</p>
+  <ul>
+    <li><a href="/codes/snake-love/conf.lua"><code>conf.lua</code></a> contém as
+      configurações iniciais do programa;</li>
+    <li><a href="/codes/snake-love/main.lua"><code>main.lua</code></a> é o ponto
+      de partida do programa, onde você implementa as funções básicas da tabela
+      <code>love</code>.</li>
+  </ul>
+  <p>O arquivo <code>conf.lua</code> precisa implementar a função <code>love.conf</code>,
+    que recebe a tabela de configurações:</p>
+<pre class="prettyprint"><code class="lua">function love.conf(t)
+    ...
+end</code></pre>
+  <p>As configurações no corpo desta funções serão:</p>
+  <ul>
+    <li><code>t.version = "11.5"</code><br/>
+      Diz que a versão de LÖVE usada foi 11.5.</li>
+    <li><code>t.window.title = "LÖVE Snake"</code><br/>
+      Título do programa / da janela.</li>
+    <li><code>t.window.width = 960</code><br/>
+      Largura da janela em <em>pixels</em>.</li>
+    <li><code>t.window.height = 960</code><br/>
+      Altura da janela em <em>pixels</em>.</li>
+    <li><code>t.window.resizable = false</code><br/>
+      A janela não é redimensionável.</li>
+    <li><code>t.modules.physics = false</code><br/>
+      Desabilita o módulo de física de LÖVE.</li>
+  </ul>
+  <p>Você encontra uma lista completa das opções na
+    <a target="_blank" href="https://love2d.org/wiki/Config_Files"><em>wiki</em></a>
+    de LÖVE.</p>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/9eqhiJE9S-Y"
+      title="LÖVE"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+  <script src="js/prettify.js"></script>
+</div>
