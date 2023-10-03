@@ -3,8 +3,7 @@
   canvas.width = window.innerWidth;
   canvas.height = 400;
 
-  // Between #dab993 and #7a4ab0
-  ctx.strokeStyle = "#aa81a1";
+  ctx.strokeStyle = "#7a4ab0";
 
   ctx.beginPath();
   ctx.moveTo(0, canvas.height); // start at the bottom left
