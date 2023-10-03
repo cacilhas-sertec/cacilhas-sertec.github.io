@@ -1,6 +1,6 @@
 body {
   font-family: 'Kavivanar', cursive;
-  background-image: url("/img/shed.jpg") !important;
+  background-image: url("/img/background.png") !important;
   background-size: cover !important;
   background-attachment: fixed !important;
   background-position: initial !important;
@@ -13,7 +13,7 @@ body {
 a {
   font-family: 'Roboto', sans-serif;
   text-decoration: none;
-  color: #dab993;
+  color: #1AC6D9;
   text-shadow: 1px 1px 1px black;
 }
 
@@ -26,8 +26,8 @@ a:hover {
   width: 80%;
   margin: 0 auto;
   padding: 4px 0 0 0;
-  background-color: #7a4ab0;
-  color: gray;
+  background-color: #114BBFEE;
+  color: #1AC6D9;
   position: relative;
 }
 
@@ -42,12 +42,12 @@ a:hover {
 
 .main h2 {
   font-family: 'Kavivanar', cursive;
-  color: black;
   text-align: center;
-  text-shadow: 0 0 2px #dab993,
-               0 0 2px #dab993,
-               0 0 2px #dab993,
-               0 0 2px #dab993;
+  color: #114BBF;
+  text-shadow: 0 0 2px black,
+               0 0 2px black,
+               0 0 2px black,
+               0 0 2px #1AC6D9;
 }
 
 .symbol {

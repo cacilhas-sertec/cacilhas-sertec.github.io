@@ -1,16 +1,18 @@
 .content {
-  background-color: gray;
+  background-color: #556773;
   min-width: 280px;
-  border: 2px solid #a686ca;
-  border-top-color: #3d2558 !important;
-  border-left-color: #3d2558 !important;
+  border: 2px solid #1AC6D9;
+  border-top-color: #114BBF !important;
+  border-right-color: #81868C !important;
+  border-bottom: #81868C !important;
+  border-left-color: #114BBF !important;
   width: 60%;
   margin: 0 auto;
   margin-bottom: 20px;
   padding: 0 4px 0 4px;
   position: relative;
-  color: black;
-  text-shadow: 2px 2px 2px #a38a6e;
+  color: white;
+  text-shadow: 2px 2px 2px #114BBF;
 }
 
 .content .date {
@@ -18,7 +20,7 @@
   top: 0;
   right: 4px;
   font-size: 0.8vw;
-  text-shadow: 1px 1px 1px #a38a6e;
+  text-shadow: 1px 1px 1px #114BBF;
 }
 
 .content ul {
@@ -29,7 +31,7 @@
 .content ul li:before {
   content: "\27a3\00a0\00a0\00a0";
   color: #fae93f;
-  text-shadow: 1px 1px 1px black;
+  text-shadow: 1px 1px 1px #114BBF;
 }
 
 .content ul li {
