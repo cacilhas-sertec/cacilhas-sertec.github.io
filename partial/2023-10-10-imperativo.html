@@ -1,0 +1,145 @@
+<div id="2023-10-10-imperativo" class="content">
+  <div class="date">10 Outubro 2023</div>
+  <h2>Paradigmas de Programação: Programação Imperativa</h2>
+  <p>Paradigma de programação é a forma como você estrutura seu raciocínio para
+    construir seu programa.</p>
+  <p>Há diversos paradigmas de programação diferentes. O mais comum é o
+    <strong>paradigma imperativo</strong>, que surgiu em 1956 com a linguagem de programação
+    <a target="_blank" href="https://fortran-lang.org">FORTRAN</a>.</p>
+  <p>A programação imperativa consiste em uma sequência de ordens (<em>statement</em>)
+    que você dá ao computador, e, a cada ordem, o computador muda o estado do
+    programa.</p>
+  <p>Por exemplo, considere a seguinte sequência de <em>statements</em> em
+    <a target="_blank" href="https://www.rust-lang.org/">Rust</a>:</p>
+  <pre class="prettyprint"><code class="rust">let mut x = 0;
+x = x + 1;
+x = x * 2;
+println!("x = {}", x);</code></pre>
+
+  <p>No primeiro comando (<code>let&nbsp;mut&nbsp;x&nbsp;=&nbsp;0</code>) é reservado um
+    espaço na pilha da função para armazenar o número inteiro 0, e este espaço de memória
+    é referenciado pela variável <code>x</code>.</p>
+  <p>No segundo comando (<code>x&nbsp;=&nbsp;x&nbsp;+&nbsp;1</code>) o valor daquela
+    porção de memória é incrementado, passando a valer 1.</p>
+  <p>No terceiro comando (<code>x&nbsp;=&nbsp;x&nbsp;*&nbsp;2</code>) o valor é
+    dobrado, valendo agora 2.</p>
+  <p>No último comando  (<code>println!(...)</code>) é exibido na tela
+    “<code>x&nbsp;=&nbsp;</code>” seguido do valor contido na porção de memória referenciada
+    por <code>x</code>, ou seja, “<code>x&nbsp;=&nbsp;2</code>”.</p>
+
+  <h3>Programação Estruturada</h3>
+  <p>A partir da programação imperativa surge a <strong>programação estruturada</strong>,
+    que nada mais é do que a própria  programação imperativa, mas modular, ou seja,
+    estruturada em <strong>módulos</strong>.</p>
+  <p>Assim as partes do seu algoritmo ficam classificadas em módulos, e você pode
+    trabalhar em cada um deles isoladamente, reduzindo cada problema complexo em
+    diversos problemas simples.</p>
+
+  <h3>Fatorial</h3>
+  <p>Para demonstrar a diferença entre os paradigmas, vamos implementar o
+    <a target="_blank" href="https://encyclopediaofmath.org/index.php?title=Factorialhttps://encyclopediaofmath.org/index.php?title=Factorial">fatorial</a>.</p>
+  <p>Fatorial é um algoritmo recursivo cuja <strong>parada</strong> é 0!&nbsp;=&nbsp;1.
+    Cada fatorial então é igual ao próprio número vezes o fatorial predecessor,
+    o que é chamado <strong>passo</strong>.</p>
+  <p>Podemos então escrever o fatorial como:</p>
+  <ul>
+    <li>0! = 1</li>
+    <li>n! = n × (n - 1)!</li>
+  </ul>
+  <p>Por exemplo, 5! é igual a 5 vezes 4!. Podemos seguir esta regra até encontrar
+    um valor conhecido, que, no pior dos casos, é a parada (0!):</p>
+  <ul>
+    <li>5! = 5 × 4!</li>
+    <li>4! = 4 × 3!</li>
+    <li>3! = 3 × 2!</li>
+    <li>2! = 2 × 1!</li>
+    <li>1! = 1 × 0!</li>
+    <li>0! = 1</li>
+  </ul>
+  <p>Assim podemos voltar recursivamente preenchendo os valores até descobrir
+    qual o fatorial de 5:</p>
+  <ul>
+    <li>1! = 1 × 0! = 1 × 1 = 1</li>
+    <li>2! = 2 × 1! = 2 × 1 = 2</li>
+    <li>3! = 3 × 2! = 3 × 2 = 6</li>
+    <li>4! = 4 × 3! = 4 × 6 = 24</li>
+    <li>5! = 5 × 4! = 5 × 24 = 120</li>
+    <li>∴ 5! = 120</li>
+  </ul>
+
+  <h3>Implementando Fatorial em Python</h3>
+  <p>Como linguagem imperativa usaremos de exemplo
+    <a target="_blank" href="https://www.python.org/">Python</a>, linguagem
+    multiparadigma que tem como paradigma principal o imperativo.</p>
+  <p>O fatorial será implementado na função <code>fact</code> (uma abreviação do
+    inglês <em>factorial</em>). Na programação estruturada, funções e subrotinas
+    usadas para encapsular trechos de código são chamadas de módulos, a pesar de
+    que em Python e outras linguagens similares a palavra “módulo” tenha outro
+    significado.</p>
+  <p>A função <code>fact</code> receberá um inteiro <code>n</code>, que é o parâmetro
+    para o qual queremos calcular o fatorial, e retornará (<code>-></code>) também
+    um inteiro, que é o resultado do fatorial:</p>
+  <pre class="prettyprint"><code class="python">def fact(n: int) -> int:</code></pre>
+
+  <p>A resposta da função será chamada <code>res</code> e será inicializada com o valor 1,
+    que é a parada do algoritmo fatorial. Assim, se não houver o que fazer, a função
+    já tem o resultado:</p>
+  <pre class="prettyprint"><code class="python">    res: int = 1</code></pre>
+
+  <p>Agora precisamos de um <em>loop</em> para representar a recursão do algoritmo.
+    Vamos usar <code>while</code> em vez de <code>for</code> pois será mais claro
+    para os fins deste artigo. O <em>loop</em> se reperá enquanto o valor de <code>n</code>
+    for maior do que 0, ou seja, se/quando <code>n</code> for igual a 0, não há
+    nada para ser feito:</p>
+  <pre class="prettyprint"><code class="python">    while n > 0:</code></pre>
+
+  <p>Agora precisamos implementar o passo do algoritmo, que consiste em multiplicar
+    o resultado pelo valor atual:</p>
+  <pre class="prettyprint"><code class="python">        res *= n</code></pre>
+
+  <p>Porém  precisamos decrementar o valor de <code>n</code>, caso contrário ficaremos
+    presos em um <em>loop</em> infinito:</p>
+  <pre class="prettyprint"><code class="python">        n -= 1</code></pre>
+
+  <p>Fora do <em>loop</em>, já teremos em <code>res</code> o valor final do fatorial
+    de <code>n</code>, e podemos simplesmente retorná-lo:</p>
+  <pre class="prettyprint"><code class="python">    return res</code></pre>
+
+  <h3>Testando</h3>
+  <p>O procedimento normal da criação de um programa exige a escrita de
+    <a target="_blank" href="https://www.ibm.com/garage/method/practices/code/practice_test_driven_development/">testes unitário</a>,
+    mas para nosso artigo podemos simplesmente ver a função em ação.</p>
+  <p>Vamos pegar uma faixa (<em>range</em>) de números inteiros de 0 a 9 – o que
+    podemos obter com <code>range(10)</code> em Python – e ver se os valores coincidem:</p>
+  <pre class="prettyprint"><code class="python">for x in range(10):
+    print(x, fact(x))</code></pre>
+
+  <p>Isso deve retornar uma saída assim:</p>
+  <pre><code>0 1
+1 1
+2 2
+3 6
+4 24
+5 120
+6 720
+7 5040
+8 40320
+9 362880</code></pre>
+
+  <p>E esse foi o fatorial implementado imperativamente e estruturadamente, usando
+    a pilha da função como máquina de estado.</p>
+
+
+  <script src="js/prettify.js"></script>
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/9eqhiJE9S-Y"
+      title="LÖVE"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+</div>
