@@ -1,0 +1,183 @@
+<div id="2023-10-17-funcional" class="content">
+  <div class="date">10 Outubro 2023</div>
+  <h2>Paradigmas de Programação: Programação Funcional</h2>
+  <p>Ao contrário do <a href="#2023-10-10-imperativo">paradigma imperativo</a>,
+    no paradigma declarativo você <strong>não</strong> diz ao computador
+    <strong>como</strong> você quer que ele execute os procedimentos. Em vez disso,
+    você declara seu conjunto de verdades e deixa o programa resolvê-lo.</p>
+  <p>Há dois tipos de programação declarativa: a programação funcional e a
+    programação lógica.</p>
+  <p>Na programação funcional você declara funções, passa parâmetros a essas
+    funções, e recebe os resultados.</p>
+
+  <h3><em>Constraints</em> funcionais</h3>
+  <p>Na programação funcional há uma  série de regras que garantem a concisão
+    de seu código. Essas regras são chamadas <em>constraints</em> ou <em>features</em>.</p>
+  <p>As principais <em>constraints</em> são:</p>
+  <ul>
+    <li>Funções são cidadãos de primeira classe (<em>first-class functions</em>).
+      Isso significa que você pode usar funções como ativos de seu código, podendo
+      ser passadas como parâmetros para outras funções ou ser retornadas or elas.</li>
+    <li>Não existe (mudança de) estado. Todos os ativos do código são <strong>imutáveis</strong>.</li>
+    <li>Funções puras são aquelas que:
+      <ol>
+        <li>Não geram efeitos colaterais. Assim, se o retorno de uma função não
+          for usado, ele pode ser descartado com segurança. Isso também implica em:</li>
+        <li>São idempotentes, ou seja, dados os mesmos parâmetros, o resoltado não
+          se altera.</li>
+      </ol></li>
+    <li>Uma vez que as funções são imutáveis e não geram efeito colateral, elas são
+      <em>thread-safe</em>, suportando paralelismo sem necessidade de recursos estranhos
+      ao ecossistema do programa.</li>
+    <li>Para se obter efeitos colaterais, é necessário delegar ao sistema de mais
+      baixo nível ativos que o informem desses efeitos. Por exemplo, Haskell usa
+      <code>IO a</code> para requisitar leitura e escrita.</li>
+    <li>A avaliação/validação das funções pode ser <strong>estrita</strong> ou
+      <strong>não-estrita</strong>, ou seja, ocorrer imediatamente ou ser postergada
+      para quando o dado seja realmente necessário. Com a avaliação não-estrita,
+      é possível a criação de conjuntos infinitos, como por exemplo a seguinte
+      definição da
+      <a target="_blank" href="https://encyclopediaofmath.org/wiki/Fibonacci_numbers">sequência de Fibonacci</a>:
+<pre class="prettyprint"><code class="haskell">fib = 1 : 1 : zipWith (+) fib (tail fib)</code></pre></li>
+    <li>Recursão: é a capacidade de uma função chamar a si própria. Toda linguagem de
+      programação funcional implementa <a target="_blank" href="https://tinyurl.com/3pz4x42z">T.C.O.</a>,
+      que veremos mais a frente.</li>
+    <li>Todos os tipos em programação funcional são <strong>conjuntos</strong>,
+      como ℕ, ℤ, ℚ, ℝ e ℂ. Isso permite operações algébricas com tipos através da
+      <strong>álgebra de tipos</strong> ou ADT (Algebraic Data Types).</li>
+  </ul>
+
+  <h3>Cálculo λ</h3>
+  <p>A programação funcional é baseada no Cálculo Lambda (ou Cálculo λ), criado por
+    <a target="_blank" href="https://plato.stanford.edu/entries/church/">Alonzo Church</a>
+    na década de 1930.</p>
+  <p>O cálculo λ é um cálculo matemático e modelo computacional
+    <a target="_blank" href="https://pt.wikipedia.org/wiki/Turing_completude">Turing-completo</a>
+    onde tudo são funções.</p>
+  <p>Por exemplo, os números naturais são representados por funções que recebem
+    a função que calcula o sucessor, e retorna uma função que recebe a representação de
+    zero e retorna o número natural baseado nesses dois argumentos:</p>
+  <center><code>λs.λz.t</code></center>
+  <p>Quando uma função retorna outra função, podemos agrupar os argumentos usando
+    o seguinte açúcar sintático:</p>
+  <center><code>λsz.t</code></center>
+  <p>Então o zero é a função que retorna sua representação sem aplicar a função de
+    sucessor:</p>
+  <center><code>0 = λsz.z</code></center>
+  <p>Já o um calcular o sucessor de zero:</p>
+  <center><code>1 = λsz.sz</code></center>
+  <p>E o dois calcula o sucessor de um:</p>
+  <center><code>2 = λsz.s(sz)</code></center>
+  <p>E assim por diante.</p>
+  <p>Tomemos a função do número 1 (<code>λsz.sz</code>) de exemplo:<p>
+    <ul>
+      <li><code>λ</code> é a declaração de função;</li>
+      <li><code>s</code> e <code>z</code> são os argumentos;</li>
+      <li><code>.</code> indica o início do corpo da função;</li>
+      <li><code>sz</code> é o retorno da  função, que signfica que a função <code>s</code>
+        deve ser chamada passando <code>z</code> como parâmetro.</li>
+    </ul>
+  <p><strong>Observação:</strong> “parâmetro” é o valor passaro para a função;
+    “argumento” é o nome que o valor recebe dentro do corpo da função.</p>
+  <p>No cálculo λ, a multiplicação é a operação mais simples, representada pela
+    segunte função:</p>
+  <center><code>λab.λsz.(ab)sz</code></center>
+  <p>Não se permita intimidar pela aparente complicação desta função, pois ela é
+    na verdade bem simples: recebe duas outras funções (<code>a</code> e <code>b</code>),
+    aplica uma à outra (<code>ab</code>), e constrói a fução de retorno
+    (<code>λsz.(…)sz</code>). Em resumo, a multiplicação é nada além de passar
+    um multiplicador como parâmetro <code>s</code> para o outro multiplicador.</p>
+  <p>Assim, por exemplo, 2 (<code>λsz.s(sz)</code>) vezes 3 (<code>λsz.s(s(sz))</code>)
+    é o mesmo que trocar o <code>s</code> do 2 pelo corpo (<code>s(s(sz))</code>)
+    do 3, repetindo-o 2 vezes:</p>
+  <center><code>λsz.s(s(s(s(s(sz)))))</code></center>
+  <p>Resulta em 6 aplicações de <code>s</code> sobre <code>z</code>, ou seja, 6.</p>
+  <p>A título de curiosidade, a soma é a seguinte função:</p>
+  <center><code>λab.λsz.as(bsz)</code></center>
+
+  <h3>Fatorial em Haskell</h3>
+  <p>Vocês ainda se recordam do algoritmo fatorial? Em resumo é o seguinte:</p>
+  <p>0! = 1<br/>n! = n × (n-1)!</p>
+  <p>Implementar isso em programação funcional é muito fácil, pois, ao contrário da
+    programação imperativa, onde precisávamos descrever o procedimento para calcular
+    os resultados, na programação função podemos simplesmente declarar a função
+    exatamente da mesma forma que fizemos matematicamente – apenas respeitando a
+    sintaxe da linguagem de programação escolhida. No caso usaremos
+    <a target="_blank" href="https://www.haskell.org/">Haskell</a>, uma linguagem
+    de programação funcional pura com avaliação não-estrita.</p>
+  <p>Para começar um módulo Haskell, precisamos declará-lo com o mesmo nome do
+    arquivo. Por exemplo, nosso arquivo é <code>fact.hs</code>:
+<pre class="prettyprint"><code class="haskell">module Fact where</code></pre>
+
+  <p>Agora podemos declarar a função <code>fact</code> que recebe um <code>Integral</code>
+    (qualquer coisa que se pareça com um inteiro), e retorna também um <code>Integral</code>:
+<pre class="prettyprint"><code class="haskell">fact :: Integral a =&gt; a -&gt; a</code></pre>
+
+  <p>Então o fatorial de 0 é 1:</p>
+<pre class="prettyprint"><code class="haskell">fact 0 = 1</code></pre>
+
+  <p>E o fatorial de <code>n</code> é <code>n</code> vezes o fatorial de seu predecessor:</p>
+<pre class="prettyprint"><code class="haskell">fact n = n * fact (n-1)</code></pre>
+
+  <p>Está feito, já funciona! 😁</p>
+  <p>Podemos usar o <a target="_blank" href="https://www.haskell.org/ghc/">GHCI</a>
+    para testar:</p>
+<pre class="prettyprint"><code class="shell">ghci fact.hs
+GHCi, version 9.2.8: https://www.haskell.org/ghc/  :? for help
+[1 of 1] Compiling Fact             ( fact.hs, interpreted )
+Ok, one module loaded.
+ghci&gt; fact 0
+1
+ghci&gt; fact 5
+120</code></pre>
+
+  <h3>T.C.O.</h3>
+  <p>Mas temos um problema: esta função segue empilhando <em>stacks</em> de memória
+    para cada passo da recursão, não sendo muito eficiente.</p>
+  <p>Para resolver este problema, devemos usar o  T.C.O., <em>tail-call optimisation</em>.</p>
+  <p>Sempre que o último <em>statement</em> de uma função inicia sua execução,
+    o sistema funcional descarta o <em>stack</em> atual, substituindo-o pelo que
+    se inicia. Isso evita o empilhamento de <em>stacks</em>.</p>
+  <p>Porém em nossa implementação, o último <em>statement</em> é a função de
+    multiplicação, o que significa que a recursão gera empilhamento</p>
+  <p>Para que não haja empilhamento, o último <em>statement</em> precisa ser a
+    própria função recursiva.</p>
+  <p>Para fazer isso, precisamos criar uma função que acumule os resultados e
+    os transmita através da recursão.</p>
+  <p>Essa função será <code>_fact</code>, e receberá como primeiro parâmetro o
+    acumulador; o parâmetro real só virá após o acumulador, que será inicializado
+    com o valor de parada, 1.</p>
+<pre class="prettyprint"><code class="haskell">module Fact where
+
+fact :: Integral a =&gt; a -&gt; a
+fact = _fact 1
+  where _fact acc 0 = acc
+        _fact acc n = _fact (acc*n) (n-1)</code></pre>
+
+  <p>— Mas por que <code>fact</code> é igual a <code>_fact 1</code>?</p>
+  <p>Lembre-se que, no cálculo λ, uma função que retorna outra função pode ter
+    os argumentos agrupados:</p>
+  <center><code>_F = λan.{corpo}</code></center>
+
+  <p>É o mesmo que</p>
+  <center><code>_F = λa.λn.{corpo}</code></center>
+
+  <p>Então:</p>
+<pre><code>F = (λan.{corpo recebendo a e n}) 1
+F = (λa.λn.{corpo recebendo a e n}) 1
+F = λn.{corpo recebendo a=1 e n}</code></pre>
+
+
+  <script src="js/prettify.js"></script>
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/Fa2bGoTZXPE"
+      title="Programação Funcional"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+</div>
