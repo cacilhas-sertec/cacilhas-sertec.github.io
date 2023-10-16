@@ -15,23 +15,23 @@
     de seu código. Essas regras são chamadas <em>constraints</em> ou <em>features</em>.</p>
   <p>As principais <em>constraints</em> são:</p>
   <ul>
-    <li>Funções são cidadãos de primeira classe (<em>first-class functions</em>).
-      Isso significa que você pode usar funções como ativos de seu código, podendo
-      ser passadas como parâmetros para outras funções ou ser retornadas or elas.</li>
+    <li><strong>Funções são cidadãos de primeira classe (<em>first-class functions</em>).</strong>
+      Isso significa que você pode usar funções como ativos de seu código, passando-as
+      como parâmetros para outras funções e retornando funções.</li>
     <li>Não existe (mudança de) estado. Todos os ativos do código são <strong>imutáveis</strong>.</li>
-    <li>Funções puras são aquelas que:
+    <li><strong>Funções puras</strong> são aquelas que:
       <ol>
-        <li>Não geram efeitos colaterais. Assim, se o retorno de uma função não
-          for usado, ele pode ser descartado com segurança;</li>
-        <li>São idempotentes, ou seja, dados os mesmos parâmetros, o resoltado não
-          se altera.</li>
+        <li><strong>Não geram efeitos colaterais.</strong> Assim, se o retorno de
+          uma função não for usado, ele pode ser descartado com segurança;</li>
+        <li>São <strong>idempotentes</strong>, ou seja, dados os mesmos parâmetros,
+          o resultado não se altera.</li>
       </ol></li>
     <li>Uma vez que as funções são imutáveis e não geram efeito colateral, elas são
-      <em>thread-safe</em>, suportando paralelismo sem necessidade de recursos estranhos
-      ao ecossistema do programa.</li>
-    <li>Para se obter efeitos colaterais, é necessário delegar ao sistema de mais
-      baixo nível ativos que o informem desses efeitos. Por exemplo, Haskell usa
-      <code>IO a</code> para requisitar leitura e escrita.</li>
+      <strong><em>thread-safe</em></strong>, suportando paralelismo sem necessidade de
+        recursos estranhos ao ecossistema do programa.</li>
+    <li>Para se obter efeitos colaterais, é necessário <strong>delegar ao sistema de mais
+      baixo nível</strong> ativos que o informem desses efeitos. Por exemplo, Haskell usa
+      uma mônada chamada <code>IO a</code> para requisitar leitura e escrita.</li>
     <li>A avaliação/validação das funções pode ser <strong>estrita</strong> ou
       <strong>não-estrita</strong>, ou seja, ocorrer imediatamente ou ser postergada
       para quando o dado seja realmente necessário. Com a avaliação não-estrita,
@@ -39,12 +39,12 @@
       definição da
       <a target="_blank" href="https://encyclopediaofmath.org/wiki/Fibonacci_numbers">sequência de Fibonacci</a>:
 <pre class="prettyprint"><code class="haskell">fib = 1 : 1 : zipWith (+) fib (tail fib)</code></pre></li>
-    <li>Recursão: é a capacidade de uma função chamar a si própria. Toda linguagem de
+    <li><strong>Recursão</strong>: é a capacidade de uma função chamar a si própria. Toda linguagem de
       programação funcional implementa <a target="_blank" href="https://tinyurl.com/3pz4x42z">T.C.O.</a>,
       que veremos mais a frente.</li>
     <li>Todos os tipos em programação funcional são <strong>conjuntos</strong>,
       como ℕ, ℤ, ℚ, ℝ e ℂ. Isso permite operações algébricas com tipos através da
-      <strong>álgebra de tipos</strong> ou ADT (Algebraic Data Types).</li>
+      <strong>álgebra de tipos</strong>, ou ADT (<em>Algebraic Data Types</em>).</li>
   </ul>
 
   <h3>Cálculo λ</h3>
@@ -89,7 +89,7 @@
     um multiplicador como parâmetro <code>s</code> para o outro multiplicador.</p>
   <p>Assim, por exemplo, 2 (<code>λsz.s(sz)</code>) vezes 3 (<code>λsz.s(s(sz))</code>)
     é o mesmo que trocar o <code>s</code> do 2 pelo corpo (<code>s(s(sz))</code>)
-    do 3, repetindo-o 2 vezes:</p>
+    do 3, repetindo-o duas vezes:</p>
   <center><code>λsz.s(s(s(s(s(sz)))))</code></center>
   <p>Resulta em 6 aplicações de <code>s</code> sobre <code>z</code>, ou seja, 6.</p>
   <p>A título de curiosidade, a soma é a seguinte função:</p>
