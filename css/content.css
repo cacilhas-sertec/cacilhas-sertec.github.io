@@ -28,13 +28,30 @@
   padding: 0 20px 0 20px;
 }
 
-.content ul li:before {
+.content ul > li:before {
   content: "\27a3\00a0\00a0\00a0";
   color: #fae93f;
   text-shadow: 1px 1px 1px #114BBF;
 }
 
-.content ul li {
+.content ul > li {
+}
+
+.content ol {
+    list-style-type: none;
+    counter-reset: item;
+}
+
+.content ol > li {
+    counter-increment: item;
+}
+
+.content ol > li::before {
+    content: counters(item, ".") ".";
+    color: black;
+    font-weight: bolder;
+    text-shadow: 1px 1px 1px white;
+    margin-right: 1ex;
 }
 
 .content hr {
