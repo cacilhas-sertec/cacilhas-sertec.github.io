@@ -167,17 +167,44 @@ fact = _fact 1
 F = (λa.λn.{corpo recebendo a e n}) 1
 F = λn.{corpo recebendo a=1 e n}</code></pre>
 
+  <p>Com o uso de T.C.O.,  você pode tentar números bastante grandes (pros padrões fatoriais),
+    como por exemplo:</p>
+<pre class="prettyprint"><code class="shell">ghci&gt; fact 100
+93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000
+120</code></pre>
 
-  <script src="js/prettify.js"></script>
+  <h3>Posfácio</h3>
+  <p>Os tipos derivados do <a href="#kind"><em>kind</em>¹</a> <code>Integral</code> suportam números
+    negativos, o que pode levar nosso código a travar. Em vez disso, podemos usar
+    números naturais:</p>
+<pre class="prettyprint"><code class="haskell">module Fact where
+import Numeric.Natural
+
+fact :: Natural -&gt; Natural
+fact = _fact 1
+  where _fact acc 0 = acc
+        _fact acc n = _fact (acc*n) (n-1)</code></pre>
+
+  <p>Assim, ao tentar passar um número negativo, a função retornará um erro de tipo.</p>
+
+  <hr/>
+
+  <p>Você pode baixar o código <a href="/codes/fact.rs">daqui</a>.
+
   <center>
     <iframe
       width="560"
       height="315"
-      src="https://www.youtube.com/embed/Fa2bGoTZXPE"
+      src="https://www.youtube.com/embed/jmwzuLAUgOE"
       title="Programação Funcional"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen
     ></iframe>
   </center>
+
+  <p id="kind" class="footnote">¹<em>Kind</em> é um “tipo de tipos”, tipo superior ou metatipo;
+    uma referência a tipos que compartilham o mesmo comportamento.</p>
+
+  <script src="js/prettify.js"></script>
 </div>

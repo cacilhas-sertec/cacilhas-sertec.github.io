@@ -44,3 +44,7 @@
 .content .float-left {
   float: left;
 }
+
+.footnote {
+  font-size: x-small;
+}
