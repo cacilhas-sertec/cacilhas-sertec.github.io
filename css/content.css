@@ -23,6 +23,18 @@
   text-shadow: 1px 1px 1px #114BBF;
 }
 
+.content blockquote {
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  font-size: x-small;
+  text-shadow: none;
+  border-width: 2px !important;
+  border-style: outset !important;
+  margin: 2em 4em 2em 4em;
+  padding: 0.5ex 1ex 0.5ex 1ex;
+  background: #81868c;
+}
+
 .content ul {
   list-style-type: none;
   padding: 0 20px 0 20px;

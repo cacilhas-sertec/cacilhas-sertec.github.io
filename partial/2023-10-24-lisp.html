@@ -1,0 +1,204 @@
+<div id="2023-10-24-lisp" class="content">
+  <div class="date">24 Outubro 2023</div>
+  <h2>Programação Funcional: LISP</h2>
+
+  <p>LISP é uma família de linguagens de programação funcional que existe desde
+    a década de 1960. Começou a ser definida em 1958 por
+    <a target="_blank" href="http://www-formal.stanford.edu/jmc/">John McCarthy</a>,
+    sendo a segunda linguagem (família de linguagens) mais antiga em uso, perdendo
+    apenas para <a target="_blank" href="https://fortran-lang.org/">FORTRAN</a>.</p>
+  <p>É relevante falarmos em LISP separadamente pois a família se destaca por suas
+    características muito peculiares.</p>
+  <p>Em LISP, toda instrução é a declaração de um lista, que será processada pelo
+    sistema, e os algoritmos são executados a partir disso – daí o nome:
+    <em><strong>LIS</strong>t <strong>P</strong>rocessing</em>, processamento de
+    listas.</p>
+
+  <h3>Linguagens mais relevantes da família</h3>
+  <ul>
+    <li><a target="_blank" href="https://lisp-lang.org/">Common Lisp</a>, linguagem criada
+      e publicada pelo <a target="_blank" href="https://www.ansi.org/">ANSI</a>,
+      registrada sob o código
+      <a target="_blank" href="https://share.ansi.org/Shared%20Documents/Standards%20Action/2018-PDFs/SAV4952.pdf#page=10">ANSI INCITS 226-1994
+        [S2018]</a>;</li>
+    <li><a target="_blank" href="https://www.scheme.org/">Scheme</a>, do
+      <a target="_blank" href="https://web.mit.edu/">M.I.T.</a>, atualmente na
+      versão R<sup>7</sup>RS;</li>
+    <li><a target="_blank" href="https://www.gnu.org/software/guile/">Guile</a>,
+      que é apenas uma implementação de Scheme do <a target="_blank" href="https://www.gnu.org/">projeto GNU</a>
+      na versão R<sup>n</sup>RS, que é totalmente compatível com a R<sup>5</sup>RS,
+      mas suportando razoalmente algumas funcionalidades da R<sup>6</sup>RS e
+      R<sup>7</sup>RS;</li>
+    <li><a target="_blank" href="https://racket-lang.org/">Racket</a>, anteriormente
+      chamada PLT Scheme, um variante do Scheme para o IDE Dr. Racket, separado
+      durante a versão R<sup>5</sup>RS, mas que se desenvolveu como uma linguagem
+      à parte;</li>
+    <li>e <a target="_blank" href="https://www.emacswiki.org/emacs/LearnEmacsLisp">Elisp</a>
+      ou Emacs Lisp, uma linguagem totalmente separada das demais e desenvolvida por
+      <a target="_blank" href="https://stallman.org/">Richard M. Stallman</a> para
+      seu completíssimo IDE
+      <a target="_blank" href="https://www.gnu.org/software/emacs/">Emacs</a>.</li>
+  </ul>
+
+  <h3>Processamento de listas</h3>
+  <p>Em LISP as listas são na verdade <em>cons</em>, pares de valores. O primeiro
+    elemento do par é chamado CAR (<em>Content of Address part of the Register number</em>),
+    e o segundo CDR (<em>Content of Decrement part of the Register number</em>).
+    O CAR representa a função a ser chamada, enquanto o CDR representa os parâmetros.</p>
+  <p>Um <em>cons</em> é representado como:</p>
+<pre class="prettyprint"><code class="lisp">(a . b)</code></pre>
+
+  <blockquote>
+    <p>Desculpem-nos pelo <em>syntax-highlight</em> bagunçado, mas infelizmente
+      <a target="_blank" href="https://github.com/google/code-prettify">Code Prettify</a>
+      da Alphabet (Google) não suporta bem LISP, e seu desenvolvimento foi descontinuado.
+      Então receio que teremos de lidar com isso até encontrarmos uma ferramenta
+      equivalente.</p>
+  </blockquote>
+
+  <p>Onde <code>a</code> é o CAR e <code>b</code> é o CDR.</p>
+  <p>Por exemplo, para somarmos 2 + 3, usamos a lista:</p>
+<pre class="prettyprint"><code class="lisp">(+ . (2 . (3 . ())))</code></pre>
+
+  <p>Que retorna 5. O interpretador irá aplicar:</p>
+<pre class="prettyprint"><code class="lisp">(car . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
+
+  <p>O resultado <code>+</code> informa ao sistema a função a ser executada. Então
+    ele aplicará:</p>
+<pre class="prettyprint"><code class="lisp">(cdr . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
+
+  <p>resultando em <code>(2 . (3 . ()))</code>, que são os parâmetros.</p>
+  <p>Quando o segundo elemento de um <em>cons</em> é outro <em>cons</em>, e assim
+    sucessivamente até que o último elemento seja um <em>cons</em> vazio
+    (<code>()</code>), chamdo <em>unit</em>, essa estrutura é chamada lista, e pode
+    ser representa com um açúcar sintático. Então:</p>
+<pre class="prettyprint"><code class="lisp">(+ . (2 . (3 . ())))</code></pre>
+
+  <p>Pode ser simplificado para:</p>
+<pre class="prettyprint"><code class="lisp">(+ 2 3)</code></pre>
+
+  <p>O mesmo acontece para as chamadas de <code>car</code> e <code>cdr</code>:</p>
+<pre class="prettyprint"><code class="lisp">(car . ('(+ . (2 . (3 . ()))) . ()))
+(cdr . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
+
+  <p>Se tornam:</p>
+<pre class="prettyprint"><code class="lisp">(car '(+ 2 3))
+(cdr '(+ 2 3))</code></pre>
+
+  <h3>Fatorial em LISP</h3>
+  <p>Para a implementação do fatorial, usaremos o Guile, que usa o dialeto Scheme
+    na versão R<sup>n</sup>RS.</p>
+  <p>Primeiramente precisamos definir a função <code>fact</code>:</p>
+<pre class="prettyprint"><code class="lisp">(define (fact n))</code></pre>
+
+  <p>A função <code>define</code> define uma nova função; o primeiro parâmetro é
+    uma lista do nome da função (<code>fact</code>) e seus argumentos
+    (<code>n</code>). O segundo parâmetro é o corpo da função, ainda ausente
+    no código acima.</p>
+
+  <blockquote>
+    <p>LISP em suas implementações <a href="#vanilla"><em>vanilla</em>¹</a>
+      <strong>não</strong> suporta tipagem estática, portanto somos obrigados
+      a fazer quaisquer críticas de tipo explicitamente.</p>
+  </blockquote>
+
+  <p>Em Scheme, você pode usar tanto parêntesis (<code>()</code>) quanto
+    colchetes (<code>[]</code>) como delimitadores de lista, e é recomendável
+    alternar entre eles, dando preferência aos parêntesis, para reduzir a confusão
+    de múltiplos fechamentos de parêntesis.</p>
+  <p>Agora no corpo da função vamos usar um <code>if</code>, função condicional,
+    para retornar o valor de parada caso <code>n</code> seja zero, ou o passo
+    caso contrário:</p>
+<pre class="prettyprint"><code class="lisp">(define (fact n)
+  [if (zero? n)
+      1
+      (* n [fact (- n 1)])])</code></pre>
+
+  <p>Assim como <code>(+&nbsp;a&nbsp;b)</code> soma <code>a</code> e <code>b</code>,
+    <code>(*&nbsp;a&nbsp;b)</code> multiplica <code>a</code> por <code>b</code>.
+    A função <code>-</code> subtrai o segundo parâmetro do primeiro, portanto,
+    <code>(-&nbsp;n&nbsp;1)</code> retorna o antecessor de <code>n</code>.</p>
+  <p>Usando pseudocódigo, você pode traduzir:</p>
+<pre class="prettyprint"><code class="lisp">(* n [fact (- n 1)])</code></pre>
+
+  <p>Para:</p>
+<pre class="prettyprint"><code>n * fact(n - 1)</code></pre>
+
+  <p>E até então já tempos nosso fatorial. Podemos abrir o Guile e carregar o
+    arquivo:</p>
+<pre class="prettyprint"><code class="shell"><strong>guile</strong>
+<em>GNU Guile 3.0.9</em>
+<em>Copyright (C) 1995-2023 Free Software Foundation, Inc.</em>
+
+<em>Guile comes with ABSOLUTELY NO WARRANTY; for details type `,show w'.</em>
+<em>This program is free software, and you are welcome to redistribute it</em>
+<em>under certain conditions; type `,show c' for details.</em>
+
+<em>Enter `,help' for help.</em>
+<em>scheme@(guile-user)&gt;</em> <strong>(load "fact.ss")</strong>
+<em>;;; note: auto-compilation is enabled, set GUILE_AUTO_COMPILE=0</em>
+<em>;;;       or pass the --no-auto-compile argument to disable.</em>
+<em>;;; compiling ./fact.ss</em>
+<em>;;; compiled ~/.cache/guile/ccache/3.0-LE-8-4.6/fact.ss.go</em>
+<em>scheme@(guile-user)&gt;</em> <strong>(fact 0)</strong>
+<em>$1 = 1</em>
+<em>scheme@(guile-user)&gt;</em> <strong>(fact 5)</strong>
+<em>$2 = 120</em>
+</code></pre>
+
+  <h3>T.C.O.</h3>
+  <p>Assim como tivemos de fazer em <a href="#2023-10-17-funcional">Haskell</a>,
+    precisamos tirar proveito do
+    <a target="_blank" href="https://tinyurl.com/3pz4x42z">T.C.O.</a>, caso
+    contrário teremos problemas de empilhamento de funções.</p>
+  <p>Para criar o <em>helper</em> vamos usar o
+    <a target="_blank" href="https://www.usna.edu/Users/cs/wcbrown/courses/F19SI413/lec/l05/lec.html"><code>letrec</code></a>.
+    <code>let</code> é uma função que declara um valor, e <code>letrec</code> é
+    sua versão com suporte a recursão.</p>
+<pre class="prettyprint"><code class="lisp">(define (fact n)
+  [letrec ((_fact (lambda (acc n)
+                    [if (zero? n)
+                        acc
+                        (_fact [* n acc] [- n 1])]) ))
+    (_fact 1 n)])</code></pre>
+
+  <p>Este é exatamente o mesmo algoritmo que usamos no artigo anterior, usando
+    o valor de parada (0!&nbsp;=&nbsp;1) para inicializar o acumulador.</p>
+  <p>Você pode (e deve) testar este código, verificando que tudo continua funcionando
+    corretamente</p>
+
+  <h3>LISP é lento</h3>
+  <p>Na década de 1960 LISP era nada além de uma promessa, pois necessitava mais
+    processamento do que os computadores da época podiam fornecer – o que por si
+    só não é uma argumento contra a(s) linguagem(ns), uma vez que ele vale para
+    praticamente <strong>todas</strong> as plataformas da atualidade.</p>
+  <p>No entanto, como LISP foi descrito e definido naquela época, ganhou o estigma,
+    que carrega até hoje. Vocês ouvirão muito que, ao contrário de Haskell,
+    linguagem amplamente reconhecida por seu desempenho e uso espartano de recursos,
+    as implementações de LISP não conseguem lidar com processamento mais sério.</p>
+  <p>Para desbancar de uma vez por todas este mito, execute sem medo:</p>
+<pre class="prettyprint"><code class="shell"><em>scheme@(guile-user)&gt;</em> <strong>(fact 1000)</strong></code></pre>
+
+  <hr/>
+
+  <p>Você pode baixar o código
+    <a target="_blank" href="https://gist.github.com/cacilhas/3f63754bbe48e732c3e79064567524b2">deste <em>gist</em></a>.</p>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/WF1IDpoV3Ig"
+      title="LISP"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+
+  <p id="vanilla" class="footnote">¹<em>Vanilla</em> (baunilha) é um jargão técnico
+    usado para dizer que uma tecnologia está sendo usada em sua forma mais pura,
+    sem qualquer adição ou modificação.</p>
+
+  <script src="js/prettify.js"></script>
+</div>
