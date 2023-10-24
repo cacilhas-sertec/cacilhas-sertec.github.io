@@ -7,3 +7,31 @@
   font-family: 'Symbols Nerd Font';
   src: url('/fonts/SymbolsNerdFont.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Medium.ttf') format('trutype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-MediumItalic.ttf') format('trutype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Bold.ttf') format('trutype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-BoldItalic.ttf') format('trutype');
+  font-weight: bold;
+  font-style: italic;
+}
