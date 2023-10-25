@@ -22,7 +22,7 @@
       <a target="_blank" href="https://share.ansi.org/Shared%20Documents/Standards%20Action/2018-PDFs/SAV4952.pdf#page=10">ANSI INCITS 226-1994
         [S2018]</a>;</li>
     <li><a target="_blank" href="https://www.scheme.org/">Scheme</a>, do
-      <a target="_blank" href="https://web.mit.edu/">M.I.T.</a>, atualmente na
+      <a target="_blank" href="https://web.mit.edu/">MIT</a>, atualmente na
       versão R<sup>7</sup>RS;</li>
     <li><a target="_blank" href="https://www.gnu.org/software/guile/">Guile</a>,
       que é apenas uma implementação de Scheme do <a target="_blank" href="https://www.gnu.org/">projeto GNU</a>
@@ -30,7 +30,7 @@
       mas suportando razoalmente algumas funcionalidades da R<sup>6</sup>RS e
       R<sup>7</sup>RS;</li>
     <li><a target="_blank" href="https://racket-lang.org/">Racket</a>, anteriormente
-      chamada PLT Scheme, um variante do Scheme para o IDE Dr. Racket, separado
+      chamada PLT Scheme, um variante do Scheme para o IDE Dr. Racket, separada
       durante a versão R<sup>5</sup>RS, mas que se desenvolveu como uma linguagem
       à parte;</li>
     <li>e <a target="_blank" href="https://www.emacswiki.org/emacs/LearnEmacsLisp">Elisp</a>
@@ -103,8 +103,8 @@
   </blockquote>
 
   <p>Em Scheme, você pode usar tanto parêntesis (<code>()</code>) quanto
-    colchetes (<code>[]</code>) como delimitadores de lista, e é recomendável
-    alternar entre eles, dando preferência aos parêntesis, para reduzir a confusão
+    colchetes (<code>[]</code>) para delimitar listas, e é recomendável alternar
+    entre eles, dando preferência aos parêntesis, para reduzir a confusão
     de múltiplos fechamentos de parêntesis.</p>
   <p>Agora no corpo da função vamos usar um <code>if</code>, função condicional,
     para retornar o valor de parada caso <code>n</code> seja zero, ou o passo
@@ -149,12 +149,12 @@
   <h3>T.C.O.</h3>
   <p>Assim como tivemos de fazer em <a href="#2023-10-17-funcional">Haskell</a>,
     precisamos tirar proveito do
-    <a target="_blank" href="https://tinyurl.com/3pz4x42z">T.C.O.</a>, caso
-    contrário teremos problemas de empilhamento de funções.</p>
+    <a target="_blank" href="https://tinyurl.com/3pz4x42z">T.C.O.</a>, ou teremos
+    problemas de empilhamento de funções.</p>
   <p>Para criar o <em>helper</em> vamos usar o
     <a target="_blank" href="https://www.usna.edu/Users/cs/wcbrown/courses/F19SI413/lec/l05/lec.html"><code>letrec</code></a>.
-    <code>let</code> é uma função que declara um valor, e <code>letrec</code> é
-    sua versão com suporte a recursão.</p>
+    <code>let</code> é uma função que declara incógnitas com seus valores,
+    e <code>letrec</code> é sua versão com suporte a recursão.</p>
 <pre class="prettyprint"><code class="lisp">(define (fact n)
   [letrec ((_fact (lambda (acc n)
                     [if (zero? n)
@@ -162,20 +162,20 @@
                         (_fact [* n acc] [- n 1])]) ))
     (_fact 1 n)])</code></pre>
 
-  <p>Este é exatamente o mesmo algoritmo que usamos no artigo anterior, usando
-    o valor de parada (0!&nbsp;=&nbsp;1) para inicializar o acumulador.</p>
+  <p>Este é exatamente o mesmo algoritmo que usamos no artigo anterior,
+    inicializando o acumulador com o valor de parada (0!&nbsp;=&nbsp;1).</p>
   <p>Você pode (e deve) testar este código, verificando que tudo continua funcionando
-    corretamente</p>
+    corretamente.</p>
 
   <h3>LISP é lento</h3>
-  <p>Na década de 1960 LISP era nada além de uma promessa, pois necessitava mais
+  <p>Na década de 1960 LISP era nada além de uma promessa, pois necessitava de mais
     processamento do que os computadores da época podiam fornecer – o que por si
-    só não é uma argumento contra a(s) linguagem(ns), uma vez que ele vale para
-    praticamente <strong>todas</strong> as plataformas da atualidade.</p>
-  <p>No entanto, como LISP foi descrito e definido naquela época, ganhou o estigma,
+    só não é uma argumento contra a(s) linguagem(ns), uma vez que vale para
+    praticamente <strong>todas</strong> as plataformas modernas.</p>
+  <p>No entanto, como LISP foi descrita e definida naquela época, e ganhou o estigma,
     que carrega até hoje. Vocês ouvirão muito que, ao contrário de Haskell,
     linguagem amplamente reconhecida por seu desempenho e uso espartano de recursos,
-    as implementações de LISP não conseguem lidar com processamento mais sério.</p>
+    as implementações de LISP não conseguem lidar com processamento mais complexo.</p>
   <p>Para desbancar de uma vez por todas este mito, execute sem medo:</p>
 <pre class="prettyprint"><code class="shell"><em>scheme@(guile-user)&gt;</em> <strong>(fact 1000)</strong></code></pre>
 
