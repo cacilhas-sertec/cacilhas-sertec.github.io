@@ -1,0 +1,253 @@
+<div id="2023-10-31-oo" class="content">
+  <div class="date">31 Outubro 2023</div>
+  <img class="float-left" src="/img/gorm.png" alt="O.O." height="92" width="92" />
+  <h2>Orientação a Objectos</h2>
+
+  <p>Orientação a objetos é um dos paradigmas mais populares de todos, que consiste
+    em criar atores que trocam mensagens entre si. O programa consiste nessa troca
+    de mensagens entre os atores, que podem ser números, <em>strings</em>, conectores,
+    ou artefatos ainda mais complexos.</p>
+  <p>Quando um ator recebe uma mensagem, ele a trata usando um tipo especial de
+    função chamada <strong>método</strong>, que é uma função dentro do contexto do
+    artefato em si, tendo acesso a todos os recursos privados.</p>
+  <p>Há diversos conceitos dentro da orientação a objetos, como por exemplo a forma
+    como você pode criar seus atores – chamados “objetos”, daí programação orientada
+    a objetos.</p>
+  <p>Há duas formas mais comuns de criação de objetos:</p>
+  <ol>
+    <li>Na orientação a objetos baseada em classes, você cria moldes de objetos,
+      chamados <strong>classes</strong>, e os instancia, ou seja,  gera
+      <strong>instâncias</strong> a partir desses moldes.</li>
+    <li>Na orientação a objetos por prototipagem, você cria seus objetos diretamente,
+      sem a necessidade de uma classe ou molde, e pode clonar os objetos para criar
+      novos com a mesma estrutura. O objeto original é chamado <strong>protótipo</strong>,
+      e os objetos criados a partir dele são chamados <strong>clones</strong>.</li>
+  </ol>
+
+  <h3>Herança</h3>
+  <p>Quando trabalhando com classes, há alguns conceitos derivados que estendem a
+    linguagem de um jeito muito poderoso, como por exemplo a herança.</p>
+  <p>Herança consiste em criar uma classe que herda atributos e métodos de outra
+    classe. Nesse caso, a classe original é chamada de classe pai, e as que heram
+    seus atributos são as classes filhas.</p>
+
+  <h3>Orientação a Aspectos</h3>
+  <p>Dentro da orientação a objetos, outro conceito poderoso é a orientação a aspectos.
+    Ela consiste em criar as classes com o mínimo de atributos e métodos necessários
+    para classificá-las, muitas vezes podendo ser classes vazias. Então essas
+    classes são estendidas usando outras classes incompletas, chamadas <strong>aspectos</strong>,
+    <em>concerns</em>, <em>mixins</em>, ou ainda outros nomes, dependendo da
+    linguagem de programação e daquela comunidade de programadores em específico.</p>
+  <p>Por exemplo, podemos ter a classe <code>Ave</code>, que só possui atributos comuns
+    a todas as aves, como por exemplo ter um bico, ser tetrápode e bípede.</p>
+  <p>Então criamos o aspecto <code>Voar</code>, e todas as aves voadoras serão
+    instanciadas a partir de <code>Ave+Voar</code>. Podemos ter também o aspecto
+    <code>Cantar</code>, e daí aves que voam e cantam serão instanciadas a partir de
+    <code>Ave+Voar+Cantar</code>.</p>
+  <p>Uma avestruz poderia ser <code>Ave+Correr</code>, enquanto um pinguim seria
+    <code>Ave+Nadar</code>. Podemos ter o mergulhão: <code>Ave+Voar+Nadar</code>,
+    e por aí vai. Talvez a galinha possa ser:</p>
+  <center><pre><code>Ave+Quase[Voar]+Quase[Correr]+Quase[Cantar]</code></pre></center>
+
+  <p>E assim podemos ir compondo nossas aves conforme a necessidade, sem qualquer
+    gordura nos objetos.</p>
+  <p>Outra vantagem é que, como métodos e atributos necessários para a ave voar
+    estão no aspecto <code>Voar</code>, e não em <code>Ave</code>, podemos reutilizá-los
+    para morcegos, por exemplo, em <code>Mamífero+Voar</code>.</p>
+
+  <h3>Primeiras Linguagens Orientadas a Objetos</h3>
+  <p>A primeira linguagem de programação orientada a Objetos foi <strong>Simula Ⅰ</strong>,
+    criada em 1962 como um <em>superset</em> da
+    <a target="_blank" href="https://www.masswerk.at/algol60/report.htm">ALGOL 60</a>
+    (suportada hoje pelo
+    <a target="_blank" href="https://docs.racket-lang.org/algol60/">DrRacket</a>),
+    e logo em seguida
+    <a target="_blank" href="https://www.mn.uio.no/ifi/personer/vit/dag/simula67/index.shtml">Simula 67</a>.</p>
+  <p>Mas a orientação a objetos só ganhou popularidade com o advento do
+    <strong>Smalltalk-80</strong>, criado durante a década de 1970 como um projeto do
+    <a target="_blank" href="https://www.parc.com/">Xerox PARC</a>. Mais tarde o
+    projeto foi adquirido pela <a target="_blank" href="https://www.disney.com/">Disney</a>,
+    que o redistribui gratuitamente até hoje com o nome
+    <a target="_blank" href="https://squeak.org/">Squeak</a> – sim, em homenagem ao
+    Mickey Mouse. 🤷</p>
+  <p>Outras implementações famosas de Smalltalk são
+    <a target="_blank" href="https://pharo.org/">Pharo</a>,
+    <a target="_blank" href="https://www.cincomsmalltalk.com/main/products/visualworks/">Cincom VisualWorks</a>,
+    <a target="_blank" href="https://www.gnu.org/software/smalltalk/">GNU Smalltalk</a>,
+    <a target="_blank" href="https://www.strongtalk.org/">Strongtalk</a> e Smalltalk/X,
+    além do <a target="_blank" href="https://gemtalksystems.com/small-business/gsdevkit/">Open-source Development Kit for GemStone/S 64 Bit</a>,
+    uma coleção de programas para criação de um serviço <em>on-line</em> com persistência
+    de dados usando Smalltalk como linguagem de programação.</p>
+  <p>Em 1981, Brad Cox e Tom Love criaram o
+    <a target="_blank" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html">Objective-C</a>,
+    que é basicamente C com instruções Smalltalk <em>enfiados</em> na linguagem de modo
+    alienígena. Na mesma década, a
+    <a target="_blank" href="https://web.archive.org/web/19970412194822/http://www.next.com/">NeXT</a>,
+    empresa de Steve Jobs, adquiriu os direitos da linguagem, assim com fez com o <em>mouse</em> do PARC,
+    para criar seu sistema operacional NeXTSTEP e sua interface de desenvolvimento
+    de aplicações (API), o
+    <a target="_blank" href="https://gnustep.github.io/resources/OpenStepSpec/OpenStepSpec.html">OpenStep</a>.
+    Na década seguinte, a
+    <a target="_blank" href="https://www.apple.com/">Apple</a> viria a adquirir a empresa
+    NeXT, junto com os direitos sobre o Objective-C.</a></p>
+  <p>Em 1983, <a target="_blank" href="https://www.stroustrup.com/">Bjarne Stroustrup</a>
+    desenvolveu a linguagem <a target="_blank" href="https://cplusplus.com/">C++</a>,
+    só lançada em 1985 sob o nome de “C with Classes”, o que descreve bem a linguagem
+    em seus primórdios, que era apenas C com o <code>struct</code> transformado
+    em <code>class</code>, ganhando recursos de orientação a objetos. A linguagem vem
+    crescendo desde então, se distanciando do C original, que é uma linguagem de tipagem
+    fraca, o que não é conveniente para o orientação a objetos.</p>
+
+  <h3>Orientação a Objetos e Programação Funcional são excludentes entre si?</h3>
+  <p>Resposta curta: <strong>NÃO</strong>.</p>
+  <p>Vamos usar como exemplo para os códigos
+    <a target="_blank" href="https://scala-lang.org/">Scala</a>, uma linguagem
+    funcional com recursos avançados tanto de programação funcional, quanto de
+    orientação a objetos.</p>
+
+  <h3>Revisando o Algoritmo Fatorial</h3>
+  <p>Em resumo:</p>
+  <center>0! = 1<br/>n! = n × (n-1)!</center>
+
+  <p>Para implementar isso, vamos criar um método para os números inteiros que
+    retorne 1 se o ator for 0, e o  passo se for outro:</p>
+<pre class="prettyprint"><code class="Smalltalk">!Integer methodsFor: 'factorial'!
+    fact
+        (self = 0)
+            ifTrue:  [↑ 1]
+            ifFalse: [↑ n * ((n-1) fact)].
+    !
+!!</code></pre>
+
+  <p>Então, para executar o fatorial, basta passar a mensagem <code>fact</code>
+    para o número.</p>
+
+  <h3>Abordagem Ingênua</h3>
+  <p>Vamos começar com uma abordagem bem simplória, apenas criando um aspecto
+    para os números inteiros que retorne o fatorial usando o algoritmo mais <em>naïve</em>
+    possível.</p>
+  <p>Para isso precisamos de um objeto que contenha os recursos que iremos criar:</p>
+<pre class="prettyprint"><code class="Scala">object Fact:</code></pre>
+
+  <p>Agora, dentro dele, vamos criar nosso aspecto, que em Scala é chamado
+    <strong>extensão</strong>:</p>
+<pre class="prettyprint"><code class="Scala">  extension(n: Int) def fact: BigInt = n match</code></pre>
+
+  <p>Essa extensão é uma  função que “casa” o valor do número inteiro, se for
+    zero, retorna 1:</p>
+<pre class="prettyprint"><code class="Scala">    case 0 =&gt; 1</code></pre>
+
+  <p>Caso contrário, calcula o passo:</p>
+<pre class="prettyprint"><code class="Scala">    case n =&gt; n * (n-1).fact</code></pre>
+
+  <p>Por último, precisamos trazer a extensão para o contexto atual:</p>
+<pre class="prettyprint"><code class="Scala">import Fact._</code></pre>
+
+  <p>E com isso nosso fatorial já funciona:</p>
+<pre class="prettyprint"><code class="shell"><em>@</em> <strong>0.fact</strong>
+<em>res1: BigInt = 1</em>
+<em>@</em> <strong>5.fact</strong>
+<em>res2: BigInt = 120</em>
+<em>@</em> <strong>10.fact</strong>
+<em>res3: BigInt = 3628800</em></code></pre>
+
+  <p>Mas temos pelo menos dois problemas:</p>
+  <ol>
+    <li>Não estamos lidando com números negativos;</li>
+    <li>Não implementamos <a target="_blank" href="https://exploringjs.com/es6/ch_tail-calls.html">T.C.O.</a></li>
+  </ol>
+
+  <p>Então precisamos de uma interpretação mais rebuscada.</p>
+
+  <h3>Números Naturais</h3>
+  <p><a target="_blank" href="https://gist.github.com/cacilhas/f1e3c54eb53d81c916a074e5ac5ed760">Esta</a>
+    é a implementação canônica dos números naturais, mas ela é demais para o que
+    precisamos. Precisamos apenas dos números inteiros, exceto os negativos.</p>
+  <p>Vamos começar por criar a classe que representa os números naturais, que será:</p>
+    <ul>
+      <li><code>final</code>, ou seja, não pode ser usada em herança; </li>
+      <li><code>case class</code>, o que nos dá alguns recursos prontos, como
+        aspectos para comparação, serialização e instanciação;</li>
+      <li>de construtor privado, ou seja, somente pode ser instanciada dentro de
+        nosso escopo controlado;</li>
+      <li>e uma <em>value class</em> (<code>extends AnyVal</code>), ou seja, a
+        classe só existe no código, não existe como entidade no objeto executável
+        final.</li>
+    </ul>
+
+  <p>Então sua assinatura será:</p>
+<pre class="prettyprint"><code class="Scala">final case class Natural private(value: Int) extends AnyVal</code></pre>
+
+  <p>E isso é tudo que a classe <code>Natural</code> em si precisa, o resto será
+    implementado com conversores implícitos, que vão invalidar números negativos.</p>
+  <p>Vamos agora ao objeto que encapsula os conversores, que serão de inteiro para
+    natural, dando erro para números negativos, e de natural para inteiro:</p>
+<pre class="prettyprint"><code class="Scala">object Natural:
+  given Conversion[Int, Natural] with
+    def apply(i: Int): Natural =
+      if (i &gt;= 0) Natural(i)
+      else throw new IllegalArgumentException(f"invalid negative number ${i}")
+
+  give Conversion[Natural, Int] = (n: Natural) =&gt; n.value</code></pre>
+
+  <p>Agora vamos trazer os conversores para o contexto atual:</p>
+<pre class="prettyprint"><code class="Scala">import Natural._</code></pre>
+
+  <p>Já com suporte aos naturais, vamos criar nosso aspecto que extende os naturais
+    acrescentando o método fatorial, usando T.C.O.</p>
+  <p>Para ajudar a suportar T.C.O., Scala tem uma anotação chamada <code>tailrec</code>:</p>
+<pre class="prettyprint"><code class="Scala">import scala.annotation.tailrec</code></pre>
+
+  <p>Vamos criar o ator que encapsula o aspecto que extende os naturais com o fatorial:</p>
+<pre class="prettyprint"><code class="Scala">object Fact:
+  extension(n: Natural)
+    def fact: BigInt = _fact(1, n)</code></pre>
+
+  <p>Reparem que inicializamos o aculumador com 1, quer é o fatorial de zero (0!).</p>
+  <p>Agora temos de criar o método <code>_fact</code>, que é privado e com suporte a
+    T.C.O.:</p>
+<pre class="prettyprint"><code class="Scala">  @tailrec
+  private def _fact(acc: BigInt, n: Natural):  BigInt =
+    n match
+      case Natural(0) =&gt; acc
+      case Natural(n) =&gt; _fact(acc * n, n - 1)</code></pre>
+
+  <p>E vamos trazer o aspecto para o contexto atual:</p>
+<pre class="prettyprint"><code class="Scala">import Fact._</code></pre>
+
+  <p>Está pronto o fatorial com números naturais (não-negativos) e T.C.O. Podemos
+    experimentar:</p>
+<pre class="prettyprint"><code class="shell"><em>@</em> <strong>0.fact</strong>
+<em>res1: BigInt = 1</em>
+<em>@</em> <strong>-1.fact</strong>
+<em>java.lang.IllegalArgumentException: invalid negative number -1</em>
+<em>  ammonite.$sess.cmd0$Natural$given_Conversion_Int_Natural$.apply(cmd0.sc:1529)</em>
+<em>  ammonite.$sess.cmd3$.<clinit>(cmd3.sc:1543)</em>
+
+
+<em>@</em> <strong>5.fact</strong>
+<em>res3: BigInt = 120</em>
+<em>@</em> <strong>1_000.fact</strong>
+<em>res4: BigInt = 402387260077093773543702433923003985719374864210714632543799910429938512398629020592044208486969404800479988610197196058631666872994808558901323829669944590997424504087073759918823627727188732519779505950995276120874975462497043601418278094646496291056393887437886487337119181045825783647849977012476632889835955735432513185323958463075557409114262417474349347553428646576611667797396668820291207379143853719588249808126867838374559731746136085379534524221586593201928090878297308431392844403281231558611036976801357304216168747609675871348312025478589320767169132448426236131412508780208000261683151027341827977704784635868170164365024153691398281264810213092761244896359928705114964975419909342221566832572080821333186116811553615836546984046708975602900950537616475847728421889679646244945160765353408198901385442487984959953319101723355556602139450399736280750137837615307127761926849034352625200015888535147331611702103968175921510907788019393178114194545257223865541461062892187960223838971476088506276862967146674697562911234082439208160153780889893964518263243671616762179168909779911903754031274622289988005195444414282012187361745992642956581746628302955570299024324153181617210465832036786906117260158783520751516284225540265170483304226143974286933061690897968482590125458327168226458066526769958652682272807075781391858178889652208164348344825993266043367660176999612831860788386150279465955131156552036093988180612138558600301435694527224206344631797460594682573103790084024432438465657245014402821885252470935190620929023136493273497565513958720559654228749774011413346962715422845862377387538230483865688976461927383814900140767310446640259899490222221765904339901886018566526485061799702356193897017860040811889729918311021171229845901641921068884387121855646124960798722908519296819372388642614839657382291123125024186649353143970137428531926649875337218940694281434118520158014123344828015051399694290153483077644569099073152433278288269864602789864321139083506217095002597389863554277196742822248757586765752344220207573630569498825087968928162753848863396909959826280956121450994871701244516461260379029309120889086942028510640182154399457156805941872748998094254742173582401063677404595741785160829230135358081840096996372524230560855903700624271243416909004153690105933983835777939410970027753472000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</em></code></pre>
+
+  <hr/>
+  <p>Esse foi o fatorial em orientação a objetos usando Scala. Você consegue baixar
+    o códigos do Gist:</p>
+  <ul>
+    <li><a target="_blank" href="https://gist.github.com/cacilhas/4623d84e19653b3d434f1f84befc5b0a"><code>natural.sc</code></a></li>
+    <li><a target="_blank" href="https://gist.github.com/cacilhas/a56c78c34a261caebd2ae1c58023b20c"><code>fact.sc</code></a></li>
+  </ul>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/AWIuE28B5KA"
+      title="Orientação a Objetos"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+  <script src="js/prettify.js"></script>
+</div>
