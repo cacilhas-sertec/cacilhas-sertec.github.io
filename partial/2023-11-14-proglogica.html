@@ -1,0 +1,279 @@
+<div id="2023-11-14-proglogica" class="content">
+  <div class="date">14 Novembro 2023</div>
+  <img class="float-left" src="/img/swi.png" alt="SWI" height="92" width="92" />
+  <h2>Programação Lógica</h2>
+
+  <p>Há dois tipos de programação declarativa: a
+    <a href="#2023-10-17-funcional">funcional</a> e a <strong>lógica</strong>,
+    ambas originalmente baseadas no
+    <a target="_blank" href="https://plato.stanford.edu/entries/lambda-calculus/">cálculo λ</a>
+    de <a target="_blank" href="https://plato.stanford.edu/entries/church/">Alonzo Church</a>,
+    sendo a programação funcional muito mais fiel ao cálculo λ do que a lógica.</p>
+  <p>Na programação funcional, declaramos funções e perguntamos o resultado dessas
+    funções dados determinados parâmetros.</p>
+  <p>Na programação lógica, declaramos um domínio de fatos (ou predicados),
+    e então fazemos perguntas (<em>queries</em>) a esse domínio, se determinada
+    afirmação é verdadeira ou falsa.</p>
+  <p>A primeira descrição de uma linguagem lógico-declarativa foi feita por
+    <a target="_blank" href="https://www.kestrel.edu/people/green/">Cordell Green</a>
+    na década de 1950, chamada <strong>Planner</strong>, muito parecida com a
+    gramática formal para linguagem lógica. As primeiras implementações foram
+    feitas como um <em>subset</em> de
+    <a target="_blank" href="https://lisp-lang.org/">LISP</a> na década de 1960,
+    mas somente da década seguinte, de 1970, surgiu a linguagem que viria a se tornar
+    a referência de programação lógica,
+    <a target="_blank" href="https://sites.google.com/site/prologforprogrammers/">Prolog</a>.</p>
+  <p>Atualmente programação lógica é mais usada para consultas de bancoѕ de dados,
+    em linguagens como
+    <a target="_blank" href="https://blog.ansi.org/sql-standard-iso-iec-9075-2023-ansi-x3-135/">SQL</a>,
+    <a target="_blank" href="https://datalog.sourceforge.net/datalog.html">Datalog</a>, e
+    <a target="_blank" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html">CWL Query</a>,
+    mas não é restrita a isso.</p>
+
+  <h3>Fatorial em Prolog</h3>
+  <p>Vamos escrever um fatorial simples usando
+    <a target="_blank" href="https://www.swi-prolog.org/">SWI Prolog</a>.</p>
+  <p>Vamos chamar o arquivo de <code>fact.pl</code>. Todo módulo Prolog precisa
+    ser iniciado declarando o nome do módulo e quais predicados serão exportados:</p>
+
+<pre class="prettyprint"><code class="prolog">:- module(fact, [fact/2]).</code></pre>
+
+  <p>Aqui declaramos o módulo com o nome <code>fact</code> e dizemos que ele exporta
+    o predicado <code>fact/2</code>, ou seja, que lida com dois termos.</p>
+  <p>No caso, os dois termos serão o índice do fatorial e o valor. Podemos fazer
+    a primeira declaração como:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F)</code></pre>
+
+  <p>Lembre-se que, na programação declarativa, não dizemos ao programa como ele
+    deve resolver, apenas declaramos nossas “verdades”. No caso precisamos dizer
+    <strong>quando</strong> <code>fact(N, F)</code> é verdadeiro, e fazemos isso com
+    o <em>token</em> <code>:-</code>:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N)</code></pre>
+
+  <p>Aqui dizemos que ele é verdadeiro quando <code>N</code> é um número inteiro,
+    mas só isso não basta! Como estamos definindo o passo, então <code>N</code>
+    também precisa ser maior que zero:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+              N &gt; 0</code></pre>
+
+  <p>A vírgula significa “e” lógico (conjunção lógica), então, <code>fact(N,&nbsp;F)</code>
+    é verdadeiro quando <code>N</code> for um inteiro e for maior que zero.</p>
+  <p>No entanto isso ainda não define o fatorial. Precisamos calcular o fatorial
+    do predecessor de <code>N</code>, que, na linguagem Prolog, é definido como o número
+    para o qual <code>N</code> é sucessor:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+              N &gt; 0,
+              succ(N1, N),
+              fact(N1, F1)</code></pre>
+
+  <p>Até aqui já sabemos que <code>N</code> é um número inteiro maior que zero,
+    e que o fatorial de seu antecessor é <code>F1</code>. Sendo assim, o fatorial
+    de <code>N</code> (<code>F</code>) é <code>N</code> vezes <code>F1</code>:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+              N &gt; 0,
+              succ(N1, N),
+              fact(N1, F1),
+              F is N * F1.</code></pre>
+
+  <p>O ponto encerra a definição do predicado.</p>
+  <p>Agora é hora de definir a parada, que é a parte mais fácil, pois é uma condição
+    muito bem conhecida:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(0, 1).</code></pre>
+
+  <p>E só isso já funciona. Podemos usar o
+    <a target="_blank" href="https://pt.wikipedia.org/wiki/REPL">REPL</a> do SWI
+    Prolog, <code>swipl</code>, para testar:</p>
+
+<pre class="prettyprint"><code class="sh"><em>sh$</em> <strong>swipl -q</strong>
+<em>?-</em> <strong>[fact].</strong>
+<em>true.</em>
+
+<em>?-</em> <strong>fact(0, X).</strong>
+<em>X = 1.</em>
+
+<em>?-</em> <strong>fact(5, X).</strong>
+<em>X = 120.</em></code></pre>
+
+  <h3>T.C.O.</h3>
+  <p>Porém não estamos tirando proveito do <u title="Tail-Call Optimisation">T.C.O.</u>,
+    o que pode levar a um estouro de pilha. Para usá-lo, a última declaração
+    precisa ser a recursão.</p>
+  <p>Para isso vamos criar um predicato auxiliar <code>fact/3</code>. Então o
+    predicado <code>fact/2</code> ficará apenas assim:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N), fact(N, 1, F).</code></pre>
+
+  <p>Os termos de <code>fact/3</code> serão o índice, o acumulador e o fatorial.
+    O acumulador inicia com 1 pois é o fatorial de zero (0!). Vamos então direto
+    a sua definição completa:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, A, F) :- N > 0,
+                 succ(N1, N),
+                 prod(N, A, A1),
+                 fact(N1, A1, F).
+fact(0, A, A).</code></pre>
+
+  <p>declaramos o predecessor da mesma forma que antes, mas dissemos que o produto
+    de <code>N</code> pelo acumulador é <code>A1</code>, e o enviamos como acumulador
+    para a próxima iteração.</p>
+  <p>Porém <code>prod/3</code> <strong>não existe</strong>, vamos criá-lo!</p>
+
+<pre class="prettyprint"><code class="prolog">prod(A, B, P) :- P is A * B.</code></pre>
+
+  <p>Agora você já pode testá-lo, inclusive com valores bem grandes.</p>
+
+<pre class="prettyprint"><code class="sh"><em>sh$</em> <strong>swipl -q</strong>
+<em>?-</em> <strong>[fact].</strong>
+<em>true.</em>
+
+<em>?-</em> <strong>fact(0, X).</strong>
+<em>X = 1.</em>
+
+<em>?-</em> <strong>fact(5, X).</strong>
+<em>X = 120.</em>
+
+<em>?-</em> <strong>fact(1000, X).</strong>
+<em>X = 402387260077093773543702433923003985719374864210714632543799910429938512398629020592044208486969404800479988610197196058631666872994808558901323829669944590997424504087073759918823627727188732519779505950995276120874975462497043601418278094646496291056393887437886487337119181045825783647849977012476632889835955735432513185323958463075557409114262417474349347553428646576611667797396668820291207379143853719588249808126867838374559731746136085379534524221586593201928090878297308431392844403281231558611036976801357304216168747609675871348312025478589320767169132448426236131412508780208000261683151027341827977704784635868170164365024153691398281264810213092761244896359928705114964975419909342221566832572080821333186116811553615836546984046708975602900950537616475847728421889679646244945160765353408198901385442487984959953319101723355556602139450399736280750137837615307127761926849034352625200015888535147331611702103968175921510907788019393178114194545257223865541461062892187960223838971476088506276862967146674697562911234082439208160153780889893964518263243671616762179168909779911903754031274622289988005195444414282012187361745992642956581746628302955570299024324153181617210465832036786906117260158783520751516284225540265170483304226143974286933061690897968482590125458327168226458066526769958652682272807075781391858178889652208164348344825993266043367660176999612831860788386150279465955131156552036093988180612138558600301435694527224206344631797460594682573103790084024432438465657245014402821885252470935190620929023136493273497565513958720559654228749774011413346962715422845862377387538230483865688976461927383814900140767310446640259899490222221765904339901886018566526485061799702356193897017860040811889729918311021171229845901641921068884387121855646124960798722908519296819372388642614839657382291123125024186649353143970137428531926649875337218940694281434118520158014123344828015051399694290153483077644569099073152433278288269864602789864321139083506217095002597389863554277196742822248757586765752344220207573630569498825087968928162753848863396909959826280956121450994871701244516461260379029309120889086942028510640182154399457156805941872748998094254742173582401063677404595741785160829230135358081840096996372524230560855903700624271243416909004153690105933983835777939410970027753472000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.</em></code></pre>
+
+  <h3>D.C.G.</h3>
+  <p>Prolog possui uma sintax para definição de
+    <a target="_blank"
+       title="Definite Clause Grammar"
+       href="https://www.metalevel.at/prolog/dcg">gramática de cláusula definida</a>,
+    que pode ser usada aqui.</p>
+
+  <p>Basicamente uma D.C.G. é identificada por algo no formato:</p>
+
+<pre class="prettyprint"><code class="prolog">grammar(..., A0, R) :- a(A0, A1),
+                       b(A1, A2),
+                       c(A2, A3),
+                       ...
+                       z(An, R).</code></pre>
+
+  <p>Que se converte em:</p>
+
+<pre class="prettyprint"><code class="prolog">grammar(...) --&gt; a,
+                 b,
+                 c,
+                 ...
+                 z.</code></pre>
+
+  <p>E temos quase isso, não fosse pelos dois <em>guards</em> <code>N&nbsp;&gt;&nbsp;0</code>
+    e <code>succ(N1,&nbsp;N)</code>. Eles deveriam ter o formato:</p>
+  <ul>
+    <li><code>dcg(N &gt; 0, A, A)</code></li>
+    <li><code>dcg(succ(N1, N), A, A)</code></li>
+  </ul>
+
+  <p>Que bom que Prolog tem um sintaxe para isso! São as chaves:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N) --&gt; { N > 0 },
+            { succ(N1, N) },
+            prod(N),
+            fact(N1).
+fact(0, A, A).</code></pre>
+
+  <p>Esse código funciona exatamente como o anterior, só que é mais limpo de ser lido.</p>
+
+  <h3>Postergando a Execução</h3>
+
+  <p>Vamos voltar ao código original e tentar uma abordagem totalmente diferente
+    agora, que não depende de predicado auxiliar:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+              N &gt; 0,
+              succ(N1, N),
+              fact(N1, F1),
+              F is N * F1.
+fact(0, 1).</code></pre>
+
+  <p>Podemos inverter a ordem de <code>fact(N1,&nbsp;F1)</code> e
+    <code>F&nbsp;is&nbsp;N&nbsp;*&nbsp;F1</code>, para que a recursão seja o
+    último termo avaliado:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+              N &gt; 0,
+              succ(N1, N),
+              F is N * F1,
+              fact(N1, F1).
+fact(0, 1).</code></pre>
+
+  <p>Só que isso causa um erro, já que o sistema não sabe o valor de <code>F1</code>
+    quando calcula <code>F</code> – e <code>is/2</code> tem execução estrita.</p>
+
+  <p>Para que isso funcione, temos de postergar a execução de <code>is/2</code>
+    até que o valor de <code>F1</code> seja conhecido. Fazemos isso com <code>freeze/2</code>:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+              N &gt; 0,
+              succ(N1, N),
+              freeze(F1, F is N * F1),
+              fact(N1, F1).
+fact(0, 1).</code></pre>
+
+  <p>Já podemos testar esse código mesmo com valores muito grandes.</p>
+
+  <h3>CLP(FD)</h3>
+
+  <p>Há uma programação especial para lidar com domínios finitos, que é o caso
+    que temos aqui, ela é chamada
+    <a target="_blank"
+       title="Constraint Logic Programming over Finite Domains"
+       href="https://www.swi-prolog.org/pldoc/doc/_SWI_/library/clp/clpfd.pl">programação
+        lógica de restrição em domínios finitos</a>, e é uma especialização da
+    <a target="_blank" href="https://github.com/triska/clpz">CLP(ℤ)</a>.</p>
+
+  <p>SWI Prolog tem uma biblioteca específica para lidar com CLP(FD), que podemos
+    usar incluindo a seguinte linha logo após a declaração do módulo no começo do
+    arquivo:</p>
+
+<pre class="prettyprint"><code class="prolog">:- [library(clpfd)].</code></pre>
+
+  <p>Agora não precisamos mais do <code>freeze/2</code>, nem do <code>integer/1</code>,
+    só precisamos substituir as operações aritméticas por predicados da biblioteca
+    que acabamos de incluir:</p>
+
+<pre class="prettyprint"><code class="prolog">fact(N, F) :- N #&gt; 0,
+              N1 #= N - 1,
+              F #= N * F1,
+              fact(N1, F1).
+fact(0, 1).</code></pre>
+
+  <p>Bem mais simples e legível também, além de nos permitir fazer perguntas inversas,
+    ou seja, perguntar qual é o índice de determinado fatorial:</p>
+<pre class="prettyprint"><code class="sh"><em>sh$</em> <strong>swipl -q</strong>
+<em>?-</em> <strong>[fact].</strong>
+<em>true.</em>
+
+<em>?-</em> <strong>fact(X, 1).</strong>
+<em>X = 1</em> <strong>;</strong>
+<em>X = 0</em>.</code></pre>
+  <hr/>
+
+  <p>Você pode baixar os códigos do Gist:</p>
+  <ul>
+    <li><a target="_blank" href="https://gist.github.com/cacilhas/caccd6f5b9959e4355a7dd6d3b52473e">Com predicado auxiliar</a></li>
+    <li><a target="_blank" href="https://gist.github.com/cacilhas/b43e100da9e8d2c2231fc1202e6c4ebc">Usando D.C.G.</a></li>
+    <li><a target="_blank" href="https://gist.github.com/cacilhas/5e6f3fd3b8a55834811b008c38921786">Postergando o cálculo de <code>F</code></a></li>
+    <li><a target="_blank" href="https://gist.github.com/cacilhas/57fe6c085371cf42ef5ece723d0ff26e">Usando CLP(FD)</a></li>
+  </ul>
+
+  <center>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/MXTualDTlpk"
+      title="Programação Lógica"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+    ></iframe>
+  </center>
+  <script src="js/prettify.js"></script>
+</div>
