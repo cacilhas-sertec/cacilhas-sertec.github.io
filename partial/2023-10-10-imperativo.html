@@ -11,7 +11,7 @@
     programa.</p>
   <p>Por exemplo, considere a seguinte sequência de <em>statements</em> em
     <a target="_blank" href="https://www.rust-lang.org/">Rust</a>:</p>
-  <pre class="prettyprint"><code class="rust">let mut x = 0;
+  <pre><code class="language-rust">let mut x = 0;
 x = x + 1;
 x = x * 2;
 println!("x = {}", x);</code></pre>
@@ -79,31 +79,31 @@ println!("x = {}", x);</code></pre>
   <p>A função <code>fact</code> receberá um inteiro <code>n</code>, que é o parâmetro
     para o qual queremos calcular o fatorial, e retornará (<code>-></code>) também
     um inteiro, que é o resultado do fatorial:</p>
-  <pre class="prettyprint"><code class="python">def fact(n: int) -> int:</code></pre>
+  <pre><code class="language-python">def fact(n: int) -> int:</code></pre>
 
   <p>A resposta da função será chamada <code>res</code> e será inicializada com o valor 1,
     que é a parada do algoritmo fatorial. Assim, se não houver o que fazer, a função
     já tem o resultado:</p>
-  <pre class="prettyprint"><code class="python">    res: int = 1</code></pre>
+  <pre><code class="language-python">    res: int = 1</code></pre>
 
   <p>Agora precisamos de um <em>loop</em> para representar a recursão do algoritmo.
     Vamos usar <code>while</code> em vez de <code>for</code> pois será mais claro
     para os fins deste artigo. O <em>loop</em> se reperá enquanto o valor de <code>n</code>
     for maior do que 0, ou seja, se/quando <code>n</code> for igual a 0, não há
     nada para ser feito:</p>
-  <pre class="prettyprint"><code class="python">    while n > 0:</code></pre>
+  <pre><code class="language-python">    while n > 0:</code></pre>
 
   <p>Agora precisamos implementar o passo do algoritmo, que consiste em multiplicar
     o resultado pelo valor atual:</p>
-  <pre class="prettyprint"><code class="python">        res *= n</code></pre>
+  <pre><code class="language-python">        res *= n</code></pre>
 
   <p>Porém  precisamos decrementar o valor de <code>n</code>, caso contrário ficaremos
     presos em um <em>loop</em> infinito:</p>
-  <pre class="prettyprint"><code class="python">        n -= 1</code></pre>
+  <pre><code class="language-python">        n -= 1</code></pre>
 
   <p>Fora do <em>loop</em>, já teremos em <code>res</code> o valor final do fatorial
     de <code>n</code>, e podemos simplesmente retorná-lo:</p>
-  <pre class="prettyprint"><code class="python">    return res</code></pre>
+  <pre><code class="language-python">    return res</code></pre>
 
   <h3>Testando</h3>
   <p>O procedimento normal da criação de um programa exige a escrita de
@@ -111,7 +111,7 @@ println!("x = {}", x);</code></pre>
     mas para nosso artigo podemos simplesmente ver a função em ação.</p>
   <p>Vamos pegar uma faixa (<em>range</em>) de números inteiros de 0 a 9 – o que
     podemos obter com <code>range(10)</code> em Python – e ver se os valores coincidem:</p>
-  <pre class="prettyprint"><code class="python">for x in range(10):
+  <pre><code class="language-python">for x in range(10):
     print(x, fact(x))</code></pre>
 
   <p>Isso deve retornar uma saída assim:</p>
@@ -129,7 +129,6 @@ println!("x = {}", x);</code></pre>
   <p>E esse foi o fatorial implementado imperativamente e estruturadamente, usando
     a pilha de função (<em>stack memory</em>) como máquina de estado.</p>
 
-  <script src="js/prettify.js"></script>
   <center>
     <iframe
       width="560"
@@ -142,3 +141,7 @@ println!("x = {}", x);</code></pre>
     ></iframe>
   </center>
 </div>
+
+<script src="/js/languages/python.min.js"></script>
+<script src="/js/languages/rust.min.js"></script>
+<script>hljs.highlightAll();</script>

@@ -111,7 +111,7 @@
 
   <p>Para implementar isso, vamos criar um método para os números inteiros que
     retorne 1 se o ator for 0, e o  passo se for outro:</p>
-<pre class="prettyprint"><code class="Smalltalk">!Integer methodsFor: 'factorial'!
+<pre><code class="language-smalltalk">!Integer methodsFor: 'factorial'!
     fact
         (self = 0)
             ifTrue:  [↑ 1]
@@ -127,24 +127,24 @@
     para os números inteiros que retorne o fatorial usando o algoritmo mais <em>naïve</em>
     possível.</p>
   <p>Para isso precisamos de um objeto que contenha os recursos que iremos criar:</p>
-<pre class="prettyprint"><code class="Scala">object Fact:</code></pre>
+<pre><code class="language-scala">object Fact:</code></pre>
 
   <p>Agora, dentro dele, vamos criar nosso aspecto, que em Scala é chamado
     <strong>extensão</strong>:</p>
-<pre class="prettyprint"><code class="Scala">  extension(n: Int) def fact: BigInt = n match</code></pre>
+<pre><code class="language-scala">  extension(n: Int) def fact: BigInt = n match</code></pre>
 
   <p>Essa extensão é uma  função que “casa” o valor do número inteiro, se for
     zero, retorna 1:</p>
-<pre class="prettyprint"><code class="Scala">    case 0 =&gt; 1</code></pre>
+<pre><code class="language-scala">    case 0 =&gt; 1</code></pre>
 
   <p>Caso contrário, calcula o passo:</p>
-<pre class="prettyprint"><code class="Scala">    case n =&gt; n * (n-1).fact</code></pre>
+<pre><code class="language-scala">    case n =&gt; n * (n-1).fact</code></pre>
 
   <p>Por último, precisamos trazer a extensão para o contexto atual:</p>
-<pre class="prettyprint"><code class="Scala">import Fact._</code></pre>
+<pre><code class="language-scala">import Fact._</code></pre>
 
   <p>E com isso nosso fatorial já funciona:</p>
-<pre class="prettyprint"><code class="shell"><em>@</em> <strong>0.fact</strong>
+<pre><code class="language-shell"><em>@</em> <strong>0.fact</strong>
 <em>res1: BigInt = 1</em>
 <em>@</em> <strong>5.fact</strong>
 <em>res2: BigInt = 120</em>
@@ -176,13 +176,13 @@
     </ul>
 
   <p>Então sua assinatura será:</p>
-<pre class="prettyprint"><code class="Scala">final case class Natural private(value: Int) extends AnyVal</code></pre>
+<pre><code class="language-scala">final case class Natural private(value: Int) extends AnyVal</code></pre>
 
   <p>E isso é tudo que a classe <code>Natural</code> em si precisa, o resto será
     implementado com conversores implícitos, que vão invalidar números negativos.</p>
   <p>Vamos agora ao objeto que encapsula os conversores, que serão de inteiro para
     natural, dando erro para números negativos, e de natural para inteiro:</p>
-<pre class="prettyprint"><code class="Scala">object Natural:
+<pre><code class="language-scala">object Natural:
   given Conversion[Int, Natural] with
     def apply(i: Int): Natural =
       if (i &gt;= 0) Natural(i)
@@ -191,33 +191,33 @@
   give Conversion[Natural, Int] = (n: Natural) =&gt; n.value</code></pre>
 
   <p>Agora vamos trazer os conversores para o contexto atual:</p>
-<pre class="prettyprint"><code class="Scala">import Natural._</code></pre>
+<pre><code class="language-scala">import Natural._</code></pre>
 
   <p>Já com suporte aos naturais, vamos criar nosso aspecto que extende os naturais
     acrescentando o método fatorial, usando T.C.O.</p>
   <p>Para ajudar a suportar T.C.O., Scala tem uma anotação chamada <code>tailrec</code>:</p>
-<pre class="prettyprint"><code class="Scala">import scala.annotation.tailrec</code></pre>
+<pre><code class="language-scala">import scala.annotation.tailrec</code></pre>
 
   <p>Vamos criar o ator que encapsula o aspecto que extende os naturais com o fatorial:</p>
-<pre class="prettyprint"><code class="Scala">object Fact:
+<pre><code class="language-scala">object Fact:
   extension(n: Natural)
     def fact: BigInt = _fact(1, n)</code></pre>
 
   <p>Reparem que inicializamos o aculumador com 1, quer é o fatorial de zero (0!).</p>
   <p>Agora temos de criar o método <code>_fact</code>, que é privado e com suporte a
     T.C.O.:</p>
-<pre class="prettyprint"><code class="Scala">  @tailrec
+<pre><code class="language-scala">  @tailrec
   private def _fact(acc: BigInt, n: Natural):  BigInt =
     n match
       case Natural(0) =&gt; acc
       case Natural(n) =&gt; _fact(acc * n, n - 1)</code></pre>
 
   <p>E vamos trazer o aspecto para o contexto atual:</p>
-<pre class="prettyprint"><code class="Scala">import Fact._</code></pre>
+<pre><code class="language-scala">import Fact._</code></pre>
 
   <p>Está pronto o fatorial com números naturais (não-negativos) e T.C.O. Podemos
     experimentar:</p>
-<pre class="prettyprint"><code class="shell"><em>@</em> <strong>0.fact</strong>
+<pre><code class="language-shell"><em>@</em> <strong>0.fact</strong>
 <em>res1: BigInt = 1</em>
 <em>@</em> <strong>-1.fact</strong>
 <em>java.lang.IllegalArgumentException: invalid negative number -1</em>
@@ -249,5 +249,9 @@
       allowfullscreen
     ></iframe>
   </center>
-  <script src="js/prettify.js"></script>
 </div>
+
+<script src="/js/languages/scala.min.js"></script>
+<script src="/js/languages/smalltalk.min.js"></script>
+<script src="/js/languages/shell.min.js"></script>
+<script>hljs.highlightAll();</script>

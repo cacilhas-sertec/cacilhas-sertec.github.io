@@ -36,27 +36,27 @@
   <p>Vamos chamar o arquivo de <code>fact.pl</code>. Todo módulo Prolog precisa
     ser iniciado declarando o nome do módulo e quais predicados serão exportados:</p>
 
-<pre class="prettyprint"><code class="prolog">:- module(fact, [fact/2]).</code></pre>
+<pre><code class="language-prolog">:- module(fact, [fact/2]).</code></pre>
 
   <p>Aqui declaramos o módulo com o nome <code>fact</code> e dizemos que ele exporta
     o predicado <code>fact/2</code>, ou seja, que lida com dois termos.</p>
   <p>No caso, os dois termos serão o índice do fatorial e o valor. Podemos fazer
     a primeira declaração como:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F)</code></pre>
+<pre><code class="language-prolog">fact(N, F)</code></pre>
 
   <p>Lembre-se que, na programação declarativa, não dizemos ao programa como ele
     deve resolver, apenas declaramos nossas “verdades”. No caso precisamos dizer
     <strong>quando</strong> <code>fact(N, F)</code> é verdadeiro, e fazemos isso com
     o <em>token</em> <code>:-</code>:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N)</code></pre>
+<pre><code class="language-prolog">fact(N, F) :- integer(N)</code></pre>
 
   <p>Aqui dizemos que ele é verdadeiro quando <code>N</code> é um número inteiro,
     mas só isso não basta! Como estamos definindo o passo, então <code>N</code>
     também precisa ser maior que zero:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+<pre><code class="language-prolog">fact(N, F) :- integer(N),
               N &gt; 0</code></pre>
 
   <p>A vírgula significa “e” lógico (conjunção lógica), então, <code>fact(N,&nbsp;F)</code>
@@ -65,7 +65,7 @@
     do predecessor de <code>N</code>, que, na linguagem Prolog, é definido como o número
     para o qual <code>N</code> é sucessor:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+<pre><code class="language-prolog">fact(N, F) :- integer(N),
               N &gt; 0,
               succ(N1, N),
               fact(N1, F1)</code></pre>
@@ -74,7 +74,7 @@
     e que o fatorial de seu antecessor é <code>F1</code>. Sendo assim, o fatorial
     de <code>N</code> (<code>F</code>) é <code>N</code> vezes <code>F1</code>:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+<pre><code class="language-prolog">fact(N, F) :- integer(N),
               N &gt; 0,
               succ(N1, N),
               fact(N1, F1),
@@ -84,13 +84,13 @@
   <p>Agora é hora de definir a parada, que é a parte mais fácil, pois é uma condição
     muito bem conhecida:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(0, 1).</code></pre>
+<pre><code class="language-prolog">fact(0, 1).</code></pre>
 
   <p>E só isso já funciona. Podemos usar o
     <a target="_blank" href="https://pt.wikipedia.org/wiki/REPL">REPL</a> do SWI
     Prolog, <code>swipl</code>, para testar:</p>
 
-<pre class="prettyprint"><code class="sh"><em>sh$</em> <strong>swipl -q</strong>
+<pre><code class="language-shell"><em>sh$</em> <strong>swipl -q</strong>
 <em>?-</em> <strong>[fact].</strong>
 <em>true.</em>
 
@@ -107,13 +107,13 @@
   <p>Para isso vamos criar um predicato auxiliar <code>fact/3</code>. Então o
     predicado <code>fact/2</code> ficará apenas assim:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N), fact(N, 1, F).</code></pre>
+<pre><code class="language-prolog">fact(N, F) :- integer(N), fact(N, 1, F).</code></pre>
 
   <p>Os termos de <code>fact/3</code> serão o índice, o acumulador e o fatorial.
     O acumulador inicia com 1 pois é o fatorial de zero (0!). Vamos então direto
     a sua definição completa:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, A, F) :- N > 0,
+<pre><code class="language-prolog">fact(N, A, F) :- N > 0,
                  succ(N1, N),
                  prod(N, A, A1),
                  fact(N1, A1, F).
@@ -124,11 +124,11 @@ fact(0, A, A).</code></pre>
     para a próxima iteração.</p>
   <p>Porém <code>prod/3</code> <strong>não existe</strong>, vamos criá-lo!</p>
 
-<pre class="prettyprint"><code class="prolog">prod(A, B, P) :- P is A * B.</code></pre>
+<pre><code class="language-prolog">prod(A, B, P) :- P is A * B.</code></pre>
 
   <p>Agora você já pode testá-lo, inclusive com valores bem grandes.</p>
 
-<pre class="prettyprint"><code class="sh"><em>sh$</em> <strong>swipl -q</strong>
+<pre><code class="language-shell"><em>sh$</em> <strong>swipl -q</strong>
 <em>?-</em> <strong>[fact].</strong>
 <em>true.</em>
 
@@ -150,7 +150,7 @@ fact(0, A, A).</code></pre>
 
   <p>Basicamente uma D.C.G. é identificada por algo no formato:</p>
 
-<pre class="prettyprint"><code class="prolog">grammar(..., A0, R) :- a(A0, A1),
+<pre><code class="language-prolog">grammar(..., A0, R) :- a(A0, A1),
                        b(A1, A2),
                        c(A2, A3),
                        ...
@@ -158,7 +158,7 @@ fact(0, A, A).</code></pre>
 
   <p>Que se converte em:</p>
 
-<pre class="prettyprint"><code class="prolog">grammar(...) --&gt; a,
+<pre><code class="language-prolog">grammar(...) --&gt; a,
                  b,
                  c,
                  ...
@@ -173,7 +173,7 @@ fact(0, A, A).</code></pre>
 
   <p>Que bom que Prolog tem um sintaxe para isso! São as chaves:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N) --&gt; { N > 0 },
+<pre><code class="language-prolog">fact(N) --&gt; { N > 0 },
             { succ(N1, N) },
             prod(N),
             fact(N1).
@@ -186,7 +186,7 @@ fact(0, A, A).</code></pre>
   <p>Vamos voltar ao código original e tentar uma abordagem totalmente diferente
     agora, que não depende de predicado auxiliar:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+<pre><code class="language-prolog">fact(N, F) :- integer(N),
               N &gt; 0,
               succ(N1, N),
               fact(N1, F1),
@@ -197,7 +197,7 @@ fact(0, 1).</code></pre>
     <code>F&nbsp;is&nbsp;N&nbsp;*&nbsp;F1</code>, para que a recursão seja o
     último termo avaliado:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+<pre><code class="language-prolog">fact(N, F) :- integer(N),
               N &gt; 0,
               succ(N1, N),
               F is N * F1,
@@ -210,7 +210,7 @@ fact(0, 1).</code></pre>
   <p>Para que isso funcione, temos de postergar a execução de <code>is/2</code>
     até que o valor de <code>F1</code> seja conhecido. Fazemos isso com <code>freeze/2</code>:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- integer(N),
+<pre><code class="language-prolog">fact(N, F) :- integer(N),
               N &gt; 0,
               succ(N1, N),
               freeze(F1, F is N * F1),
@@ -235,13 +235,13 @@ fact(0, 1).</code></pre>
     usar incluindo a seguinte linha logo após a declaração do módulo no começo do
     arquivo:</p>
 
-<pre class="prettyprint"><code class="prolog">:- [library(clpfd)].</code></pre>
+<pre><code class="language-prolog">:- [library(clpfd)].</code></pre>
 
   <p>Agora não precisamos mais do <code>freeze/2</code>, nem do <code>integer/1</code>,
     só precisamos substituir as operações aritméticas por predicados da biblioteca
     que acabamos de incluir:</p>
 
-<pre class="prettyprint"><code class="prolog">fact(N, F) :- N #&gt; 0,
+<pre><code class="language-prolog">fact(N, F) :- N #&gt; 0,
               N1 #= N - 1,
               F #= N * F1,
               fact(N1, F1).
@@ -249,7 +249,7 @@ fact(0, 1).</code></pre>
 
   <p>Bem mais simples e legível também, além de nos permitir fazer perguntas inversas,
     ou seja, perguntar qual é o índice de determinado fatorial:</p>
-<pre class="prettyprint"><code class="sh"><em>sh$</em> <strong>swipl -q</strong>
+<pre><code class="language-shell"><em>sh$</em> <strong>swipl -q</strong>
 <em>?-</em> <strong>[fact].</strong>
 <em>true.</em>
 
@@ -277,5 +277,9 @@ fact(0, 1).</code></pre>
       allowfullscreen
     ></iframe>
   </center>
-  <script src="js/prettify.js"></script>
 </div>
+
+<script src="/js/languages/bash.min.js"></script>
+<script src="/js/languages/prolog.min.js"></script>
+<script src="/js/languages/shell.min.js"></script>
+<script>hljs.highlightAll();</script>

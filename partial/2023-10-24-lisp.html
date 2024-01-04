@@ -46,50 +46,42 @@
     e o segundo CDR (<em>Content of Decrement part of the Register number</em>).
     O CAR representa a função a ser chamada, enquanto o CDR representa os parâmetros.</p>
   <p>Um <em>cons</em> é representado como:</p>
-<pre class="prettyprint"><code class="lisp">(a . b)</code></pre>
-
-  <blockquote>
-    <p>Desculpem-nos pelo <em>syntax-highlight</em> bagunçado, mas infelizmente
-      <a target="_blank" href="https://github.com/google/code-prettify">Code Prettify</a>
-      da Alphabet (Google) não suporta bem LISP, e seu desenvolvimento foi descontinuado.
-      Então receio que teremos de lidar com isso até encontrarmos uma ferramenta
-      equivalente.</p>
-  </blockquote>
+<pre><code class="language-scheme">(a . b)</code></pre>
 
   <p>Onde <code>a</code> é o CAR e <code>b</code> é o CDR.</p>
   <p>Por exemplo, para somarmos 2 + 3, usamos a lista:</p>
-<pre class="prettyprint"><code class="lisp">(+ . (2 . (3 . ())))</code></pre>
+<pre><code class="language-scheme">(+ . (2 . (3 . ())))</code></pre>
 
   <p>Que retorna 5. O interpretador irá aplicar:</p>
-<pre class="prettyprint"><code class="lisp">(car . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
+<pre><code class="language-scheme">(car . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
 
   <p>O resultado <code>+</code> informa ao sistema a função a ser executada. Então
     ele aplicará:</p>
-<pre class="prettyprint"><code class="lisp">(cdr . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
+<pre><code class="language-scheme">(cdr . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
 
   <p>resultando em <code>(2 . (3 . ()))</code>, que são os parâmetros.</p>
   <p>Quando o segundo elemento de um <em>cons</em> é outro <em>cons</em>, e assim
     sucessivamente até que o último elemento seja um <em>cons</em> vazio
     (<code>()</code>), chamdo <em>unit</em>, essa estrutura é chamada lista, e pode
     ser representa com um açúcar sintático. Então:</p>
-<pre class="prettyprint"><code class="lisp">(+ . (2 . (3 . ())))</code></pre>
+<pre><code class="language-scheme">(+ . (2 . (3 . ())))</code></pre>
 
   <p>Pode ser simplificado para:</p>
-<pre class="prettyprint"><code class="lisp">(+ 2 3)</code></pre>
+<pre><code class="language-scheme">(+ 2 3)</code></pre>
 
   <p>O mesmo acontece para as chamadas de <code>car</code> e <code>cdr</code>:</p>
-<pre class="prettyprint"><code class="lisp">(car . ('(+ . (2 . (3 . ()))) . ()))
+<pre><code class="language-scheme">(car . ('(+ . (2 . (3 . ()))) . ()))
 (cdr . ('(+ . (2 . (3 . ()))) . ()))</code></pre>
 
   <p>Se tornam:</p>
-<pre class="prettyprint"><code class="lisp">(car '(+ 2 3))
+<pre><code class="language-scheme">(car '(+ 2 3))
 (cdr '(+ 2 3))</code></pre>
 
   <h3>Fatorial em LISP</h3>
   <p>Para a implementação do fatorial, usaremos o Guile, que usa o dialeto Scheme
     na versão R<sup>n</sup>RS.</p>
   <p>Primeiramente precisamos definir a função <code>fact</code>:</p>
-<pre class="prettyprint"><code class="lisp">(define (fact n))</code></pre>
+<pre><code class="language-scheme">(define (fact n))</code></pre>
 
   <p>A função <code>define</code> define uma nova função; o primeiro parâmetro é
     uma lista do nome da função (<code>fact</code>) e seus argumentos
@@ -109,7 +101,7 @@
   <p>Agora no corpo da função vamos usar um <code>if</code>, função condicional,
     para retornar o valor de parada caso <code>n</code> seja zero, ou o passo
     caso contrário:</p>
-<pre class="prettyprint"><code class="lisp">(define (fact n)
+<pre><code class="language-scheme">(define (fact n)
   [if (zero? n)
       1
       (* n [fact (- n 1)])])</code></pre>
@@ -119,14 +111,14 @@
     A função <code>-</code> subtrai o segundo parâmetro do primeiro, portanto,
     <code>(-&nbsp;n&nbsp;1)</code> retorna o antecessor de <code>n</code>.</p>
   <p>Usando pseudocódigo, você pode traduzir:</p>
-<pre class="prettyprint"><code class="lisp">(* n [fact (- n 1)])</code></pre>
+<pre><code class="language-scheme">(* n [fact (- n 1)])</code></pre>
 
   <p>Para:</p>
-<pre class="prettyprint"><code>n * fact(n - 1)</code></pre>
+<pre><code>n * fact(n - 1)</code></pre>
 
   <p>E até então já tempos nosso fatorial. Podemos abrir o Guile e carregar o
     arquivo:</p>
-<pre class="prettyprint"><code class="shell"><strong>guile</strong>
+<pre><code class="language-shell"><strong>guile</strong>
 <em>GNU Guile 3.0.9</em>
 <em>Copyright (C) 1995-2023 Free Software Foundation, Inc.</em>
 
@@ -155,7 +147,7 @@
     <a target="_blank" href="https://www.usna.edu/Users/cs/wcbrown/courses/F19SI413/lec/l05/lec.html"><code>letrec</code></a>.
     <code>let</code> é uma função que declara incógnitas com seus valores,
     e <code>letrec</code> é sua versão com suporte a recursão.</p>
-<pre class="prettyprint"><code class="lisp">(define (fact n)
+<pre><code class="language-scheme">(define (fact n)
   [letrec ((_fact (lambda (acc n)
                     [if (zero? n)
                         acc
@@ -177,7 +169,7 @@
     linguagem amplamente reconhecida por seu desempenho e uso espartano de recursos,
     as implementações de LISP não conseguem lidar com processamento mais complexo.</p>
   <p>Para desbancar de uma vez por todas este mito, execute sem medo:</p>
-<pre class="prettyprint"><code class="shell"><em>scheme@(guile-user)&gt;</em> <strong>(fact 1000)</strong></code></pre>
+<pre><code class="language-shell"><em>scheme@(guile-user)&gt;</em> <strong>(fact 1000)</strong></code></pre>
 
   <hr/>
 
@@ -199,6 +191,8 @@
   <p id="vanilla" class="footnote">¹<em>Vanilla</em> (baunilha) é um jargão técnico
     usado para dizer que uma tecnologia está sendo usada em sua forma mais pura,
     sem qualquer adição ou modificação.</p>
-
-  <script src="js/prettify.js"></script>
 </div>
+
+<script src="/js/languages/squeme.min.js"></script>
+<script src="/js/languages/shell.min.js"></script>
+<script>hljs.highlightAll();</script>

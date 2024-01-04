@@ -29,19 +29,19 @@
     uma variável, existe.</p>
   <p>Por exemplo, seja a seguinte função:</p>
 
-<pre class="prettyprint"><code class="python">def f() -&gt; None:
+<pre><code class="language-python">def f() -&gt; None:
     a = 12
     print(a)</code></pre>
 
   <p>Ao executá-la, será exibido o valor da variável <code>a</code>:</p>
 
-<pre class="prettyprint"><code class="python">&gt;&gt;&gt; f()
+<pre><code class="language-python">&gt;&gt;&gt; f()
 12</code></pre>
 
   <p>No entanto, se tentarmos acessar a variável <code>a</code> fora do corpo
     da função <code>f()</code>, ela não existe, pois está fora de seu escopo:</p>
 
-<pre class="prettyprint"><code class="python">&gt;&gt;&gt; a
+<pre><code class="language-python">&gt;&gt;&gt; a
 Traceback (most recent call last):
   File: "<stdin>", line 1, in &lt;module&gt;
 NameError: name 'a' is not defined</code></pre>
@@ -56,7 +56,7 @@ NameError: name 'a' is not defined</code></pre>
 
   <p>Por exemplo, se em C criarmos um bloco da seguinte forma:</p>
 
-<pre class="prettyprint"><code class="c">if (1) {
+<pre><code class="language-c">if (1) {
     int a = 12;
     // Continua o código
 }</code></pre>
@@ -65,7 +65,7 @@ NameError: name 'a' is not defined</code></pre>
     erro de compilação, pois o escopo da variável se encerra onde o bloco termina.</p>
   <p>Já em Python, se fizermos a mesma coisa:</p>
 
-<pre class="prettyprint"><code class="python">if True:
+<pre><code class="language-python">if True:
     a: int = 12
     # Continua o código</code></pre>
 
@@ -74,7 +74,7 @@ NameError: name 'a' is not defined</code></pre>
     escopo externo ao bloco da condicional.</p>
   <p>O mesmo para <em>loops</em>:</p>
 
-<pre class="prettyprint"><code class="python">for i in range(10):
+<pre><code class="language-python">for i in range(10):
     print(i)</code></pre>
 
   <p>A variável <code>i</code> sobrevive ao bloco do <em>loop</em>, podendo sobrescrever
@@ -90,7 +90,7 @@ NameError: name 'a' is not defined</code></pre>
     então um valor <em>string</em> a ela, a variável se torna <em>string</em>.
     O código abaixo é válido:</p>
 
-<pre class="prettyprint"><code class="python">a: int = 12
+<pre><code class="language-python">a: int = 12
 a = 'test'</code></pre>
 
   <p>Isso pode causar problemas de difícil identificação, pois a trava de tipos,
@@ -114,5 +114,7 @@ a = 'test'</code></pre>
       allowfullscreen
     ></iframe>
   </center>
-
 </div>
+
+<script src="/js/languages/python.min.js"></script>
+<script>hljs.highlightAll();</script>

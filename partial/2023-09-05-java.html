@@ -37,7 +37,7 @@
     arquivo antes da extensão <code>.java</code> seja extamente o nome da classe
     pública que criaremos dentro dele:
 
-<pre class="prettyprint"><code class="java">public class HelloWorld {
+<pre><code class="language-java">public class HelloWorld {
     public static void main(String[] args)  {
         System.out.println("Olá Mundo!!");
     }
@@ -54,15 +54,15 @@
     (<code>;</code>).</p>
   <p>Para compilar o programa para <em>bytecode</em>, o formato executável pela
     JVM, usamos o comando <code>javac</code>:
-<pre class="prettyprint"><code class="bash">javac HelloWorld.java</code></pre>
+<pre><code class="language-shell">javac HelloWorld.java</code></pre>
 
   <p>Isso criará o arquivo <code>HelloWorld.class</code>, que é o <em>bytecode</em>.</p>
   <p>E para rodá-lo com a JVM usamos:</p>
-<pre class="prettyprint"><code class="bash">java HelloWorld</code></pre>
+<pre><code class="language-shell">java HelloWorld</code></pre>
 
   <p>Caso tivéssemos um pacote java (<code>.jar</code>) executável, o comando requer
     um parâmetro extra:</p>
-<pre class="prettyprint"><code class="bash">java -jar $ApplicationName.jar</code></pre>
+<pre><code class="language-shell">java -jar $ApplicationName.jar</code></pre>
   <p>Baixe o <a target="_blank" href="//gist.github.com/cacilhas/19e8cb63846c20e32f8a263dc707dba0">código</a>.
 
   <h3>Bibliotecas que facilitam a vida</h3>
@@ -133,5 +133,8 @@
       allowfullscreen
     ></iframe>
   </center>
-  <script src="js/prettify.js"></script>
 </div>
+
+<script src="/js/languages/java.min.js"></script>
+<script src="/js/languages/shell.min.js"></script>
+<script>hljs.highlightAll();</script>

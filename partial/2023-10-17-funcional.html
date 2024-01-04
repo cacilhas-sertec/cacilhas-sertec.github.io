@@ -38,7 +38,7 @@
       é possível a criação de conjuntos infinitos, como por exemplo a seguinte
       definição da
       <a target="_blank" href="https://encyclopediaofmath.org/wiki/Fibonacci_numbers">sequência de Fibonacci</a>:
-<pre class="prettyprint"><code class="haskell">fib = 1 : 1 : zipWith (+) fib (tail fib)</code></pre></li>
+<pre><code class="language-haskell">fib = 1 : 1 : zipWith (+) fib (tail fib)</code></pre></li>
     <li><strong>Recursão</strong>: é a capacidade de uma função chamar a si própria. Toda linguagem de
       programação funcional implementa <a target="_blank" href="https://tinyurl.com/3pz4x42z">T.C.O.</a>,
       que veremos mais a frente.</li>
@@ -109,22 +109,22 @@
     de programação funcional pura com avaliação não-estrita.</p>
   <p>Para começar um módulo Haskell, precisamos declará-lo com o mesmo nome do
     arquivo. Por exemplo, nosso arquivo é <code>fact.hs</code>:
-<pre class="prettyprint"><code class="haskell">module Fact where</code></pre>
+<pre><code class="language-haskell">module Fact where</code></pre>
 
   <p>Agora podemos declarar a função <code>fact</code> que recebe um <code>Integral</code>
     (qualquer coisa que se pareça com um inteiro), e retorna também um <code>Integral</code>:
-<pre class="prettyprint"><code class="haskell">fact :: Integral a =&gt; a -&gt; a</code></pre>
+<pre><code class="language-haskell">fact :: Integral a =&gt; a -&gt; a</code></pre>
 
   <p>Então o fatorial de 0 é 1:</p>
-<pre class="prettyprint"><code class="haskell">fact 0 = 1</code></pre>
+<pre><code class="language-haskell">fact 0 = 1</code></pre>
 
   <p>E o fatorial de <code>n</code> é <code>n</code> vezes o fatorial de seu antecessor:</p>
-<pre class="prettyprint"><code class="haskell">fact n = n * fact (n-1)</code></pre>
+<pre><code class="language-haskell">fact n = n * fact (n-1)</code></pre>
 
   <p>Está feito, já funciona! 😁</p>
   <p>Podemos usar o <a target="_blank" href="https://www.haskell.org/ghc/">GHCI</a>
     para testar:</p>
-<pre class="prettyprint"><code class="shell"><strong>ghci fact.hs</strong>
+<pre><code class="language-shell"><strong>ghci fact.hs</strong>
 <em>GHCi, version 9.2.8: https://www.haskell.org/ghc/  :? for help</em>
 <em>[1 of 1] Compiling Fact             ( fact.hs, interpreted )</em>
 <em>Ok, one module loaded.</em>
@@ -148,7 +148,7 @@
     os transmita através da recursão.</p>
   <p>Essa função será <code>_fact</code>, e receberá como primeiro parâmetro o
     acumulador; o parâmetro real só virá após ele, que será inicializado com o valor de parada, 1.</p>
-<pre class="prettyprint"><code class="haskell">module Fact where
+<pre><code class="language-haskell">module Fact where
 
 fact :: Integral a =&gt; a -&gt; a
 fact = _fact 1
@@ -170,14 +170,14 @@ F = λn.{corpo recebendo a=1 e n}</code></pre>
 
   <p>Com o uso de T.C.O.,  você pode tentar números bastante grandes (pros padrões fatoriais),
     como por exemplo:</p>
-<pre class="prettyprint"><code class="shell"><em>ghci&gt;</em> <strong>fact 100</strong>
+<pre><code class="language-shell"><em>ghci&gt;</em> <strong>fact 100</strong>
 <em>93326215443944152681699238856266700490715968264381621468592963895217599993229915608941463976156518286253697920827223758251185210916864000000000000000000000000</em></code></pre>
 
   <h3>Adendo</h3>
   <p>Os tipos derivados do <a href="#kind"><em>kind</em>¹</a> <code>Integral</code> suportam números
     negativos, o que pode levar nosso código a travar. Em vez disso, podemos usar
     números naturais:</p>
-<pre class="prettyprint"><code class="haskell">module Fact where
+<pre><code class="language-haskell">module Fact where
 import Numeric.Natural
 
 fact :: Natural -&gt; Natural
@@ -218,6 +218,8 @@ fact = _fact 1
     uma referência a tipos que compartilham o mesmo comportamento.</p>
   <p id="acucar-sitatico" class="footnote">²Açúcar sintático é quando você usa uma sintaxe
     mais simples que será então convertida em outra mais complexa.</p>
-
-  <script src="js/prettify.js"></script>
 </div>
+
+<script src="/js/languages/haskell.min.js"></script>
+<script src="/js/languages/shell.min.js"></script>
+<script>hljs.highlightAll();</script>
