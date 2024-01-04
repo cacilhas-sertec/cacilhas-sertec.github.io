@@ -17,7 +17,7 @@
     mensagem a ser exibida, chamado <code>msg</code>, mas precisaremos também de
     um registro com o tamanho da mensagem:</p>
 
-<pre class="prettyprint"><code class="asm">  SECTION .data
+<pre><code class="language-x86asm">  SECTION .data
 msg   db  "Hello, World!", 10
 len   equ $-msg</code></pre>
 
@@ -35,7 +35,7 @@ len   equ $-msg</code></pre>
   <p>Outros <em>linkers</em> podem requerer outros nomes, como <code>start</code>
     ou <code>main</code>.</p>
 
-<pre class="prettyprint"><code class="asm">  SECTION .text
+<pre"><code class="language-x86asm">  SECTION .text
   global _start</code></pre>
 
   <p>Após declarado o identificador, é preciso definir o procedimento com o mesmo
@@ -50,7 +50,7 @@ len   equ $-msg</code></pre>
     a mensagem, no caso <em>msg</em>. Já o último, EDX, recebe o tamanho do texto
     na memória, ou seja, <code>len</code>.</p>
 
-<pre class="prettyprint"><code class="asm">_start:
+<pre><code class="language-x86asm">_start:
   mov eax, 4
   mov ebx, 1
   mov ecx, msg
@@ -60,7 +60,7 @@ len   equ $-msg</code></pre>
     <em>kernel</em> (núcleo do sistema operacional) saiba que ele precisa
     executar o comando carregado nos registradores:</p>
 
-<pre class="prettyprint"><code class="asm">  int 0x80</code></pre>
+<pre><code class="language-x86asm">  int 0x80</code></pre>
 
   <p>O útimo comando será <code>exit</code>, de saída, cujo código é <code>1</code>,
     e que recebe como parâmetro o código de saída.</p>
@@ -68,7 +68,7 @@ len   equ $-msg</code></pre>
     saída com sucesso (<code>0</code>) no registrador EBX, daí poderemos chamar a
     interrupção <code>0x80</code> novamente:</p>
 
-<pre class="prettyprint"><code class="asm">  mov eax, 1
+<pre><code class="language-x86asm">  mov eax, 1
   mov ebx, 0
   int 0x80</code></pre>
 
@@ -81,20 +81,20 @@ len   equ $-msg</code></pre>
     de 64 <em>bits</em>, o arquivo de saída (<code>-o</code>), e o arquivo
     contendo o código do programa:</p>
 
-<pre class="prettyprint"><code>nasm -felf64 -o hello.o hello.s</code></pre>
+<pre><code class="language-shell">nasm -felf64 -o hello.o hello.s</code></pre>
 
   <p>Agora precisamos usar o <em>linker</em> para transformar o arquivo objeto
     em executável:</p>
 
-<pre class="prettyprint"><code>ld -o hello hello.o</code></pre>
+<pre><code class="language-shell">ld -o hello hello.o</code></pre>
 
   <p>E para executar o programa <code>hello</code>:</p>
 
-<pre class="prettyprint"><code>./hello</code></pre>
+<pre><code class="language-shell">./hello</code></pre>
 
   <p>O que, conforme programamos, gerará a saída:</p>
 
-<pre class="prettyprint"><code>Hello, World!</code></pre>
+<pre><code class="language-shell">Hello, World!</code></pre>
 
   <p>Você pode baixar o código
     <a target="_blank" href="//gist.github.com/cacilhas/1d38e9808130e4bd683e6cb6196da174">deste <em>gist</em></a>.</p>
@@ -104,7 +104,7 @@ len   equ $-msg</code></pre>
 
   <p>Para começar, vamos apagar o que não vamos usar:</p>
 
-<pre class="prettyprint"><code>rm -f hello hello.o</code></pre>
+<pre><code class="language-shell">rm -f hello hello.o</code></pre>
 
   <p>Agora o pensamento é completamente diferente: em vez de lidarmos diretamente
     com memória e registradores, vamos usar os recursos que a linguagem C nos
@@ -113,37 +113,37 @@ len   equ $-msg</code></pre>
     as bibliotecas padrão, uma geral (<code>stdlib.h</code>) e outra específica
     para lidar com entrada e saída de dados (<code>stdio.h</code>):</p>
 
-<pre class="prettyprint"><code class="c">#include &lt;stdlib.h&gt;
+<pre><code class="language-c">#include &lt;stdlib.h&gt;
 #include &lt;stdio.h&gt;</code></pre>
 
   <p>O programa C sempre começa pela função <code>main</code> que retorna um
     número inteiro (<code>int</code>) representado o código de saída, e recebe
     os parâmetros de linha de comando:</p>
 
-<pre class="prettyprint"><code class="c">int main(int argc, char* argv[]) {</code></pre>
+<pre><code class="language-c">int main(int argc, char* argv[]) {</code></pre>
 
   <p><code>argc</code> é a quantidade de parâmetros recebidos da linha de comando,
     e <code>argv</code> é uma lista dos parâmetros. Como não vamos usar qualquer
     parâmetro da linha de comando, podemos omiti-los:</p>
 
-<pre class="prettyprint"><code class="c">int main() {</code></pre>
+<pre><code class="language-c">int main() {</code></pre>
 
   <p>E a função precisa ser encerrada por um fecha chaves (<code>}</code>).</p>
   <p>Para exibir um texto na saída padrão, usamos a função <code>printf</code>:</p>
 
-<pre class="prettyprint"><code class="c">    printf("Hello, World!\n");</code></pre>
+<pre><code class="language-c">    printf("Hello, World!\n");</code></pre>
 
   <p>O carácter de controle <code>\n</code> representa a mudança de linha.</p>
   <p>Já para encerrar o programa, basta retornarmos (<code>return</code>) o código
     de retorno – no caso, sucesso:</p>
 
-<pre class="prettyprint"><code class="c">    return EXIT_SUCCESS;</code></pre>
+<pre><code class="language-c">    return EXIT_SUCCESS;</code></pre>
 
   <p>Para compilar o programa C, vamos usar o <code>clang</code>, que é o compilador
     do <a target="_blank" href="https://llvm.org/">LLVM</a>, mas você pode usar
     qualquer compilador C, como <a target="_blank" href="http://gcc.gnu.org/">GCC</a>.</p>
 
-<pre class="prettyprint"><code class="c">clang -o hello hello.c</code></pre>
+<pre><code class="language-c">clang -o hello hello.c</code></pre>
 
   <p>Executando o programa da mesma forma anterior (<code>./hello</code>) obteremos
     o mesmo resultado. Você consegue baixar o código
@@ -182,5 +182,9 @@ len   equ $-msg</code></pre>
       allowfullscreen
     ></iframe>
   </center>
-  <script src="js/prettify.js"></script>
 </div>
+
+<script src="/js/languages/c.min.js"></script>
+<script src="/js/languages/shell.min.js"></script>
+<script src="/js/languages/x86asm.min.js"></script>
+<script>hljs.highlightAll();</script>

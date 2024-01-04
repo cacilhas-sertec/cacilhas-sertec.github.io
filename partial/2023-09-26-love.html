@@ -25,7 +25,7 @@
   </ul>
   <p>O arquivo <code>conf.lua</code> precisa implementar a função <code>love.conf</code>,
     que recebe a tabela de configurações:</p>
-<pre class="prettyprint"><code class="lua">function love.conf(t)
+<pre><code class="language-lua">function love.conf(t)
     ...
 end</code></pre>
   <p>As configurações no corpo desta funções serão:</p>
@@ -53,7 +53,7 @@ end</code></pre>
     cada vez que a janela é renderizada, portanto é onde renderizamos as imagens a
     serem exibidas.</p>
   <p>Vamos desenhar uma borda verda para podermos visualizar os limites do tabuleiro:</p>
-<pre class="prettyprint"><code class="lua">function love.draw()
+<pre><code class="language-lua">function love.draw()
     love.graphics.clear()
     love.graphics.setColor(colors.border)
     love.graphics.rectangle("line", 0, 0, 960, 960)
@@ -68,7 +68,7 @@ end</code></pre>
     e do tamanho total da janela (<code>960, 960</code>).</p>
   <p>No entanto repare que a tabela <code>colors</code> não existe! Precisamos criá-la.
     Vamos criar já todas as cores que precisaremos para este jogo:</p>
-<pre class="prettyprint"><code class="lua">local colors = {
+<pre><code class="language-lua">local colors = {
     --      vermelho  verde  azul
     border    = {0,   1,     0},     -- bordas verdes
     snakehead = {0.5, 0,     0.5},   -- cabeça da cobra será roxa
@@ -92,7 +92,7 @@ end</code></pre>
   <p>Vamos usar a tecla Esc para sair. Para isso precisamos implementar a função que
     lida com o levantamento de teclas após terem sido pressionadas, que é
     <code>love.keyreleased(key)</code>:</p>
-<pre class="prettyprint"><code class="lua">function love.keyreleased(key)
+<pre><code class="language-lua">function love.keyreleased(key)
     if key == "escape" then love.event.quit() end
 end</code></pre>
 
@@ -105,7 +105,7 @@ end</code></pre>
   <h3>Desenhando a cobrinha</h3>
   <p>A cobrinha pode ser representada por uma tabela Lua, que é basicamente um objeto
     no ecossistema Lua.</p>
-<pre class="prettyprint"><code class="lua">--- Player
+<pre><code class="language-lua">--- Player
 local snake = {
     --- Snake blocks, [1] = head
     body = {},
@@ -121,7 +121,7 @@ local snake = {
   <p><code>d</code> é um número de 0 a 3 que representa a direção da cobrinha,
     começando pra cima e incrementando no sentido horário até a esquerda.</p>
   <p>Agora vamos criar uma função para desenhar a cobrinha:</p>
-<pre class="prettyprint"><code class="lua">--- Draws snake
+<pre><code class="language-lua">--- Draws snake
 local function drawsnake()
     love.graphics.setColor(colors.snakehead)
     for _, block in ipairs(snake.body) do
@@ -145,7 +145,7 @@ end</code></pre>
     Vamos colocá-la mais ou menos no meio da tela, posição 30x30 – 960&nbsp;÷&nbsp;16&nbsp;=&nbsp;60.
     Para isso precisamos implementar mais uma função, <code>love.load()</code>, que é
     chamada quando o jogo LÖVE inicia para carregar os <em>assets</em>:</p>
-<pre class="prettyprint"><code class="lua">function love.load()
+<pre><code class="language-lua">function love.load()
     snake.body = {
         {x = 30, y = 30},
         {x = 29, y = 30},
@@ -155,20 +155,20 @@ end</code></pre>
 
   <p>Por último precisamos chamar a função <code>drawsnake()</code> no final da
     função <code>love.draw()</code> para que faça efeito:</p>
-<pre class="prettyprint"><code class="lua">    drawsnake()</code></pre>
+<pre><code class="language-lua">    drawsnake()</code></pre>
 
   <h3>A maçã</h3>
   <p>Podemos agora criar a maçã!</p>
   <p>Na raiz do arquivo, logo abaixo de <code>local snake</code>, você pode adicionar
     a tabela que vai representar a posição da maçã:</p>
-<pre class="prettyprint"><code class="lua">--- Goodies
+<pre><code class="language-lua">--- Goodies
 local apple = {}</code></pre>
 
   <p>“<em>Goodies</em>” significa “coletáveis”, e é exatamente o que a maçã é.</p>
   <p>Agora precisamos de uma função para posicionar a maçã aleatoriamente. Vamos
     usar o mesmo algoritmo que usamos para o <a href="#2023-08-29-tic-80">TIC-80</a>
     – ele não é eficiente, mas dará conta do recado:</p>
-<pre class="prettyprint"><code class="lua">--- Puts the apple on a new random position
+<pre><code class="language-lua">--- Puts the apple on a new random position
 local function resetapple()
     local x, y
     while true do
@@ -191,24 +191,24 @@ end</code></pre>
   <p>Assista ao <a target="_blank" href="https://youtu.be/9eqhiJE9S-Y&t=747s">vídeo</a>
     para uma explicação sobre os detalhes.</p>
   <p>Agora em <code>love.load</code> é preciso chamar esta função:</p>
-<pre class="prettyprint"><code class="lua">    resetapple()</code></pre>
+<pre><code class="language-lua">    resetapple()</code></pre>
 
   <p>Podemos agora renderizar a maçã na tela. Como ela será muito simples (apenas um círculo),
     não precisaremos de uma função dedicada, basta colocar as seguintes duas linhas no
     corpo da função <code>love.draw()</code>:</p>
-<pre class="prettyprint"><code class="lua">    love.graphics.setColor(colors.apple)
+<pre><code class="language-lua">    love.graphics.setColor(colors.apple)
     love.graphics.circle("fill", apple.x * 16 + 8, apple.y * 16 + 8, 8)</code></pre>
 
   <h3><em>Score</em></h3>
   <p>Precisamos marcar os pontos de alguma forma. Para isso vamos criar uma variável
     que contabilize os pontos:</p>
-<pre class="prettyprint"><code class="lua">local score</code></pre>
+<pre><code class="language-lua">local score</code></pre>
 
   <p>Em <code>love.load()</code> podemos zerar o <em>score</em>:</p>
-<pre class="prettyprint"><code class="lua">    score = 0</code></pre>
+<pre><code class="language-lua">    score = 0</code></pre>
 
   <p>E para exibi-lo na tela, em <code>love.draw()</code> colocamos:</p>
-<pre class="prettyprint"><code class="lua">    love.graphics.setColor(colors.score)
+<pre><code class="language-lua">    love.graphics.setColor(colors.score)
     love.graphics.print("Score: " .. score, 5, 5, 0, 1.5, 1.5)</code></pre>
 
   <p>Vai vai exibir o <em>score</em> no canto superior esquerdo com tamanho 1.5.
@@ -219,7 +219,7 @@ end</code></pre>
   <p>Até agora apenas renderizamos os elementos, mas não há movimento, mudança.
     Precisamos implementar o jogo em si, e tudo começa movimentando a cobrinha.</p>
   <p>Vamos então criar uma função para movimentá-la:</p>
-<pre class="prettyprint"><code class="lua">--- Move snake forward by one cell
+<pre><code class="language-lua">--- Move snake forward by one cell
 local function movesnake()
     local head = snake.body[1]
     local next = {x = head.x, y = head.y}
@@ -247,14 +247,14 @@ end</code></pre>
   <p>Vamos fazer com que a cobrinha ande a cada quarto de segundo, para isso precisamos
     contar o tempo. Vamos criar uma variável <code>t</code>. Altere a declaração de
     <code>score</code> para:</p>
-<pre class="prettyprint"><code class="lua">local score, t</code></pre>
+<pre><code class="language-lua">local score, t</code></pre>
 
   <p>E acrescente a <code>love.load()</code>:</p>
-<pre class="prettyprint"><code class="lua">    t = 0
+<pre><code class="language-lua">    t = 0
     snake.d = 1</code></pre>
 
   <p>Já temos o contador de tempo, vamos contar até um quarto de segundo (0.25):</p>
-<pre class="prettyprint"><code class="lua">function love.update(dt)
+<pre><code class="language-lua">function love.update(dt)
     t = t + dt
     local tic = 0.25
     if t &lt; tic then return end
@@ -269,7 +269,7 @@ end</code></pre>
     não atende, pois seu comportamento é um pouco estranho para isso. Podemos no entanto
     usar <code>love.update()</code>, como é de praxe nos jogos.</p>
   <p>Vamos primeiro criar a função que detecta as setas:</p>
-<pre class="prettyprint"><code class="lua">--- Updates game state based on keyboard input
+<pre><code class="language-lua">--- Updates game state based on keyboard input
 local function detectkeys()
     if love.keyboard.isDown"up"    then snake.d = 0 end
     if love.keyboard.isDown"right" then snake.d = 1 end
@@ -284,10 +284,10 @@ end</code></pre>
     cobra (<code>next</code>) é exatamente igual à posição da maçã, a maçã foi comida
     e precisa ser reposicionada. Além disso o <em>score</em> deve ser incrementado.</p>
   <p>Em <code>movesnake</code>, encontre a linha:</p>
-<pre class="prettyprint"><code class="lua">    table.remove(snake.body)</code></pre>
+<pre><code class="language-lua">    table.remove(snake.body)</code></pre>
 
   <p>E substitua por:</p>
-<pre class="prettyprint"><code class="lua">    if next.x == apple.x and next.y == apple.y then
+<pre><code class="language-lua">    if next.x == apple.x and next.y == apple.y then
         score = score + 1
         resetapple()
     else
@@ -303,17 +303,17 @@ end</code></pre>
     alguma das laterais, o jogo precisa acabar.</p>
   <p>Vamos primeiro implementar a lógica de fim de jogo. Encontre novamente a declaração
     de <code>score</code> e mude-a novamente:</p>
-<pre class="prettyprint"><code class="lua">local score, t, gameover</code></pre>
+<pre><code class="language-lua">local score, t, gameover</code></pre>
 
   <p>Agora adicione a <code>love.load()</code>:</p>
-<pre class="prettyprint"><code class="lua">    gameover = false</code></pre>
+<pre><code class="language-lua">    gameover = false</code></pre>
 
   <p>Como primeira linha de <code>love.update()</code>, acrescente:</p>
-<pre class="prettyprint"><code class="lua">    if gameover then return end</code></pre>
+<pre><code class="language-lua">    if gameover then return end</code></pre>
 
   <p>Isso fará com que a função não seja executada quando a cobrinha tiver morrido.</p>
   <p>Para que o jogador saiba que o jogo acabou, coloque no final de <code>love.draw()</code>:
-<pre class="prettyprint"><code class="lua">    if gameover then
+<pre><code class="language-lua">    if gameover then
         love.graphics.setColor(colors.gameover)
         love.graphics.print("Game Over", 200, 420, 0, 8, 8)
         return
@@ -325,14 +325,14 @@ end</code></pre>
     ou o valor de <code>next.y</code> for menor que zero ou maior ou igual a 60.</p>
   <p>Em <code>movesnake()</code>, logo após as alterações em <code>next</code> e antes
     da reatribuição de <code>snake.body</code>, coloque o seguinte código:</p>
-<pre class="prettyprint"><code class="lua">    if  next.x &lt; 0 or next.x &gt;= 60 or next.y &lt; 0 or next.y &gt;= 60 then
+<pre><code class="language-lua">    if  next.x &lt; 0 or next.x &gt;= 60 or next.y &lt; 0 or next.y &gt;= 60 then
         gameover = true
         return
     end</code></pre>
 
   <p>Só que a cobrinha também morre quando colide consigo mesma. Precisamos reiterar
     sobre todos os blocos e ver se colide:</p>
-<pre class="prettyprint"><code class="lua">    for _, block in ipairs(snake.body) do
+<pre><code class="language-lua">    for _, block in ipairs(snake.body) do
         if block.x == next.x and block.y == next.y then
             gameover = true
             return
@@ -345,27 +345,27 @@ end</code></pre>
   <p>Que tal um botão de pausa</p>
 
   <p>Na declaração das variáveis na raiz do arquivo, altere para:</p>
-<pre class="prettyprint"><code class="lua">local score, t, gameover, paused</code></pre>
+<pre><code class="language-lua">local score, t, gameover, paused</code></pre>
 
   <p>Adicione a <code>love.load()</code>:</p>
-<pre class="prettyprint"><code class="lua">    paused = false</code></pre>
+<pre><code class="language-lua">    paused = false</code></pre>
 
   <p>Altere a primeira linha de <code>love.update()</code> para:</p>
-<pre class="prettyprint"><code class="lua">    if gameover or paused then return end</code></pre>
+<pre><code class="language-lua">    if gameover or paused then return end</code></pre>
 
   <p>Adicione ao final de <code>love.draw()</code>:</p>
-<pre class="prettyprint"><code class="lua">    if paused then
+<pre><code class="language-lua">    if paused then
         love.graphics.setColor(colors.paused)
         love.graphics.print("Paused", 200, 420, 0, 8, 8)
     end</code></pre>
 
   <p>E adіcione a <code>love.keyreleased(key)</code>:</p>
-<pre class="prettyprint"><code class="lua">    if key == "p" then paused = not paused end</pre></code>
+<pre><code class="language-lua">    if key == "p" then paused = not paused end</pre></code>
 
   <p>E o botão P pausa o jogo!</p>
   <p>Seria interessante que a cobrinha acelerasse a cada vez que a pontuação aumenta.
     Para tanto, encontre a declaração da variável <code>tic</code> e altere para:</p>
-<pre class="prettyprint"><code class="lua">    local tic = 0.25 / (1.0625 ^ score)</code></pre>
+<pre><code class="language-lua">    local tic = 0.25 / (1.0625 ^ score)</code></pre>
 
   <p>O sinal <code>^</code> significa exponenciação.</p>
 
@@ -394,7 +394,6 @@ end</code></pre>
   <p>Baixe o jogo aqui:
     <a href="/assets/snake.love"><code>snake.love</code></a></p>
 
-  <script src="js/prettify.js"></script>
   <center>
     <iframe
       width="560"
@@ -407,3 +406,6 @@ end</code></pre>
     ></iframe>
   </center>
 </div>
+
+<script src="/js/languages/lua.min.js"></script>
+<script>hljs.highlightAll();</script>

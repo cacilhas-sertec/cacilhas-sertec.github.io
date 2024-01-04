@@ -96,10 +96,3 @@ hr::before {
 .footnote {
   font-size: x-small;
 }
-
-.content pre {
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: pre;
-  word-wrap: normal;
-}

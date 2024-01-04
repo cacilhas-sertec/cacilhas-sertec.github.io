@@ -15,12 +15,12 @@
   <p>Para buscar por um pacote usamos o subcomando <code>search</code>.
     Para Buscar por Python, podemos executar o seguinte comando:</p>
 
-<pre class="prettyprint"><code class="sh">apt search python3</code></pre>
+<pre><code class="language-shell">apt search python3</code></pre>
 
   <p>Isso retornará uma lista onde poderemos encontrar algumas versões de Python,
     com provavelmente algo assim:</p>
 
-<pre class="prettyprint"><code class="sh">python3.11-full/testing 3.11.4-1 amd64
+<pre><code class="language-shell">python3.11-full/testing 3.11.4-1 amd64
   Python Interpreter with complete class library (version 3.11)</code></pre>
 
   <p>Na primeira linha vemos o nome do pacote (<code>python3.11-full</code>),
@@ -31,7 +31,7 @@
     entanto precisamos prefixar o comando com <code>sudo</code>, para
     executá-lo como usuário administrador (<code>root</code>):</p>
 
-<pre class="prettyprint"><code class="sh">sudo apt install -y python3.11-full</code></pre>
+<pre><code class="language-shell">sudo apt install -y python3.11-full</code></pre>
 
   <p>Provavelmente pedirá a senha do seu usuário e, se seu usuário for <em>sudoer</em>
     (aquele que pode requerer permissões de adminstrador), então o CPython
@@ -45,17 +45,17 @@
     alternativo com uma série de funções extras, como <em>auto-complete</em>,
     chamado Ptpython. É fácil instalá-lo no Debian:</p>
 
-<pre class="prettyprint"><code class="sh">sudo apt install -y ptpython</code></pre>
+<pre><code class="language-shell">sudo apt install -y ptpython</code></pre>
 
   <p>Para gerência de versionamento dos códigos, vamos usar o
     <a target="_blank" href="https://git-scm.com">Git</a>, também facilmente
     instalável:</p>
 
-<pre class="prettyprint"><code class="sh">sudo apt install -y git</code></pre>
+<pre><code class="language-shell">sudo apt install -y git</code></pre>
 
   <p>Você também pode instalar todos esses pacotes em um só comando:</p>
 
-<pre class="prettyprint"><code class="sh">sudo apt install -y python3.11-full ptpython git</code></pre>
+<pre><code class="language-shell">sudo apt install -y python3.11-full ptpython git</code></pre>
 
   <h3>Distribuições GNU/Linux baseadas em <code>pacman</code> <i class="distro pad archlinux"></i></h3>
   <p>Outra família de distribuições GNU/Linux importante é a do
@@ -67,7 +67,7 @@
 
   <p>Para instalar o CPython, vamos ter de instalar três pacotes, mais o Git:</p>
 
-<pre class="prettyprint"><code class="sh">sudo pacman -Syu python python-pip python-pipx git</code></pre>
+<pre><code class="language-shell">sudo pacman -Syu python python-pip python-pipx git</code></pre>
 
   <p>Os parâmetros <code>-Syu</code> são os parâmetros de instalação, o pacote
     <code>python</code> é o CPython com Python 3.11 (ou mais recente, caso já
@@ -78,7 +78,7 @@
   <p>Agora vamos instalar o Ptpython, que pode ser apenas para o usuário, não de
     sistema. Para tanto usaremos o <code>pipx</code>:</p>
 
-<pre class="prettyprint"><code class="sh">pipx install ptpython</code></pre>
+<pre><code class="language-shell">pipx install ptpython</code></pre>
 
   <h3>Windows <i class="distro pad windows"></i></h3>
   <p>Para instalar Python, Ptpython e Git no Windows vamos usar um gerenciador de
@@ -86,26 +86,26 @@
 
   <p>Para instalar o Scoop, abra o PowerShell e executa os comandos:</p>
 
-<pre class="prettyprint"><code class="sh">Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+<pre><code class="language-shell">Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 irm get.scoop.sh | iex</code></pre>
 
   <p>Instalado o Scoop, buscamos por Python com:</p>
 
-<pre class="prettyprint"><code class="sh">scoop search python</code></pre>
+<pre><code class="language-shell">scoop search python</code></pre>
 
   <p>Vai aparecer Python 3.11 na lista, que provavelmente será o pacote <code>python</code>,
     então, para instalar:</p>
 
-<pre class="prettyprint"><code class="sh">scoop install python</code></pre>
+<pre><code class="language-shell">scoop install python</code></pre>
 
   <p>No Windows não precisamos do <code>pipx</code> para instalar o Ptpython, podemos
     instalá-lo com o próprio <code>pip</code>:</p>
 
-<pre class="prettyprint"><code class="sh">pip install ptpython</code></pre>
+<pre><code class="language-shell">pip install ptpython</code></pre>
 
   <p>E por último o Git:</p>
 
-<pre class="prettyprint"><code class="sh">scoop install git</code></pre>
+<pre><code class="language-shell">scoop install git</code></pre>
 
   <center>
     <iframe
@@ -129,7 +129,7 @@ irm get.scoop.sh | iex</code></pre>
 
   <p>Para instalar Python e Git nesses sistemas usamos o <code>yum</code>:
 
-<pre class="prettyprint"><code class="sh">yum install python3 git</code></pre>
+<pre><code class="language-shell">yum install python3 git</code></pre>
 
   <p>Até o momento não há instruções de instalação do Ptpython em distros RPM, conforme
     explicado no
@@ -155,3 +155,6 @@ irm get.scoop.sh | iex</code></pre>
   <p id="repl"><small><strong><sup>2</sup>REPL:</strong> <em>read-eval-print loop</em>, laço
     de leitura, execução e exibição, também chamado <em>prompt</em>.</small></p>
 </div>
+
+<script src="/js/languages/shell.min.js"></script>
+<script>hljs.highlightAll();</script>
